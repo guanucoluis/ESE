@@ -1,0 +1,9 @@
+==================================
+lun jun 15 19:15:27 ART 2015
+
+Se habilita el repositorio en GitHub para realizar el seguimiento de
+actividades del Trabajo Práctico Nro. 1.
+
+Esta herramienta permitirá compartir material en el desarrollo. Además
+de facilitar el acceso de información útil para los demás grupos con
+los que se interactúe.
