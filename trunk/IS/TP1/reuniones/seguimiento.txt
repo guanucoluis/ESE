@@ -7,3 +7,56 @@ actividades del Trabajo Práctico Nro. 1.
 Esta herramienta permitirá compartir material en el desarrollo. Además
 de facilitar el acceso de información útil para los demás grupos con
 los que se interactúe.
+
+==================================
+mar jun 16 14:19:48 ART 2015
+
+Enviar correo al Profesor:
+       "La matriz de trazabilidad evoluciona sobre sí misma o en cada
+       etapa se genera una matriz nueva."
+
+mar jun 16 14:50:46 ART 2015
+
+Esta de requerimientos revisada. Procedemos a generar las consultas al
+cliente.
+
+Estimado Dr. Pedro Colla,
+
+requerimos respuesta a las siguientes dudas surgidas.
+
+1. Respecto al concepto de "sencillo y bajo costo". Necesitamos saber
+el costo máximo de fabricación (sin considerar etapa de desarrollo).
+
+2. Encontramos una contradicción entre los conceptos de "consumo
+masivo" y los sistemas "arduino". Ya que estos últimos no se
+aplicarían a el desarrollo de un producto masivo.
+
+3. Especifique tipo y magnitud de la "sirena".
+
+4. La activación de la alarma, respecto a los sensores analógicos,
+¿debe darse bajo la simultaneidad de los mismos?
+
+5. Especifique la ubicación del botón de parada. Es decir, el botón se
+encontrará en el mismo gabinete del sistema embebido o estará en una
+ubicación diferente.
+
+6. ¿Podría especificar el patrón de intermitencia de la sirena en su
+estado de activación?
+
+7. La verificación del "correcto funcionamiento de los sensores" están
+sujetos a la consulta 1. En caso de ser necesario este método, los
+costos aumentan.
+
+mar jun 16 16:16:38 ART 2015
+
+Se definen las interrogantes sobre los requerimientos de alto nivel.
+==================================
+
+
+
+
+
+
+
+
+
