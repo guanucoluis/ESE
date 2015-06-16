@@ -1,0 +1,13 @@
+lun jun 15 21:55:36 ART 2015
+
+== Requerimientos
+
+1. Formalice el requerimiento en uno o más casos de uso. Establezca
+una matriz de trazabilidad.  
+
+2. Discuta qué requerimientos no-funcionales intervienen en este caso.
+
+_______________________________
+
+
+

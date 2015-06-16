@@ -1,0 +1,50 @@
+lun jun 15 21:31:16 ART 2015
+
+== Requerimientos de alto nivel 
+
+= Características básicas
+  * Sencillo
+  * Bajo costo
+  * Tirada masiva
+  * Arduino-based
+  * Partes adicionales mínimas
+
+= Recursos
+  * Nro. periféricos Máx.: 4
+    - sensor de iluminación	digital
+    - sensor de sonido		digital
+    - sensor de movimiento	analógico
+    - sensor de calor		analógico
+
+= Casos de uso+
+  "En una configuración de campo solo podrá conectarse a un solo
+  sensor y deberá poderse configurar de que tipo se trata"
+
+  "En funcionamiento la alarma puede prenderse y apagarse"
+
+  "Al encenderse, se armará automáticamente"
+
+  "Deberá activarse un indicador luminoso de encendido"
+  
+  "Estando prendida cuando alguno de los sensores on/off se active
+  (on) o cuando los sensores analógicos alcancen su valor umbral de
+  disparo se disparará una sirena y un indicador luminoso
+  simultáneamente"
+
+  "La sirena sonará intermitentemente hasta que el usuario pulse un
+  botón, volviendo en este caso la alarma a su posición de armada++"
+
+= Otras características 
+  "Por simplicidad, asuma que los niveles de disparo de los sensores
+  analógicos están dados en fábrica (de acuerdo a cada tipo de
+  sensor)."
+
+
+_________________________________________________
++ 	 ¿datos para matriz de trazabilidad?
+++ 	 será alarma
+
+
+
+
+ 
