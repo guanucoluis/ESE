@@ -9,5 +9,57 @@ una matriz de trazabilidad.
 
 _______________________________
 
+jue jun 18 00:07:32 ART 2015
+
+Según lo visto en la página 13 del documento
+IUA_ESE_SWE_Clase_II_v1.0_1.pdf. 
+
+*******************************
+Casos de Uso
+
+* Establece los participantes
+  - Actores
+  - Transacciones
+  - Resultados
+  - Comentarios
+  - Condiciones
+
+* Se concentra en el escenario primario
+* Primer aglutinamiento de la relación
+  - Función de sistema
+  - Requerimiento funcional
+*******************************
+
+Por lo que deberíamos, a partir de los requerimientos de alto nivel,
+establecer las diferentes partes que participan en el sistema a
+diseñar.
+
+* Actores
+  Cliente: Persona quién recibirá el producto con las especificaciones
+  generales sobre el diseño del producto.
+
+  Usuario: Persona que será capaz de activar y desactivar la alarma
+
+  Soporte Técnico: Será el encargado de proceder con la instalación de
+  la alarma. Esto implica la ubicación de los sensores, sirena, botón
+  de parada e indicadores; ubicaciones consensuadas con el Usuario.
+
+  Sistema de Alarma: 
+
+  Sensores: 
+
+  Sistema de Alimentación:
+
+  Instructivo: El usuario contará con una documentación básica que le
+  permita la puesta en funcionamiento de la alarma sin la necesidad
+  del Soporte Técnico.
+
+	
+	
+
+
+
+
+
 
 

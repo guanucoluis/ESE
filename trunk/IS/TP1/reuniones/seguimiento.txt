@@ -1,5 +1,6 @@
 ==================================
 lun jun 15 19:15:27 ART 2015
+asistentes: lguanuco
 
 Se habilita el repositorio en GitHub para realizar el seguimiento de
 actividades del Trabajo Práctico Nro. 1.
@@ -8,8 +9,12 @@ Esta herramienta permitirá compartir material en el desarrollo. Además
 de facilitar el acceso de información útil para los demás grupos con
 los que se interactúe.
 
+
+==================================
+
 ==================================
 mar jun 16 14:19:48 ART 2015
+asistentes: lalem lguanuco
 
 Enviar correo al Profesor:
        "La matriz de trazabilidad evoluciona sobre sí misma o en cada
@@ -52,11 +57,61 @@ mar jun 16 16:16:38 ART 2015
 Se definen las interrogantes sobre los requerimientos de alto nivel.
 ==================================
 
+==================================
+mié jun 17 20:23:29 ART 2015
+asistentes: lguanuco
 
+Se lograron respuestas a las dudas sobre los requerimientos.
 
+1. Respecto al concepto de "sencillo y bajo costo". Necesitamos saber
+el costo máximo de fabricación (sin considerar etapa de desarrollo).
+   
+   No hay especificaciones de mayor precisión al respecto, apliquen
+los criterios de revisión de requerimientos discutidos en clase y
+salven las brechas que encuentren con hipótesis, las que deben
+documentar apropiadamente.
 
+2. Encontramos una contradicción entre los conceptos de "consumo
+masivo" y los sistemas "arduino". Ya que estos últimos no se
+aplicarían a el desarrollo de un producto masivo. 
 
+    En sistemas embebidos lo que importa es la arquitectura del
+producto final y no la del ambiente de desarrollo, pueden utilizar una
+placa arduino como ambiente de desarrollo y con las consideraciones
+del caso utilizar otra plataforma para el despliegue en campo (por
+ejemplo un Atmel Tiny-85 u otro cuya capacidad sea mas adecuada).
 
+3. Especifique tipo y magnitud de la "sirena".
 
+   No entiendo la pregunta. Pero no hay mas especificaciones que las
+indicadas al respecto.
 
+4. La activación de la alarma, respecto a los sensores analógicos,
+¿debe darse bajo la simultaneidad de los mismos?
+   
+   De acuerdo a la nota anterior solo puede haber un sensor analógico
+en cualquier momento conectado a la alarma, no es siquiera condición
+que hubiera uno.
+
+5. Especifique la ubicación del botón de parada. Es decir, el botón se
+encontrará en el mismo gabinete del sistema embebido o estará en una
+ubicación diferente.
+
+   Esa es una consideración de diseño, no un requerimiento.
+
+6. ¿Podría especificar el patrón de intermitencia de la sirena en su
+estado de activación?
+
+   Eso es una consideración de análisis, no un requerimiento.
+
+7. La verificación del "correcto funcionamiento de los sensores" están
+sujetos a la consulta 1. En caso de ser necesario este método, los
+costos aumentan.
+
+   Sospecho que tendrán la sabiduría para encontrar métodos de
+ingeniería para evitarlo; como Uds. saben no es admisible que los
+costos aumenten.
+
+mié jun 17 23:52:14 ART 2015
+==================================
 
