@@ -1,0 +1,181 @@
+dom jun 21 11:01:31 ART 2015
+
+= Conceptos teóricos =
+
+Principios que guían el proceso
+	Principio 1. Ser ágil
+	Principio 2. En cada etapa, centrarse en la calidad
+	Principio 3. Estar listo para adaptar
+	Principio 4. Formar un equipo eficaz
+	Principio 5. Establecer mecanismos para la comunicación y
+	coordinación
+	Principio 6. Administrar el cambio
+	Principio 7. Evaluar el riesgo
+	Principio 8. Crear productos del trabajo que agreguen valor para
+	otros
+	
+
+Principios que guían la práctica
+
+La práctica de la ingeniería de software tiene un solo
+objetivo general: entregar a tiempo software operativo de
+alta calidad que contenga funciones y características que
+satisfagan las necesidades de todos los participantes. Para
+lograrlo, debe adoptarse un conjunto de principios
+fundamentales que guíen el trabajo técnico. Estos
+principios tienen mérito sin que importen los métodos de
+análisis y diseño que se apliquen, ni las técnicas de
+construcción (por ejemplo, el lenguaje de programación o
+las herramientas automatizadas) que se usen o el enfoque de
+verificación y validación que se elija.
+	Principio 1. Divide y vencerás
+	Principio 2. Entender el uso de la abstracción 
+	Principio 3. Buscar la coherencia 
+	Principio 4. Centrarse en la trasferencia de información
+	Principio 5. Construir software que tenga modularidad eficaz
+	Principio 6. Buscar patrones 
+	Principio 7. Cuando sea posible, representar el problema y su
+	solución desde varias perspectivas diferentes.
+	Principio 8. Tener en mente que alguien dará mantenimiento al
+	software
+
+== Principios que guían toda actividad estructural
+
+   Estos principios tienen mucha relevancia para el éxito de cada
+   actividad estructural genérica, definida como parte del proceso de
+   software.
+
+   Principios de comunicación
+   Principios de planeación
+   Principios de modelado
+   		"En el trabajo de ingeniería de software se crean dos clases de
+   modelos: de requerimientos y de diseño. Los modelos de
+   requerimientos (también conocidos como modelos de diseño)
+   representan los requerimientos del cliente mediante la ilustración
+   del software en tres dominios diferentes: el de la información, el
+   funcional y el de comportamiento. Los modelos de diseño representan
+   características de software que ayudan a los profesionales a
+   elaborarlo con eficacia: arquitectura, interfaz de usuario y
+   detalle en el nivel de componente."
+   Principios de construcción
+   Principios de despliegue
+   
+== Ingeniería de Requerimientos ==
+
+   La ingeniería de requerimientos proporciona el mecanismo apropiado
+   para entender lo que desea el cliente, analizar las necesidades,
+   evaluar la factibilidad, negociar una solución razonable,
+   especificar la solución sin ambigüedades, validar la especificación
+   y administrar los requerimientos a medida de que se transformen en
+   un sistema funcional. Incluye siete tareas diferentes:
+   	  * Concepción
+	  * Indagación
+	  * Elaboración
+	  * Negociación
+	  * Especificación
+	  * Validación
+	  * Administración
+	 
+= Formato de especificación de requerimientos de software (ERS)
+
+  Una ERS es un documento que se crea cuando debe especificarse una
+  descripción detallada de todos los aspectos del software que se va a
+  elaborar, antes de que el proyecto comience. Es importante notar que
+  un ERS formal no siempre está en forma escrita. En realidad, hay
+  muchas circunstancias en las que el esfuerzo dedicado a la ERS
+  estaría mejor aprovechado en otras actividades de la ingeniería de
+  software. Sin embargo, se justicia la ERS cuando el software va a
+  ser desarrollado por una tercera parte, cuando la falta de una
+  especificación crearía problemas severos al negocio, si un sistema
+  es complejo en extremo o si se trata de un negocio de importancia
+  crítica.
+  Karl Wiegers, de la empresa Process IMpact Inc., desarrolló un
+  formato útil (disponible en
+  www.pressimpact.com/process_assets/srs_tempate.doc) que sirve como
+  guía para aquellos que deben crear un ERS completa. Su contenido
+  normal es el siguiente:
+
+  		 Tabla de contenido
+		 Revisión de la historia
+
+		 1.		  Introducción
+		 1.1	  Propósito
+		 1.2	  Convenciones del documento
+		 1.3 	  Audiencia objetivo y sugerencias del lectura
+		 1.4	  Alcance del proyecto
+		 1.5	  Referencias
+		 
+		 2.		  Descripción general
+		 2.1	  Perspectiva del producto
+		 2.2	  Características del producto
+		 2.3	  Clases y características del usuario
+		 2.4	  Ambiente de operación
+		 2.5	  Restricciones de diseño e implementación
+		 2.6	  Documentación para el usuario
+		 2.7	  Suposiciones y dependencias
+		 
+		 3.		  Características del sistema
+		 3.1	  Característica 1 del sistema
+		 3.2 	  Característica n del sistema (y así sucesivamente)
+		 
+		 4.		  Requerimientos de la interfaz externa
+		 4.1	  Interfaces de usuario
+		 4.2	  Interfaces de hardware
+		 4.3	  Interfaces de software
+		 4.4	  Interfaces de la comunicaciones
+
+		 5		  Otros requerimientos no funcionales
+		 5.1	  Requerimientos de desempeño
+		 5.2	  Requerimientos de seguridad
+		 5.3	  Requerimientos de estabilidad
+		 5.4	  Atributos de calidad del software
+
+		 6.		  Otros requerimientos
+
+		 Apéndice A: Glosario
+		 Apéndice B: Modelos de análisis
+		 Apéndice C: Lista de conceptos
+
+= Establecer las bases
+
+  Las preguntas que se hacen en la concepción del proyecto deben estar
+  "libres de contexto". El primer conjunto de ellas se centran en el
+  cliente y en otros participantes, en las metas y beneficios
+  generales. Por ejemplo, tal vez se pregunte:
+  * ¿Quién está detrás de la solicitud de este trabajo?
+  * ¿Quién usará la solución?
+  * ¿Cuál  será el beneficio económico de una solución exitosa?
+  * ¿Hay otro origen para la solución que se necesita?
+
+  Las preguntas siguientes permiten entender mejor el problema y hacen
+  que el cliente exprese sus percepciones respecto de la solución:
+  * ¿Cuál sería una "buena" salida generada por una solución exitosa?
+  * ¿Qué problemas resolvería esta solución?
+  * ¿Puede mostrar (o describir) el ambiente de negocios en el que se
+  usaría la solución?
+  * ¿Hay aspectos especiales del desempeño o restricciones que afecten
+  el modo en el que se enfoque la solución?
+
+  Las preguntas finales se centran en la eficacia de la actividad de
+  comunicación en sí. Gause y Weinberg las llaman "metapreguntas" y
+  proponen la siguiente lista(abreviadas):
+  * ¿Es usted la persona indicada para responder estas preguntas? ¿Sus
+  respuestas son "oficiales"?
+  * ¿Mis preguntas son relevantes para el problema que se tiene?
+  * ¿Estoy haciendo demasiadas preguntas?
+  * ¿Puede otra persona dar información adicional?
+  * ¿Debería yo preguntarle algo más?
+
+= Escenarios de uso
+
+  A medida que se reúnen los requerimientos, comienza a materializarse
+  la visión general de funciones y características del sistema. Sin
+  embargo, es difícil avanzar hacia actividades más técnicas de la
+  ingeniería de software hasta no entender cómo emplearán los usuarios
+  finales dichas funciones y características. Para lograr esto, los
+  desarrolladores y usuarios crean un conjunto de escenarios que
+  identifican la naturaleza de los usos para el sistema que se va a
+  construir. Los escenarios, que a menudo se llaman casos de uso,
+  proporcionan la descripción de la manera en la que se utilizará el
+  sistema.
+

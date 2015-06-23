@@ -115,3 +115,43 @@ costos aumenten.
 mié jun 17 23:52:14 ART 2015
 ==================================
 
+==================================
+vie jun 19 16:37:02 ART 2015
+
+asistentes: lguanuco, mdioli
+
+mdioli se encagará de evacuar dudas sobre la metodología a
+implementar.
+
+lalem y lguanuco se podrán en contacto con el Equipo 3 para coordinar
+fechas.
+
+El Lunes 22, lguanuco pasará a buscar la placa ArduinoUNO de mdioli.
+
+Coordinar con lalem sobre los cuatro sensores analógicos. Tratar de
+emular los que no se consigan.
+
+vie jun 19 21:47:26 ART 2015
+==================================
+
+==================================
+lun jun 22 16:12:37 ART 2015
+
+asistentes: lguanuco, mdioli
+
+Nos reunimos en la oficina de mdioli para consensuar el proceso de
+implementación del código según el proceso de diseño que está llevando
+adelante mdioli. La idea general de la reunión fue mostrar como se
+plantea el diseño desde el diagrama de clases realizado por mdioli, y
+cómo se podría implementar con las herramientas de software que ofrece
+el IDE de arduino. mdioli generará a partir de los gráficos de UML los
+prototipos de las clases diseñadas y el equipo de implementación
+(lguanuco y lalem) realizarán la codificación de dichas clases para
+ser integradas en la plataforma.
+
+lguanuco hace posesión de la plataforma arduino UNO facilitada
+por mdioli. Se trabajará el día 23/05 con lalem sobre la
+implementación.
+
+lun jun 22 23:10:02 ART 2015
+==================================
