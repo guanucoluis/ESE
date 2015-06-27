@@ -165,4 +165,35 @@ asistentes: lalem, lguanuco, mdioli
 lun jun 23 16:23:02 ART 2015
 ==================================
 
+==================================
+sab jun 27 12:35:02 ART 2015
+asistentes: lguanuco
+
+* Nos reunimos con los equipos 1 y 3 para intercambiar dudas. Se transcribe las consultas,
+       Equipo 1
+              - Requerimientos: Se necesita formalizar cada requerimiento. Lo que le serviria a ellos es formalizar cada requerimiento mediante:
+                     + Identificador: RXX
+                     + Funcionalidad: "transcripción textual de la oración del requerimiento de alto-nivel"
+                     + Prioridad: 
+                     + Sensibilidad a cambios:
+                     
+              - Análisis: En el análisis necesitan tener cómo interactuan los diferentes actores.
+                     + Casos de uso
+                            _ Identificador: CUXX
+                            _ ...
+              - Diseño:
+                     + Diagrama de estados
+                     + Diagrama de secuencias
+                     + Diagrama de flujo
+                     + Diagrama de clases
+                     
+              Matriz de trazabilidad: Con lo que ello podrán trabajar es la relación que hay entre cada requerimiento (RXX vs CUXX).
+              
+       Equipo 3
+              Se revisa los RAD que nos han pasado. 
+              
+              
+lun jun 23 16:23:02 ART 2015
+==================================
+
 
