@@ -166,7 +166,7 @@ lun jun 23 16:23:02 ART 2015
 ==================================
 
 ==================================
-sab jun 27 12:35:02 ART 2015
+sáb jun 27 12:35:02 ART 2015
 asistentes: lguanuco
 
 * Nos reunimos con los equipos 1 y 3 para intercambiar dudas. Se transcribe las consultas,
@@ -193,7 +193,7 @@ asistentes: lguanuco
               Se revisa los RAD que nos han pasado. 
               
               
-lun jun 23 16:23:02 ART 2015
+sáb jun 27 13:05:02 ART 2015
 ==================================
 
 
