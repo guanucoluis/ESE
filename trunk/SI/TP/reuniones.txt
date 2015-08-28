@@ -1,0 +1,15 @@
+== 2015-08-26 ==
+Inicio: 18:30
+Final: 21:40
+
+* Se definió el tema a trabajar (Ver req v0.1).
+* En principio se utilizará la placa BeagleBone Black.
+* Se generó un diagrama de arquitectura preliminar con lo que se tiene
+  pensado hacer.
+* Se generaron dudas sobre el TP y su implementación.
+
+
+
+
+
+
