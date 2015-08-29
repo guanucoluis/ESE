@@ -8,6 +8,12 @@ Final: 21:40
   pensado hacer.
 * Se generaron dudas sobre el TP y su implementación.
 
+== 2015-08-28 ==
+(EN CLASE)
+
+Link con documentacion oficial de encripcion http://csrc.nist.gov/groups/ST/toolkit/
+
+
 
 
 
