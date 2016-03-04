@@ -1,0 +1,104 @@
+% Also note that the "draftcls" or "draftclsnofoot", not "draft", option
+% should be used if it is desired that the figures are to be displayed in
+% draft mode.
+%
+\documentclass[conference]{IEEEtran}
+%
+\ifCLASSINFOpdf
+\usepackage[pdftex]{graphicx}
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+
+% *** MATH PACKAGES ***
+%
+\usepackage[cmex10]{amsmath}
+
+%\usepackage[caption=false]{caption}
+\usepackage[font=footnotesize,caption=false]{subfig}
+
+% --------------- USEPACKAGE agregados por guanucoluis ----------------
+
+\usepackage[utf8]{inputenc}
+\usepackage{multirow}
+%\usepackage[english]{babel}
+\usepackage{amssymb}
+%\usepackage[pdftex]{graphicx}
+\usepackage[hyphenbreaks]{breakurl}
+\usepackage[hyphens]{url}
+
+% ------------------------- Agregados por maxi ------------------------
+
+\renewcommand{\abstractname}{Resumen}
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tabla}
+\renewcommand{\refname}{Referencias}
+\hyphenation{de-sa-rro-llar de-sa-rro-llos de-sa-rro-llo clas-si-fi-can ne-ce-sa-ria-men-te dis-po-si-ti-vos in-te-gra-das es-pa-cio pre-sen-tan di-men-sio-nes di-fe-ren-tes in-dus-tri-al prin-ci-pa-les per-mi-ten com-pu-ta-do-ras pro-por-cio-na dis-po-si-ti-vo im-ple-men-tar par-ti-ci-pa-do di-gi-ta-les rui-do-sa he-rra-mien-tas}
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+%
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+\title{Revisión -- Bubble Sort: An Archaeological Algorithmic Analysis}
+
+
+% author names and affiliations
+% use a multiple column layout for up to three different
+% affiliations
+\author{\IEEEauthorblockN{Luis Alberto Guanuco}
+\IEEEauthorblockA{Algortímos y Patrones de Software\\
+Especialidad en Sistemas Embebidos\\
+Instituto Universitario Aeronáutico}
+}
+
+% make the title area
+\maketitle
+
+
+\begin{abstract}
+El presente documento realiza una revisión de la publicación
+\emph{Bubble Sort: An Archaeological Algorithmic Analysis}. Se
+rescatan los puntos más importantes de las investigaciones realizadas
+por \emph{Owen Astrachan}. El eje central de la publicación es la
+revisión histórica del ordenamiento burbuja (\emph{bubble
+  sort}). Se buscan los orígenes del algoritmos y la injustificable
+vigencia del mismo en los ámbitos académicos informáticos.
+\end{abstract}
+
+\IEEEpeerreviewmaketitle
+
+\section{Introducción}
+\label{sec:intro}
+
+La utilización del lenguaje 
+
+
+\section{Los orígenes del algoritmo}
+\label{sec:origen-alg}
+
+\section{Características de funcionamiento}
+\label{sec:car-func}
+
+\section{Conclusiones}
+\label{sec:conc}
+
+
+\begin{thebibliography}{1}
+
+\bibitem{ASArev.1}
+Hiroyuki~Ochi, \emph{ASAver.1: An FPGA-Based Education Board for Computer Architecture/system Design}, Design Automation Conference 1997. Proceedings of the ASP-DAC'97. Asia and South Pacific. January 1997.
+
+\bibitem{FPGA-platform-CPU-design}
+C.~Chang, C.~Huang, Y.~Lin, Z.~Huang and T.~Hu, \emph{FPGA Platform for CPU Design and Applications},  5th. IEEE Conference on Nanotechnology. Nagoya, Japan. July 2005.
+
+\end{thebibliography}
+
+% that's all folks
+\end{document}
+
+
