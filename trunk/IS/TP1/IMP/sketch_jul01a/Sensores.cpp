@@ -1,37 +1,35 @@
 /*
-  PerifericosSalida.cpp - Librería para manejar los periféricos de salida.
-  Creado por Leandro Alem. 30 de Junio de 2015.
+  Sensores.cpp - Librería para manejar los sensores
+  Creado por Luis Guanuco. 02 de Julio de 2015.
 */
 
 #include "Arduino.h"
-#include "PerifericosSalida.h"
+#include "Sensores.h"
 
-PerifericosSalida::PerifericosSalida(int pin_number)
+Sensores::Sensores(int pin_number)
 {
-  pinMode(pin_number, OUTPUT);
   _pin = pin_number;
+  _valor = 0;
+  _conectado = LOW,
 }
 
-bool PerifericosSalida::getEstado()
+int Sensores::getValor()
 {
-  return _estado;
 }
 
-void PerifericosSalida::setEstado (bool estado_set) 
+void Sensores::updateValor() 
 {
-  _estado = estado_set;
 }
 
-void PerifericosSalida::RunEstado (void)
+void setConectado()
 {
-  digitalWrite(_pin, _estado);
-  return;
 }
 
-int PerifericosSalida::getPin()
+bool Sensores::detectarConexion()
 {
-  return _pin;
+  if(_conectado == HIGH)
+	return HIGH;
+  else
+	return LOW;
 }
-
-
 

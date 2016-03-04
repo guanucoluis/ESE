@@ -1,24 +1,34 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Integrantes:													 %
-% 			- Adel Arja											 %
-% 			- Santiago Nolasco									 %
-% 			- Luis Guanuco										 %
-% 																 %
-% Fecha:		mié ago 26 20:01:26 ART 2015					 %
-% 																 %
-% Versión:	0.1													 %
-% 																 %
-% Nombre del proyecto:	TOKEN_IUA_ANG							 %
-% 																 %
-% Descripción: Se genera el documento con los requerimientos del %
-% proyecto. En principio se realiza un borrador.				 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Integrantes:															   %
+% 			- Adel Arja													   %
+% 			- Santiago Nolasco											   %
+% 			- Luis Guanuco												   %
+% 																		   %
+% Fecha:		lun ago 31 21:25:15 ART 2015							   %
+% 																		   %
+% Versión:	0.2															   %
+% 																		   %
+% Nombre del proyecto:	TOKEN_IUA_ANG									   %
+% 																		   %
+% Descripción: La versión actual del documento aclara algunos puntos	   %
+% dispuestos como requerimientos para el desarrollo del proyecto. Con	   %
+% una mejor descripción del sistema de comunicación y los algoritmos de	   %
+% encriptación, se genera una nueva estructura funcional.				   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 == Requerimientos ==
 
-1. Se utilizará un sistema embebidos de bajo costo y una computadora
-de escritorio (PC) como dispositivos principales que se comunicarán
-entre sí.
+1. Se utilizará una plataforma BeagleBone Black[1] (BBB) para realizar el
+proceso de encriptación de una archivo de texto recibido desde una
+computadora de escritorio (PC). La comunicación entre ambos dispositivos
+será utilizando el modelo TCP/IP[2]. Es decir, a través de una red en
+el que se encuentran la BBB y PC.
+
+2. Desde la PC, con un sistema operativo GNU/Linux, se
+utilizará una consola para interactuar con la BBB. La ejecución del
+software de encriptición llamado token_iua_ang se ejecutará como:
+		 luis@luis-desktop:script$ token_iua_ang 
 
 2. El dispositivo embebido recibirá de la PC, mediante una
 comunicación serial, un archivo (mensaje) y al mismo se le aplicarán

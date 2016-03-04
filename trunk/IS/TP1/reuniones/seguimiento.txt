@@ -196,4 +196,46 @@ asistentes: lguanuco
 sáb jun 27 13:05:02 ART 2015
 ==================================
 
+==================================
+mar jun 30 16:04:02 ART 2015
+asistentes: lguanuco, lalem
+
+* Se implementan las clases según "Diagrama de Clases".
+
+* Se utiliza la plataforma "Arduino UNO" como base para el hardware. A
+  esta plataforma se le agregan una placa con las diferentes señales
+  de entradas/salidas. 
+
+mar jun 30 21:48:02 ART 2015
+==================================
+
+==================================
+mie jul 1 16:10:02 ART 2015
+asistentes: lguanuco, lalem
+
+* Se crea la primera versión del código principal basándose en el
+  "Diagrama de Flujo", "Diagrama de Estados" y "Diagrama de
+  Secuencias". En esta instancia se implementan todas las clases
+  creadas anteriormente.
+
+* Se asignan los pines que se implementarán en la placa conectada a la
+  plataforma "Arduino UNO". Existe un solo cambio de la especificación recibida.
+
+mie jul 1 19:56:02 ART 2015
+==================================
+
+
+==================================
+jue jul 2 16:25:02 ART 2015
+asistentes: lguanuco, lalem
+
+* Se terminan de escribir la última clase, sensores y sus
+  derivados. 
+* Se creó una máquina de estado que sigue la secuencia dispuesta por
+  el grupo 3.
+
+jue jul 2 22:48:23 ART 2015
+==================================
+
+
 

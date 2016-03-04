@@ -1,22 +1,25 @@
 /*
-  Led.cpp - Librería para manejar los leds, heredan de perifericos salida.
-  Creado por Leandro Alem. 30 de Junio de 2015.
+  SensorAnalogico.h -  - Librería para adquirir sensor analógico,
+  hereda de la clase Sensores.
+  Creado por Luis Guanuco. 02 de Julio de 2015.
 */
 
-#ifndef __LED_H__
-#define __LED_H__
+#ifndef __SENSORANALOGICO_H__
+#define __SENSORANALOGICO_H__
 
 #include "Arduino.h"
-#include "PerifericosSalida.h"
+#include "Sensores.h"
 
-class Led : public  PerifericosSalida
+class SensorAnalogico : public  Sensores
 {
-  public:
-  Led(int pin_number);
-
+ private:
+  int _valor; //Re-defino tipo  a INT
+  
+ public:
+  SensorAnalogico(int pin_number);
+  int getValor(void); //Re-defino el retorno
+  void updateValor(void);
+  void setConectado(void);
 };
 
-#endif //__LED_H__
-
-
-
+#endif //__SENSORANALOGICO_H__

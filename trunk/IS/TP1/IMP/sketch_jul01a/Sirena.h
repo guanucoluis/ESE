@@ -3,8 +3,6 @@
   Creado por Leandro Alem. 30 de Junio de 2015.
 */
 
-
-
 #ifndef __SIRENA_H__
 #define __SIRENA_H__
 

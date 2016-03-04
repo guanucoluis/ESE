@@ -8,9 +8,18 @@ Final: 21:40
   pensado hacer.
 * Se generaron dudas sobre el TP y su implementación.
 
+<<<<<<< HEAD
 == 2015-08-31 ==
 Inicio: 17:32
 Final: 22:30
+=======
+== 2015-08-28 ==
+(EN CLASE)
+
+Link con documentacion oficial de encripcion http://csrc.nist.gov/groups/ST/toolkit/
+
+
+>>>>>>> d117b34b4c1f3132dbb4549e979b503d4ec8535e
 
 * Se logró levantar la BeagleBone Black (BBB) desde una conexión SSH
   utilizando el gestor web que viene dentro de la memoria interna de

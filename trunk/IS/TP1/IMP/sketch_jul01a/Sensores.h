@@ -1,25 +1,25 @@
 /*
-  PerifericosSalida.h - Librería para manejar los periféricos de salida
-  Creado por Leandro Alem. 30 de Junio de 2015   
+  Sensores.h - Librería para manejar los sensores
+  Creado por Luis Guanuco. 02 de Julio de 2015   
 */
 
-#ifndef PerifericosSalida_h
-#define PerifericosSalida_h
+#ifndef Sensores_h
+#define Sensores_h
 
 #include "Arduino.h"
 
-class PerifericosSalida {
-private:
- int _pin;
- bool _estado;
- 
-public:
- PerifericosSalida(int pin_number);
- bool getEstado();   
- void setEstado(bool);
- int getPin(void);
- virtual void RunEstado (void);
+class Sensores {
+ private:
+  int _pin;
+  virtual int _valor;
+  bool _conectado;
+  
+ public:
+  Sensores(int pin_number);
+  virtual int getValor(void);   
+  virtual void updateValor(void);
+  virtual void setConectado(void);
+  bool detectarConexion(void);
 };
 
 #endif
-
