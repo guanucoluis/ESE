@@ -8,8 +8,124 @@ Final: 21:40
   pensado hacer.
 * Se generaron dudas sobre el TP y su implementación.
 
+== 2015-08-31 ==
+Inicio: 17:32
+Final: 22:30
 
+* Se logró levantar la BeagleBone Black (BBB) desde una conexión SSH
+  utilizando el gestor web que viene dentro de la memoria interna de
+  la BBB.
 
+* Se generaron código en Java, se compilaron y luego fueron
+  exportados para correr en la BBB. No se encontraron problemas con
+  la ejecución de los ejemplos .class. Sí se tiene inconveniente con
+  la instalación de la JRE en la Beagle. Aún se espera por una
+  corrección.
 
+* Se comenzaron con las pruebas de encriptación en Java sobre una
+  computadora de escritorio. El objetivo es hacer una primera prueba
+  de las limitaciones/complejidades de las librerías. Además de esto
+  se prueban:
+  	 - Socket TCP/IP
+	 - Códigos de encripción(librería crypto)
+
+* Se comienza con la documentación de una nueva versión del documento
+  de Requerimientos (0.2).
+
+== 2015-09-03 ==
+Inicio: 14:45
+Final: 17:45
+
+* Se levantaron dos proyectos en java para el manejo de socket
+  TCP/IP. La librería que se usaron son "java.net" y "java.io". En
+  ambos proyectos la estructura es similar. Se tiene un proceso
+  "Server" y otro "Client". El cliente conoce el IP y el puerto que se
+  utilizará y luego envía un string. El servidor, pendiente del
+  puerto, acepta los mensajes que recibe y luego procesa el string
+  recibido.
+
+* Se compilaron los programas en una computadora de escritorio y luego
+  se corrieron los binarios (.jar) en la BBB.
+
+* Se comenzará con el proceso de desarrollo de nuestra aplicación.
+
+== 2015-09-06 ==
+Inicio: 17:35
+Final: 22:30
+
+* Se revisan las actividades que debe realizar el grupo para concluir
+  con el trabajo antes del Miércoles 09 de Septiembre. Para entonces
+  el calendario de tareas sería:
+----------------------------------------------------------------------
+|  Domingo (06-Sep) |Lunes (07-Sep)	Martes (08-Sep)	Miércoles (09-Sep)
+|-------------------|-------------------------------------------------
+|  * Versión final	|
+|  	de la Doc.		|
+|  - REQ			|
+|  - ANA			|
+|  - DIS			|
+|					|
+|  * Distribución	|
+|  de las tareas    |
+----------------------------------------------------------------------
+
+%%%%%%%%%%%%
+% BORRADOR %
+%%%%%%%%%%%%
+
+Tares a realizar:
+	  * En base a los demos de TCP, realizar nuestro propio código
+	    Java con las correspondientes adaptaciones de I/O compatibles
+	  	con la etapa de encriptación.
+
+	  * El código que encripta el mensaje se encuentra corriendo. Las
+        nuevas especificaciones que deben cumplirse son respecto los
+        requerimientos que el profesor dispuso en la última exposición
+        a la fecha. Además se requiere documentación de esta etapa
+        para facilitar el desarrollo del interface que se desarrollará
+        a continuación.
+
+	  * Hasta el momento se dispone de código funcional para las
+        etapas de comunicación por TCP/IP y encriptación. El
+        interface de usuario no se ha definido del todo. En esta etapa
+        se utilizarán los conceptos vertidos por el docente con
+        respecto al tamaño del mensaje. En un principio se utilizará
+        el terminal Bash propio de los SO GNU/Linux. Se deberá
+        permitir introducir argumentos como el algoritmo, la clave y
+        el mensaje. Este último argumento podrá ser un string escrito
+        por el usuario o una archivo.
+	
+	  * Dentro de las actividades complementarias al TP es necesario
+        la utilizar del PKI EJBCA. En esta etapa la principal gestión
+        que se pide es la generación de nuevas autoridades de
+        registro. Luego de generar los certificados de nuevas
+        entidades, dentro del dominio de la autoridad de registro. Se
+        firmarán algunos documentos y mostraremos sus características
+        en el software a utilizar (por ejemplo: Acroba Reader).
+
+== 2015-09-07 ==
+Inicio: 18:40
+Final: 22:50
+	   * Se dividió el proyecto en tres partes.
+	   	 - Interface de Usuario: Interactúa con el usuario del
+		 programa. Le pide los argumentos necesarios para encriptar un
+		 mensaje.
+		 - Comunicación: La comunicación implementa el modelo
+		 TCP/IP.
+		 - Des/Encriptación: Realiza la encriptación de un mensaje con
+		 la implementación de dos algoritmos diferentes
+		 (AES/BLOWFISH).
+
+== 2015-09-07 ==
+Inicio: 17:40
+Final:
+
+		* EJBCA: Se generan nuevas entidades de registro para los
+          integrantes del grupo.
+
+		* Se comienza con la primera integración de las etapas
+          "Interface de Usuario" y "Des/Encriptación".
+
+		* La etapa de "Comunicación" ya tiene su estructura en Java.
 
 
