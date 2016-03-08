@@ -81,6 +81,37 @@ algoritmo \emph{Bubble Sort}.
 \section{Los orígenes del algoritmo}
 \label{sec:origen-alg}
 
+El primer registro del algoritmo se da en el año 1956. En aquella
+oportunidad no se lo presenta como \emph{Bubble Sort}, se la expone
+como \emph{sorting by exchange}. Las publicaciones que le siguieron a
+esta primera aparición del algoritmo siguieron con refiriéndose como
+sorting by exchange. 
+
+Una primera aparición del nombre \emph{Bubble Sort} se da en el año
+1962.  Kenneth Iverson es el matemático que lo denomina con este
+nombre al algoritmo de ordenamiento burbuja.
+
+En el año 1963 el algoritmo ingreso en los repositorios de la ACM
+(Association for Computing Machinery) donde el nombre designado fue
+\emph{Shuttle Sort}. Luego de su publicación se encontraron
+definiciones anexas al algoritmo como \emph{not free from
+  errors}. Esto es consecuencia de los errores encontrados en las
+implementaciones sucesivas. 
+
+\subsection{El código del algoritmo}
+\label{sec:origen-code}
+
+La descripción 
+\begin{verbatim}
+void BubbleSort(Vector a, int n)
+{
+  for(int j=n-1; j > 0; j--)
+    for(int k=0; k < j; k++)
+      if (a[k+1] < a[k])
+        Swap(a,k,k+1);
+}
+\end{verbatim}
+
 \section{Características de funcionamiento}
 \label{sec:car-func}
 
