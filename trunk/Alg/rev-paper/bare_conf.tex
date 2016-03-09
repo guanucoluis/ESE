@@ -86,11 +86,9 @@ oportunidad no se lo presenta como \emph{Bubble Sort}, se la expone
 como \emph{sorting by exchange}. Las publicaciones que le siguieron a
 esta primera aparición del algoritmo siguieron con refiriéndose como
 sorting by exchange. 
-
 Una primera aparición del nombre \emph{Bubble Sort} se da en el año
 1962.  Kenneth Iverson es el matemático que lo denomina con este
 nombre al algoritmo de ordenamiento burbuja.
-
 En el año 1963 el algoritmo ingreso en los repositorios de la ACM
 (Association for Computing Machinery) donde el nombre designado fue
 \emph{Shuttle Sort}. Luego de su publicación se encontraron
@@ -98,10 +96,13 @@ definiciones anexas al algoritmo como \emph{not free from
   errors}. Esto es consecuencia de los errores encontrados en las
 implementaciones sucesivas. 
 
-\subsection{El código del algoritmo}
-\label{sec:origen-code}
+\subsection{Código del Bubble Sort}
+\label{sec:origen-bubble-sort}
 
-La descripción 
+El autor del paper toma como referencia el código presentado en el
+libro \emph{The Art of Computer Programming: Sorting and
+  Searching}. El programa recorre todo el vector realizando
+comparaciones de dos elementos sucesivos.
 \begin{verbatim}
 void BubbleSort(Vector a, int n)
 {
@@ -111,6 +112,37 @@ void BubbleSort(Vector a, int n)
         Swap(a,k,k+1);
 }
 \end{verbatim}
+
+Sobre este código se presentan dos optimizaciones, vistas también en
+la exposición de clases:
+\begin{itemize}
+\item Caso de tener un vector ordenado.
+\item Alternar la  dirección del intercambio.
+\end{itemize}
+
+\subsection{Otros nombres para el Bubble Sort}
+\label{sec:origen-otro-nombre}
+
+Varias publicaciones posteriores a 1962 presentaron algoritmos con la
+estructura del Bubble Sort. Entre ellos están el \emph{Push-Down
+  Sort}, \emph{Jump-Down}, \emph{Selection Sort}, por nombrar
+algunos. En la evolución de los algoritmos se dan a conocer trabajos
+que comparan el Bubble Sort con otros algoritmos de ordenamiento.
+
+\subsection{Los orígenes de popularidad}
+\label{sec:origen-popu}
+
+En el año 1971 se publican los resultados de una encuesta realizada
+por el ACM sobre los algoritmos de ordenamiento existentes. Sobre el
+Bubble Sort se concluyó,
+\begin{quote}
+El Bubble Sort es fácil de recordar y programar. Además requiere poco
+tiempo para completar un simple recorrido.   
+\end{quote}
+
+Se relevaron más bibliografías y se encontraron trabajos que denotan
+las limitantes del Bubble Sort. Estos se fundamentan en el orden de
+complejidad del algoritmo ($O(n^2)$). 
 
 \section{Características de funcionamiento}
 \label{sec:car-func}
