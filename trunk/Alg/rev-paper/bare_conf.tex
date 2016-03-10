@@ -142,7 +142,47 @@ tiempo para completar un simple recorrido.
 
 Se relevaron más bibliografías y se encontraron trabajos que denotan
 las limitantes del Bubble Sort. Estos se fundamentan en el orden de
-complejidad del algoritmo ($O(n^2)$). 
+complejidad del algoritmo ($O(n^2)$). El punto anterior hacer
+referencia al consumo de recursos y el tiempo de respuesta del
+algoritmo. Desde una perspectiva matemática Demuth demostró a través
+de una tesis lo interesante del ordenamiento burbuja pero deja claro
+que la implementación del algoritmo resulta insatisfactoria. 
+
+\subsection{Mediciones de popularidad}
+\label{sec:orig-med-pop}
+
+Hasta el momento se dejó claro que el algoritmo del Bubble Sort tiene
+un pobre performance pero se proporcionan evidencias de la vigencia
+del algoritmo en bibliografías usadas en la actualidad. La Tabla
+\ref{tab:pop} representa una evidencia de la popularidad del algoritmo
+Bubble Sort. El proceso consistió en relevar los resultados de
+búsquedas de diferentes algoritmos. Las muestras se tomaron en el años
+2000 y 2002. 
+\begin{table}[!t]
+\renewcommand{\arraystretch}{1.3}
+\caption{Popularidad de los algoritmos (basados en internet).}
+\label{tab:pop}
+\centering
+\begin{tabular}{|c|r|r|}
+\hline
+\textbf{algoritmo} & \textbf{\# búsq. 2000} & \textbf{\# búsq. 2002} \\
+\hline
+Quick     & 26,780 & 80,200 \\
+Merge     & 13,330 & 33,500 \\
+Heap      & 9,830  & 22,960 \\
+Bubble    & 12,400 & 33,800 \\
+Insertion & 8,450  & 21,870 \\
+Selection & 6,720  & 20,600 \\
+Shell     & 4,540  & 8,620  \\
+\hline
+\end{tabular}
+\end{table}
+
+Analizando las estadísticas proporcionadas, Bubble Sort no el
+algoritmo con mayor recurrencia. Esto resulta satisfactorio pues
+existen muchos otros algoritmos con mayor eficiencia. Aún así se
+encuentra en el segundo o tercer lugar entre los más recurridos. 
+
 
 \section{Características de funcionamiento}
 \label{sec:car-func}
