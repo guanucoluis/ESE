@@ -9,4 +9,7 @@
    * https://addons.mozilla.org/es/firefox/addon/restclient/
    * https://addons.mozilla.org/es/firefox/addon/rest-easy/
 
+== Referencia ==
+    * http://nordicapis.com/rest-better-than-soap-yes-use-cases/
+    * http://rest.elkstein.org
 

@@ -1,6 +1,6 @@
 
 "Grafico SOA"
-http://www.enterprise-architecture.info/Images/Services%20Oriented%20Enterprise/EA_Service-Oriented-Architecture1.htm
+http://www.enterprise-architecture.info/Images/Services%20Oriented%20Enterprise/EA_Service-Oriented-Architecture1.htm	
 
 "Tutorial REST"
 

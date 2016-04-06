@@ -147,7 +147,6 @@
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
 
-
 \begin{document}
 %
 % paper title
@@ -203,7 +202,81 @@ IEEE, IEEEtran, journal, \LaTeX, paper, template.
 
 \section{Introducción}
 
-\lipsum[2-3]
+Conceptos de SOA. Un diagrama ejemplo con servicios web varios.
+
+Características de SOAP y REST.
+
+REST o \textsl{Representational State Teansfer} fue creado por Roy
+Fielding\footnote{\texttt{http://www.ics.uci.edu/~fielding/}} en el
+año 2000. Este concepto fue expuesto por primera vez en la disertación
+de la tesis doctoral de Fielding. En dicha exposición se exploraba
+varios estilos arquitectónicos basados en redes. En el Capítulo 5
+\cite{FieldingPhD} de sus tesis se hace una descripción profunda. REST
+puede ser descrito como una forma de construir servicios Web siguiendo
+alguna restricciones entre el proveedor y el cliente de tales
+servicios como son:
+
+\begin{itemize}
+\item Mantener separados los intereses entre el cliente y servidor:
+  con esto, los clientes no deberían preocuparse por el almacenamiento
+  de datos, al igual que los servidores no deben preocuparse por las
+  interfaces de usuario. Esto desacopla por completo el desarrollo de
+  ambas partes del sistema y permite economizar los recursos en el
+  escalamiento. 
+\item La comunicación entre cliente y servidor debería ser ``sin
+  estados'' (\emph{stateless}):  los servidores no deberían almacenar
+  ninguna información sobre el contexto del cliente en sus
+  llamadas. Obviamente con las excepciones de sesiones que utilizan
+  información para mantener la autenticación de la conexión.
+\item Los clientes debe almacenar en cache  las respuestas: todas las
+  respuestas del servidor deben conener la suficiente información
+  relacionada a cache. Por lo tanto, los clientes puede confiar en esa
+  información y decidir por sí mismos qué almacenar de la respuesta en
+  cache. 
+\item La conexiones pueden producirse  a través de varias capas de
+  comunicación: los clientes no deben ser capaces de distinguir sí
+  están directamente conectados al servidor de la aplicación o a un
+  agente intermediario que transmite la información. 
+\end{itemize}
+
+\section{SOAP}
+\label{sec:soap}
+
+
+
+\lipsum[1]
+
+\section{REST}
+\label{sec:soap}
+
+Hablamos del paradigma. Implementación. Un ejemplo
+
+\lipsum[1]
+
+\section{Comparación de servicios web}
+\label{sec:comparacion}
+
+Aquí vamos a poner las ventajas y desventajas entre los servicios REST
+y los web services tradicionales.
+
+\subsection{Casos de uso dónde REST es mejor que SOAP}
+\label{sec:cu-rest-better-soap}
+
+Mientras que SOAP proporciona formas de acceder remotamente y
+manipulación de objetos, REST focaliza en la operaciones que puede ser
+ejecutada sobre los recursos. 
+
+\section{Implementación RESTful}
+\label{sec:imp-rest}
+
+Presentar un caso sencillo de RESTful (implementación de REST).
+
+\lipsum[3]
+
+
+\section{Conclusiones}
+\label{sec:con}
+
 
 \begin{table}[!t]
 \renewcommand{\arraystretch}{1.3}
@@ -242,37 +315,6 @@ Avanzado & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
 
 \lipsum[6]
 
-\section{Dispositivos principales}
-
-\lipsum[7-9]
-\subsection{FPGA}
-\label{sec:fpga}
-La FPGA que se utiliza pertenece a la familia Spartan-3 de Xilinx Inc. Esta familia a la vez se clasifican en
-
-\begin{itemize}
-\item Familia Spartan-3A extendida (bajo costo):
-  \begin{itemize}
-  \item Spartan-3A
-    \begin{itemize}
-    \item Ideal para uso de interfaz entre dispositivos.
-    \end{itemize}
-  \item Spartan-3A DSP
-    \begin{itemize}
-    \item Mayor densidad de recursos en comparación que la familia Spartan-3A
-    \item Dispone de un dispositivo DSP (DSP48A)
-    \end{itemize}
-  \item Spartan-3AN
-    \begin{itemize}
-    \item Dispositivos no volátiles
-    \item Ideal para aplicaciones con restricciones de espacio
-    \end{itemize}
-  \end{itemize}
-\item Familia Spartan-3E
-\item Familia Spartan-3
-\end{itemize}
-
-\lipsum[10-13]
-
 \begin{table}[!t]
 %increase table row spacing, adjust to taste
 \renewcommand{\arraystretch}{1.3}
@@ -301,11 +343,6 @@ XC3S1400A & 1400K & 576K & 32 & 502 \\
 \end{tabular}
 \end{table}
 
-\subsection{Memoria de configuración}
-\label{sec:mem-prog}
-
-\lipsum[14-16]
-
 \begin{table}[!t]
 \renewcommand{\arraystretch}{1.3}
 \caption{Tipo de memoria para la familia Spartan-3A}
@@ -329,18 +366,6 @@ XC3S1400A & 4,755,296 & XCF08P     \\
 \end{tabular}
 \end{table}
 
-\lipsum[20-22]
-
-\section{Sistema de alimentación}
-\label{sec:sist-power}
-
-\lipsum[25-27]
-
-\section{Placa PHR}
-\label{sec:placa-phr}
-
-\lipsum[30-33]
-
 \begin{figure}[!t]
 \centering
   \includegraphics[width=0.45\textwidth]{img/block}
@@ -348,7 +373,6 @@ XC3S1400A & 4,755,296 & XCF08P     \\
   \label{fig:phr-bloque}
 \end{figure}
 
-\lipsum[35-37]
 
 \begin{figure}[!t]
   \centering
@@ -363,11 +387,6 @@ XC3S1400A & 4,755,296 & XCF08P     \\
   \caption{Placas PHR y S3Power.}
   \label{fig:placas-phr-s3power-con}
 \end{figure}
-
-\subsection{Periféricos}
-\label{sec:perifericos}
-
-\lipsum[40-43]
 
 \section{Interfaz JTAG}
 \label{sec:jtag}
@@ -387,38 +406,6 @@ XC3S1400A & 4,755,296 & XCF08P     \\
   \label{fig:oocdlink}
 \end{figure*}
 
-\section{Proceso de configuración y programación}
-
-\lipsum[50-53]
-
-\subsection{PHR GUI}
-
-\lipsum[55-58]
-
-\begin{figure}[!t]
-\centering
-  \includegraphics[width=0.4\textwidth]{img/block}
-  \caption{Captura de pantalla del software PHR GUI.}
-  \label{fig:flujo-hdl}
-\end{figure}
-
-
-\section{Discusión}
-
-\subsection{Costos}
-\label{sec:costos}
-
-\lipsum[60-64]
-
-\subsection{Disposiciones del sistema de alimentación}
-\label{sec:disp-sistem-alim}
-
-\lipsum[66-69]
-
-\section{Conclusiones}
-
-\lipsum[70-73]
-
 \section*{Agradecimientos}
 
 \lipsum[75-80]
@@ -429,33 +416,10 @@ XC3S1400A & 4,755,296 & XCF08P     \\
 % H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
 %   0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
 
-\bibitem{ASArev.1}
-Hiroyuki~Ochi, \emph{ASAver.1: An FPGA-Based Education Board for
-  Computer Architecture/system Design}, Design Automation Conference
-1997. Proceedings of the ASP-DAC'97. Asia and South Pacific. January
-1997.
-
-\bibitem{FPGA-platform-CPU-design}
-C.~Chang, C.~Huang, Y.~Lin, Z.~Huang and T.~Hu, \emph{FPGA Platform
-  for CPU Design and Applications},  5th. IEEE Conference on
-Nanotechnology. Nagoya, Japan. July 2005.
-
-\bibitem{Low-Cost-Interactive-Rapid-Prototyping}
-D.~Kang, S.~Hwang, K.~Jhang, K.~Yi, \emph{A Low Cost and Interactive
-  Rapid Prototyping Platform For Digital System Design Education},
-IEEE International Conference on Microelectronic Systems Education,
-MSE'07. 2007. 
-
-\bibitem{FPGA-Based-Experiment-Platform-for-Multi-Core-System}
-J.~Xing, W.~Zhao and H.~Hu, \emph{An FPGA-Based Experiment Platform
-  for Multi-Cores System}, 9th. International Conference for Young
-Computer Scientistis, ICYCS'08. 2008. 
-
-\bibitem{fpgalibre-paper}
-S.~Tropea, D.~Brengi, and J.~Borgna, \emph{FPGAlibre: Herramientas de
-  software libre para diseño con FPGAs}, FPGA Based Systems. Mar del
-Plata: Surlabs Project, 2nd. Southern Conference on Programmable
-Logic, 2006.
+\bibitem{FieldingPhD}
+  Roy~Fielding, \emph{Architectural Styles and the Design of
+    Network-based Software Architectures}. University of California,
+  Irvine. 2000. URL:\burl{\texttt{http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm}}.
 
 \end{thebibliography}
 
