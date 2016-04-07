@@ -113,6 +113,7 @@
 \usepackage[hyphens]{url}
 \usepackage{lipsum}
 
+
 % ------------------------- Agregados por maxi ------------------------
 
 \renewcommand{\abstractname}{Resumen}
@@ -178,7 +179,7 @@
 
 % Note that keywords are not normally used for peerreview papers.
 \begin{IEEEkeywords}
-IEEE, IEEEtran, journal, \LaTeX, paper, template.
+Web services, SOAP, REST.
 \end{IEEEkeywords}
 
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
@@ -206,52 +207,98 @@ Conceptos de SOA. Un diagrama ejemplo con servicios web varios.
 
 Características de SOAP y REST.
 
-REST o \textsl{Representational State Teansfer} fue creado por Roy
-Fielding\footnote{\texttt{http://www.ics.uci.edu/~fielding/}} en el
-año 2000. Este concepto fue expuesto por primera vez en la disertación
-de la tesis doctoral de Fielding. En dicha exposición se exploraba
-varios estilos arquitectónicos basados en redes. En el Capítulo 5
-\cite{FieldingPhD} de sus tesis se hace una descripción profunda. REST
-puede ser descrito como una forma de construir servicios Web siguiendo
-alguna restricciones entre el proveedor y el cliente de tales
-servicios como son:
-
-\begin{itemize}
-\item Mantener separados los intereses entre el cliente y servidor:
-  con esto, los clientes no deberían preocuparse por el almacenamiento
-  de datos, al igual que los servidores no deben preocuparse por las
-  interfaces de usuario. Esto desacopla por completo el desarrollo de
-  ambas partes del sistema y permite economizar los recursos en el
-  escalamiento. 
-\item La comunicación entre cliente y servidor debería ser ``sin
-  estados'' (\emph{stateless}):  los servidores no deberían almacenar
-  ninguna información sobre el contexto del cliente en sus
-  llamadas. Obviamente con las excepciones de sesiones que utilizan
-  información para mantener la autenticación de la conexión.
-\item Los clientes debe almacenar en cache  las respuestas: todas las
-  respuestas del servidor deben conener la suficiente información
-  relacionada a cache. Por lo tanto, los clientes puede confiar en esa
-  información y decidir por sí mismos qué almacenar de la respuesta en
-  cache. 
-\item La conexiones pueden producirse  a través de varias capas de
-  comunicación: los clientes no deben ser capaces de distinguir sí
-  están directamente conectados al servidor de la aplicación o a un
-  agente intermediario que transmite la información. 
-\end{itemize}
+\lipsum[7]
 
 \section{SOAP}
 \label{sec:soap}
-
-
 
 \lipsum[1]
 
 \section{REST}
 \label{sec:soap}
 
-Hablamos del paradigma. Implementación. Un ejemplo
+%Hablamos del paradigma. Implementación. Un ejemplo
+REST o \textsl{Representational State Teansfer} fue creado por Roy
+Fielding\footnote{\texttt{http://www.ics.uci.edu/\~fielding/}} en el
+año 2000. Este concepto fue expuesto por primera vez en la disertación
+de la tesis doctoral de Fielding. En dicha exposición se exploraba
+varios estilos arquitectónicos basados en redes. En el Capítulo 5
+\cite{FieldingPhD} de sus tesis se hace una descripción profunda. REST
+puede ser descrito como una forma de construir servicios Web siguiendo
+alguna restricciones entre el proveedor y el cliente de tales
+servicios como son\cite{NordicAPIs}:
 
-\lipsum[1]
+\begin{itemize}
+\item \emph{Mantener separados los intereses entre el cliente y
+    servidor}:
+  con esto, los clientes no deberían preocuparse por el almacenamiento
+  de datos, al igual que los servidores no deben preocuparse por las
+  interfaces de usuario. Esto desacopla por completo el desarrollo de
+  ambas partes del sistema y permite economizar los recursos en el
+  escalamiento. 
+\item \emph{La comunicación entre cliente y servidor debería ser ``sin
+  estados'' (\emph{stateless})}:  los servidores no deberían almacenar
+  ninguna información sobre el contexto del cliente en sus
+  llamadas. Obviamente con las excepciones de sesiones que utilizan
+  información para mantener la autenticación de la conexión.
+\item \emph{Los clientes debe almacenar en cache  las respuestas}:
+  todas las
+  respuestas del servidor deben conener la suficiente información
+  relacionada a cache. Por lo tanto, los clientes puede confiar en esa
+  información y decidir por sí mismos qué almacenar de la respuesta en
+  cache. 
+\item \emph{La conexiones pueden producirse  a través de varias capas de
+  comunicación}: los clientes no deben ser capaces de distinguir sí
+  están directamente conectados al servidor de la aplicación o a un
+  agente intermediario que transmite la información. 
+\end{itemize}
+
+\subsection{Simplicidad}
+\label{sec:rest-simp}
+
+La simplicidad de REST puede verse en el siguiente ejemplo. Se pide
+obtener los datos de un usuario a partir de su identificador. 
+
+Usando la arquitectura SOAP, la petición debería tener la siguiente
+forma:
+
+{\footnotesize 
+\begin{verbatim}
+<?xml version="1.0"?>
+<soap:Envelope
+xmlns:soap="http://www.w3.org/2001/12/soap-envelope"
+soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
+ <soap:body pb="http://www.acme.com/phonebook">
+  <pb:GetUserDetails>
+   <pb:UserID>12345</pb:UserID>
+  </pb:GetUserDetails>
+ </soap:Body>
+</soap:Envelope>
+\end{verbatim}
+}
+
+Esto se envía al servidor utilizando el comando \texttt{HTTP POST}. El
+resultado probablemente será probablemente un archivo XML, pero esto
+se encuentra embebido como la carga-paga, dentro de una respuesta
+SOAP.
+
+Y con REST la consulta probablemente sea como la que sigue,
+
+{\footnotesize 
+\begin{verbatim}
+http://www.acme.com/phonebook/UserDetails/12345
+\end{verbatim}
+}
+
+En este caso solo se tiene un URL. Este URL se envía al servidor
+usando simplemente un pedido de \texttt{GET} y la respuesta en HTTP se
+obtiene en bruto. No se adquiere nada más de lo que se pide al
+servidor. 
+
+Note como el método del URL no se llama \texttt{GetUserDetails}, es
+simplemente \texttt{UserDetails}. Esto es una de las convenciones en
+el diseño REST. Dónde se usa los \emph{sustantivos} en vez de
+\emph{verbos}para denotar un simple \emph{recurso}.
 
 \section{Comparación de servicios web}
 \label{sec:comparacion}
@@ -262,9 +309,33 @@ y los web services tradicionales.
 \subsection{Casos de uso dónde REST es mejor que SOAP}
 \label{sec:cu-rest-better-soap}
 
-Mientras que SOAP proporciona formas de acceder remotamente y
-manipulación de objetos, REST focaliza en la operaciones que puede ser
-ejecutada sobre los recursos. 
+SOAP proporciona formas de acceder y manipular objetos de forma
+remota, mientras que REST se focaliza en la operaciones que puede ser
+ejecutada sobre los recursos. Esta característica hace que REST tenga
+mayor adopción en APIs. Además, porque REST hereda operaciones del
+protocolo HTTP. Esto último hace fácil la elección de ``cómo abrir una
+API web''. Estas características han influido tanto que grandes
+compañías Web utilizan la API REST\footnote{RESTful es el nombre
+  técnico de la implementación de REST.}.
+
+REST es mejor que SOAP en situaciones que no requieren un mapeo total
+de los objetos, al cliente. La comunicación de información de objetos
+en ambos sentidos demanda una cantidad importante de ancho de banda,
+lo que podría ser una limitante en entornos donde la conectividad es
+costosa. Una API requerida principalmente para aplicaciones móviles is
+uno de los casos de uso dónde se debe evitar el uso de SOAP a todo
+costo. 
+
+Otro factor en la preferencia a REST es la simplicidad de la
+implementación con respecto a SOAP. También, al ser menos restrictivo
+que SOAP, algunos APIs de REST trabajan mejor en la actualidad. En
+algunos casos los desarrolladores no conocen en profundidad los
+contratos a la hora de implementar una API. Las APIs públicas cambian
+constantemente debido a las necesidades de negocio y son adaptables
+rápidamente. En esta situación REST resulta una elección
+natural. El uso de SOAP en las condiciones expuestas sería
+contraproducente, ya que podría introducir una complejidad contractual
+innecesaria. 
 
 \section{Implementación RESTful}
 \label{sec:imp-rest}
@@ -419,7 +490,19 @@ XC3S1400A & 4,755,296 & XCF08P     \\
 \bibitem{FieldingPhD}
   Roy~Fielding, \emph{Architectural Styles and the Design of
     Network-based Software Architectures}. University of California,
-  Irvine. 2000. URL:\burl{\texttt{http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm}}.
+  Irvine. 2000. url:\texttt{\burl{http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm}}.
+
+\bibitem{NordicAPIs}
+Bruno Pedro, \emph{Is REST better than SOAP? Yes, in Some Use Cases},
+url:
+\texttt{\burl{http://nordicapis.com/rest-better-than-soap-yes-use-cases/}}.
+
+\bibitem{LearnREST}
+  Dr. M. Elkstein, \emph{Learn REST: A Tutorial},
+url: \texttt{\burl{http://rest.elkstein.org/}}.
+
+
+
 
 \end{thebibliography}
 
