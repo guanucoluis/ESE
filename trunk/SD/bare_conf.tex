@@ -112,7 +112,9 @@
 \usepackage[hyphenbreaks]{breakurl}
 \usepackage[hyphens]{url}
 \usepackage{lipsum}
-
+\usepackage{listings}
+\lstset{% general command to set parameter(s)
+basicstyle=\scriptsize\ttfamily}
 
 % ------------------------- Agregados por maxi ------------------------
 
@@ -152,8 +154,7 @@
 %
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
-\title{Servicios REST}
-
+\title{Servicios Web (de SOAP a REST)}
 
 % author names and affiliations
 % use a multiple column layout for up to three different
@@ -174,12 +175,25 @@
 
 
 \begin{abstract}
-  \lipsum[1]
+  Las arquitecturas de los servicios web fueron evolucionando en
+  función de las necesidades tanto de los proveedores como los
+  usuarios. La expansión de internet y nuevas tecnologías
+  (dispositivos móviles, IoT, etc.) modelaron los sistemas
+  actuales. En base a la definición de SOA (Services Object
+  Architecture), se enfocará en la importancia y madurez de los
+  servicios SOAP (Simple Object Access Protocol) para luego 
+
+
+
+Aquí se expone un resumido análisis del \emph{Estado del
+    Arte} de los servicios web con el foco en los \emph{Servicios
+    REST}.
+
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview papers.
 \begin{IEEEkeywords}
-Web services, SOAP, REST.
+Web services, SOA, SOAP, REST.
 \end{IEEEkeywords}
 
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
@@ -203,16 +217,185 @@ Web services, SOAP, REST.
 
 \section{Introducción}
 
-Conceptos de SOA. Un diagrama ejemplo con servicios web varios.
+% Conceptos de SOA. Un diagrama ejemplo con servicios web varios.
+% Características de SOAP y REST.
 
-Características de SOAP y REST.
+En la actualidad, debido a los competitivos mercados globales, las
+compañías se ven presionadas a responder de la manera más efectiva
+posible. Saber actuar ante los cambios que afectan de manera natural a
+los negocios, optimizar los procesos, reducir los costos de IT, y
+lograr flexibilidad, son algunos de los factores claves para la
+competitividad y el crecimiento de las organizaciones.
+Para lograrlo se necesita una herramienta basada en estándares para
+integrar sistemas y aplicaciones heterogéneos sobre una serie de
+plataformas y protocolos de comunicación, con una metodología bien
+establecida. Este marco de trabajo conceptual es SOA
+(\textsl{Service-Oriented Architecture}).
 
-\lipsum[7]
+\subsection{SOA}
+\label{sec:intro-soa}
 
-\section{SOAP}
-\label{sec:soap}
+La Arquitectura Orientada a Servicios supone una estrategia general de
+organización de los
+elementos de IT, de forma que una colección desordenada de sistemas
+distribuidos y aplicaciones complejas se pueda transformar en una red
+de recursos integrados, simplificados y sumamente flexible. Un
+proyecto SOA bien ejecutado permite alinear los recursos de IT de
+forma más directa con los objetivos de negocio, ganando así un mayor
+grado de integración con clientes y proveedores, esto es
+descomponiendo toda su estructura en servicios. Los cuales pueden ser
+añadidos y también sustraídos sin alterar el complejo sistema. Esta
+independencia abstrae al programador de las conexiones entre
+plataformas, lenguajes de programación y dependencia de otros
+servicios.
 
-\lipsum[1]
+Los resultados son la reducción de costos de implementación,
+innovación de servicios a clientes, adaptación ágil ante cambios y
+reacción temprana ante la competitividad, ya que, combinan fácilmente
+las nuevas tecnologías con aplicaciones independientes permitiendo
+que los componentes del proceso se integren y coordinen de manera
+efectiva y rápida. La Tabla \ref{soa-vs-trad} muestra las diferencias
+entre las arquitecturas tradicionales y las orientadas a servicios.
+
+\begin{table}[!t]
+  \renewcommand{\arraystretch}{1.3}
+  \caption{}
+  \label{tab:soa-vs-trad}
+  \centering
+  \begin{tabular}{|l|l|}
+    \hline
+    \textbf{Arquitectura tradicional} & \textbf{Arquitectura orientada
+      a servicios}\\
+    \hline\hline
+    Forzada a la funcionalidad & Orientado al proceso \\\hline
+    Diseñado para durar & Diseñado para el cambio\\\hline
+    Desarrollo con largos ciclos de tiempo & Desarrollo
+    iterativo\\\hline
+    Fuerte acoplamiento & Bajo acoplamiento \\\hline
+    Aplicación especifica & Heterogéneo\\\hline
+    Orientado a datos & Orientado al servicio empresarial\\
+    \hline
+  \end{tabular}
+\end{table}
+
+
+% \section{SOAP}
+% \label{sec:soap}
+
+\section{Servicios basados en SOA}
+\label{sec:serv-soa-based}
+
+El uso más común que se suele dar a este servicio es el de integrar
+diferentes sistemas o componentes de una o varias
+plataformas. Mediante el uso de estándares se consigue dicha
+integración y a la vez  interoperante. La clave se encuentra en el
+intercambio de mensajes entre sistemas (Figura \ref{fig:soa}).
+
+\begin{figure}[!t]
+\centering
+  \includegraphics[width=0.5\textwidth]{img/soa}
+  \caption{Interacción de mensajes en las arquitecturas SOA.}
+  \label{fig:soa}
+\end{figure}
+
+Los servicios web se basan en un conjunto de estándares de
+comunicación. A continuación se describirán algunos de estos
+estándares. 
+
+\subsection{XML}
+\label{sec:serv-soa-xml}
+
+Proviene del lenguaje SGML y permite definir la gramática de lenguajes
+específicos\footnote{De la misma manera que HTML es a su vez un lenguaje
+definido por SGML.} para estructurar documentos grandes. A diferencia
+de otros lenguajes, XML da soporte a bases de datos, siendo útil
+cuando varias aplicaciones deben comunicarse entre sí o integrar
+información.
+
+\subsection{WSDL}
+\label{sec:serv-soa-wsdl}
+
+Describe la interfaz pública a los servicios web. Está basado en XML y
+describe la forma de comunicación. Es decir, los requisitos del
+protocolo y los formatos de los mensajes necesarios para interactuar
+con los servicios listados en su catálogo. Las operaciones y mensajes
+que soporta se describen en abstracto y se ligan después al protocolo
+concreto de red y al formato del mensaje.
+
+WSDL se usa a menudo en combinación con SOAP y XML Schema[REF]. Un programa
+cliente que se conecta a un servicio web puede leer el WSDL para
+determinar qué funciones están disponibles en el servidor. Los tipos
+de datos especiales se incluyen en el archivo WSDL en forma de XML
+Schema. El cliente puede usar SOAP para hacer la llamada a una de las
+funciones listadas en el WSDL.
+
+\subsection{SOAP}
+\label{sec:serv-soa-soap}
+
+SOAP (\textsl{Simple Object Access Protocol}) es usado para el
+intercambio de datos.
+
+Es un paradigma de mensajería de una dirección sin estado que puede
+ser utilizado para formar protocolos más complejos y completos según
+las necesidades de las aplicaciones que lo implementan. Puede formar y
+construir la capa base de una \emph{pila de protocolos de web service},
+ofreciendo un framework de mensajería básica en el cual los \emph{web
+services} pueden ser construidos.
+
+Este protocolo está basado en XML y la estructura consta de tres
+partes[REF]:
+\begin{itemize}
+\item\emph{Envelope}: Qué hay en el mensaje y cómo procesarlo.
+\item\emph{Header}: Es una extensión que permite enviar información
+  relativa a cómo debe ser procesado el mensaje.
+\item\emph{Body}: Contiene la información relativa a la llamada y la
+  respuesta.
+\end{itemize}
+
+\begin{figure}[!t]
+\centering
+  \includegraphics[width=0.15\textwidth]{img/soap}
+  \caption{Estructura del mensaje utilizado por SOAP.}
+  \label{fig:soap-env}
+\end{figure}
+
+El protocolo SOAP tiene tres características principales:
+\begin{itemize}
+\item\emph{Extensibilidad}: seguridad y WS-routing son extensiones aplicadas
+  en el desarrollo.
+\item\emph{Neutralidad}: SOAP puede ser utilizado sobre cualquier protocolo
+  de transporte como HTTP, SMTP, TCP o JMS.
+\item\emph{Independencia}: SOAP permite cualquier modelo de programación.
+\end{itemize}
+
+El enfoque del SOAP, es encapsular la lógica como solicitud de la base
+de datos para el servicio. A traves de un método (o función) en
+cualquier lenguaje como C, VB, Java, etc.; y a continuación establecer
+un proceso que escucha las
+solicitudes al servicio siendo dichas solicitudes en formato SOAP y
+que contienen el nombre del servicio y los parámetros requeridos. La
+capa de transporte puede ser HTTP, aunque podría ser fácilmente SMTP o
+alguna otra. Entoncces, el proceso de escucha, que por simplicidad se
+suelen escrito en el mismo lenguaje que el método de servicio,
+decodifica la petición SOAP de entrada y la transforma en una
+invocación del método.
+Luego toma el resultado de la llamada al método, lo codifica en un
+mensaje SOAP (respuesta) y lo envía de vuelta al
+solicitante. Conceptualmente, esta disposición tiene el siguiente
+el aspecto  de la Figura \ref{fig:soap-comp}.
+
+\begin{figure*}[!t]
+\centering
+  \includegraphics[width=0.8\textwidth]{img/soap-comp}
+  \caption{Componentes en un pedido de servicios SOAP.}
+  \label{fig:soap-comp}
+\end{figure*}
+
+Existen más especificaciones, a las que se denomina genéricamente como
+la arquitectura WS-*, que definen distintas funcionalidades para el
+descubrimiento de servicios Web, gestión de eventos, archivos
+adjuntos, seguridad, gestión y fiabilidad en el intercambio de
+mensajes y transacciones. 
 
 \section{REST}
 \label{sec:soap}
@@ -261,9 +444,7 @@ obtener los datos de un usuario a partir de su identificador.
 
 Usando la arquitectura SOAP, la petición debería tener la siguiente
 forma:
-
-{\footnotesize 
-\begin{verbatim}
+\begin{lstlisting}[frame=single]
 <?xml version="1.0"?>
 <soap:Envelope
 xmlns:soap="http://www.w3.org/2001/12/soap-envelope"
@@ -274,8 +455,7 @@ soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
   </pb:GetUserDetails>
  </soap:Body>
 </soap:Envelope>
-\end{verbatim}
-}
+\end{lstlisting}
 
 Esto se envía al servidor utilizando el comando \texttt{HTTP POST}. El
 resultado probablemente será probablemente un archivo XML, pero esto
@@ -283,12 +463,9 @@ se encuentra embebido como la carga-paga, dentro de una respuesta
 SOAP.
 
 Y con REST la consulta probablemente sea como la que sigue,
-
-{\footnotesize 
-\begin{verbatim}
+\begin{lstlisting}[frame=single]
 http://www.acme.com/phonebook/UserDetails/12345
-\end{verbatim}
-}
+\end{lstlisting}
 
 En este caso solo se tiene un URL. Este URL se envía al servidor
 usando simplemente un pedido de \texttt{GET} y la respuesta en HTTP se
@@ -298,7 +475,19 @@ servidor.
 Note como el método del URL no se llama \texttt{GetUserDetails}, es
 simplemente \texttt{UserDetails}. Esto es una de las convenciones en
 el diseño REST. Dónde se usa los \emph{sustantivos} en vez de
-\emph{verbos}para denotar un simple \emph{recurso}.
+\emph{verbos} para denotar un simple \emph{recurso}.
+
+Una analogía que resume las diferencias entre SOAP y REST es
+considerar ambos servicios como el redactar una carta. Donde SOAP se
+utiliza \emph{un sobre para enviar la carta}. En cambio REST podría
+considerarse una \emph{postal}. Una postal es fácil de enviar y
+leerla, además de consumir menos papel.
+
+Con respecto a la seguridad se podría decir que REST es un poco más
+seguro que SOAP. En particular, REST podría ser implementado sobre un
+socket seguro como ser HTTPS y el contenido podría también estar
+encriptado usando cualquier mecanismo existente. De todas formas, sin
+encriptación, tanto REST como SOAP son inseguros. 
 
 \section{Comparación de servicios web}
 \label{sec:comparacion}
@@ -337,150 +526,25 @@ natural. El uso de SOAP en las condiciones expuestas sería
 contraproducente, ya que podría introducir una complejidad contractual
 innecesaria. 
 
-\section{Implementación RESTful}
-\label{sec:imp-rest}
+Actualmente es común leer el término \emph{ROA} (REST Oriented
+Architecture). ROA es simplemente el nombre que se le da a los
+servicios SOA (Service Based Architecture) que utilizan REST.
 
-Presentar un caso sencillo de RESTful (implementación de REST).
+La principal ventaja de SOA sobre ROA es la madurez de las
+herramientas. Sin embargo, esto ha cambiado con el tiempo. En la
+actualidad la mayoría de los servicios web se basan en REST.
 
-\lipsum[3]
-
+Como se dijo anteriormente, la principal ventaja de REST es la
+facilidad en su implementación, agilidad en el diseño y el enfoque
+sencillo en el manejo de recursos. En cambio, SOAP tiene un perfil
+orientado a servicios para empresas. Aquí se pueden encontrar usos en
+bancos e industrias financieras. Contrariamente, si alguien necesita
+montar rápidamente un servicio con un buen funcionamiento y baja
+demanda de recursos, seguramente elegirán REST.
 
 \section{Conclusiones}
 \label{sec:con}
-
-
-\begin{table}[!t]
-\renewcommand{\arraystretch}{1.3}
-\caption{Recursos de hardware en función de los niveles de aprendizaje}
-\label{tab:rec-plataforma}
-\centering
-\begin{tabular}{|l|c|c|c|}
-\hline
-\multirow{2}{*}{Nivel} & Llaves/pulsadores & ADC\&DAC/SPI & USB/ETH \\
-                       & Diodos LED & Display LCD/VGA & HDMI \\
-\hline
-Inicial & $\checkmark$ & & \\
-\hline
-Medio & $\checkmark$ & $\checkmark$ & \\
-\hline
-Avanzado & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
-\hline
-\end{tabular}
-\end{table}
-
-\lipsum[3-4]
-
-\begin{figure}[!t]
-  \centering
-  \subfloat[BASYS2 (Digilent)]{\includegraphics[width=0.2\textwidth]{img/block}%  
-    \label{fig:digilent-board}}
-  \hfil
-  \subfloat[DE0-Nano (Altera)]{\includegraphics[width=0.2\textwidth]{img/block}%
-    \label{fig:altera-board}}
-  \hfil
-  \subfloat[Avnet Spartan-6 LX150T (Xilinx/Avnet)]{\includegraphics[width=0.2\textwidth]{img/block}%
-    \label{fig:xilinx-board}}
-  \caption{Plataformas comerciales de desarrollo educativas basadas en FPGAs.}
-  \label{fig:board-fpga}
-\end{figure}
-
-\lipsum[6]
-
-\begin{table}[!t]
-%increase table row spacing, adjust to taste
-\renewcommand{\arraystretch}{1.3}
-% if using array.sty, it might be a good idea to tweak the value of
-% \extrarowheight as needed to properly center the text within the cells
-\caption{Característica de la familia Spartan-3A}
-\label{tab:char-fpga}
-\centering
-% Some packages, such as MDW tools, offer better commands for making tables
-% than the plain LaTeX2e tabular which is used here.
-\begin{tabular}{|l|c|c|c|c|}
-\hline
-\multirow{2}{*}{\textbf{Devices}} & \textbf{System} & \textbf{Block RAM} & \textbf{Dedicated} &  \textbf{Maximum} \\
- & \textbf{Gates} & \textbf{bits} & \textbf{Multipliers} & \textbf{User I/O} \\
-\hline
-XC3S50A & 50K & 54K & 3 & 144 \\
-\hline
-\textbf{XC3S200A} & \textbf{200K} & \textbf{288K} & \textbf{16} & \textbf{248} \\
-\hline
-XC3S400A & 400K & 360K & 20 & 311 \\
-\hline
-XC3S700A & 700K & 360K & 20 & 372 \\
-\hline
-XC3S1400A & 1400K & 576K & 32 & 502 \\
-\hline
-\end{tabular}
-\end{table}
-
-\begin{table}[!t]
-\renewcommand{\arraystretch}{1.3}
-\caption{Tipo de memoria para la familia Spartan-3A}
-\label{tab:mem-fpga}
-\centering
-\begin{tabular}{|l|c|c|}
-\hline
-\multirow{2}{*}{\textbf{Devices}} & \textbf{Configuration} & \textbf{ISP PROM} \\
- & \textbf{Bits} & \textbf{Solution} \\
-\hline
-XC3S50A   & 437,312   & XCF01S \\
-\hline                        
-\textbf{XC3S200A}  & \textbf{1,196,128} & \textbf{XCF02S} \\
-\hline                        
-XC3S400A  & 1,886,560 & XCF02S \\
-\hline                        
-XC3S700A  & 2,732,640 & XCF04S \\
-\hline
-XC3S1400A & 4,755,296 & XCF08P     \\
-\hline
-\end{tabular}
-\end{table}
-
-\begin{figure}[!t]
-\centering
-  \includegraphics[width=0.45\textwidth]{img/block}
-  \caption{Diagrama en bloque de la PHR.}
-  \label{fig:phr-bloque}
-\end{figure}
-
-
-\begin{figure}[!t]
-  \centering
-  \subfloat[Placa PHR (base)]{\includegraphics[width=0.4\textwidth]{img/block}%  
-    \label{fig:foto-phr}}
-  \hfil
-  \subfloat[Placa S3Power]{\includegraphics[width=0.2\textwidth]{img/block}%
-    \label{fig:foto-s3power}}
-  \hfil
-  \subfloat[Conexión PHR-S3Power]{\includegraphics[width=0.25\textwidth]{img/block}%
-    \label{fig:foto-phr-s3power}}
-  \caption{Placas PHR y S3Power.}
-  \label{fig:placas-phr-s3power-con}
-\end{figure}
-
-\section{Interfaz JTAG}
-\label{sec:jtag}
-
-\lipsum[45-48]
-
-\begin{figure*}[!t]
-  \centerline{\subfloat[Esquema de la  FT2232D]{\includegraphics[width=0.35\textwidth]{img/block}%  
-    \label{fig:oocdlink-bloque}}
-  \hfil
-  \subfloat[Placa OOCDLink]{\includegraphics[width=0.2\textwidth]{img/block}%
-    \label{fig:oocdlink-foto}}
-  \hfil
-  \subfloat[Conexión entre la placa PHR y OOCDLink]{\includegraphics[width=0.4\textwidth]{img/block}%
-    \label{fig:oocdlink-phr}}}
-  \caption{Interfaz JTAG (implementación FT2232D).}
-  \label{fig:oocdlink}
-\end{figure*}
-
-\section*{Agradecimientos}
-
-\lipsum[75-80]
-
+\lipsum[1]
 \begin{thebibliography}{1}
 
 % \bibitem{IEEEhowto:kopka}
