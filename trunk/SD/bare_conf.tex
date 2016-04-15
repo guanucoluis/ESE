@@ -336,12 +336,13 @@ con los servicios listados en su catálogo. Las operaciones y mensajes
 que soporta se describen en abstracto y se ligan después al protocolo
 concreto de red y al formato del mensaje.
 
-WSDL se usa a menudo en combinación con SOAP y XML Schema[REF]. Un programa
-cliente que se conecta a un servicio web puede leer el WSDL para
-determinar qué funciones están disponibles en el servidor. Los tipos
-de datos especiales se incluyen en el archivo WSDL en forma de XML
-Schema. El cliente puede usar SOAP para hacer la llamada a una de las
-funciones listadas en el WSDL.
+WSDL se usa a menudo en combinación con SOAP y XML
+Schema\footnote{\texttt{http://www.w3schools.com/xml/schema\_intro.asp}}. Un
+programa cliente que se conecta a un servicio web puede leer el WSDL
+para determinar qué funciones están disponibles en el servidor. Los
+tipos de datos especiales se incluyen en el archivo WSDL en forma de
+XML Schema. El cliente puede usar SOAP para hacer la llamada a una de
+las funciones listadas en el WSDL.
 
 \subsection{SOAP}
 \label{sec:serv-soa-soap}
@@ -356,7 +357,7 @@ ofreciendo un framework de mensajería básica en el cual los \emph{web
 services} pueden ser construidos.
 
 Este protocolo está basado en XML y la estructura consta de tres
-partes[REF]:
+partes\footnote{\texttt{https://es.wikipedia.org/wiki/Simple\_Object\_Access\_Protocol}}:
 \begin{itemize}
 \item\emph{Envelope}: Qué hay en el mensaje y cómo procesarlo.
 \item\emph{Header}: Es una extensión que permite enviar información
@@ -415,45 +416,41 @@ mensajes y transacciones.
 \label{sec:soap}
 
 %Hablamos del paradigma. Implementación. Un ejemplo
-REST o \textsl{Representational State Teansfer} fue creado por Roy
+REST o \textsl{Representational State Transfer} fue propuesto por Roy
 Fielding\footnote{\texttt{http://www.ics.uci.edu/\texttildelow fielding/}} en el
-año 2000. Este concepto fue expuesto por primera vez en la disertación
-de la tesis doctoral de Fielding. En dicha exposición se exploraba
-varios estilos arquitectónicos basados en redes. En el Capítulo 5
-\cite{FieldingPhD} de sus tesis se hace una descripción profunda. REST
+año 2000. Éste fue expuesto por primera vez en la disertación
+de la tesis doctoral de Fielding. REST
 puede ser descrito como una forma de construir servicios Web siguiendo
-alguna restricciones entre el proveedor y el cliente de tales
+algunas restricciones entre el proveedor y el cliente de tales
 servicios como son\cite{NordicAPIs}:
 
 \begin{itemize}
 \item \emph{Mantener separados los intereses entre el cliente y
-    servidor}:
-  con esto, los clientes no deberían preocuparse por el almacenamiento
-  de datos, al igual que los servidores no deben preocuparse por las
-  interfaces de usuario. Esto desacopla por completo el desarrollo de
-  ambas partes del sistema y permite economizar los recursos en el
-  escalamiento. 
+    servidor}: con esto, los clientes no deberían preocuparse por el
+  almacenamiento de datos, al igual que los servidores no deben
+  preocuparse por las interfaces de usuario. Esto desacopla por completo
+  el desarrollo de ambas partes del sistema y permite economizar los
+  recursos en el escalamiento.
 \item \emph{La comunicación entre cliente y servidor debería ser ``sin
-  estados'' (stateless)}:  los servidores no deberían almacenar
-  ninguna información sobre el contexto del cliente en sus
-  llamadas. Obviamente con las excepciones de sesiones que utilizan
-  información para mantener la autenticación de la conexión.
-\item \emph{Los clientes debe almacenar en cache  las respuestas}:
-  todas las
-  respuestas del servidor deben conener la suficiente información
-  relacionada a cache. Por lo tanto, los clientes puede confiar en esa
-  información y decidir por sí mismos qué almacenar de la respuesta en
-  cache. 
-\item \emph{La conexiones pueden producirse  a través de varias capas de
-  comunicación}: los clientes no deben ser capaces de distinguir sí
+    estados'' (stateless)}: los servidores no deberían almacenar ninguna
+  información sobre el contexto del cliente en sus llamadas. Obviamente
+  con las excepciones de sesiones que utilizan información para mantener
+  la autenticación de la conexión.
+\item \emph{Los clientes debe almacenar en cache las respuestas}:
+  todas las respuestas del servidor deben conener la suficiente
+  información relacionada a cache. Por lo tanto, los clientes puede
+  confiar en esa información y decidir por sí mismos qué almacenar de la
+  respuesta.
+\item \emph{La conexiones pueden producirse a través de varias capas
+    de comunicación}: los clientes no deben ser capaces de distinguir sí
   están directamente conectados al servidor de la aplicación o a un
-  agente intermediario que transmite la información. 
+  agente intermediario que transmite la información.
 \end{itemize}
 
 % \subsection{Simplicidad}
 % \label{sec:rest-simp}
 
-La simplicidad de REST puede verse en el siguiente ejemplo. Se pide
+La simplicidad de REST está expuesta en el siguiente ejemplo. Se pide
 obtener los datos de un usuario a partir de su identificador.
 Usando la arquitectura SOAP, la petición debería tener la siguiente
 forma:
@@ -502,6 +499,10 @@ socket seguro como ser HTTPS y el contenido podría también estar
 encriptado usando cualquier mecanismo existente. De todas formas, sin
 encriptación, tanto REST como SOAP son inseguros. 
 
+En el Capítulo 5 \cite{FieldingPhD} de la tesis doctoral de Fielding
+se hace una descripción profunda de REST. Se recomienda su lectura
+para mayor comprensión del tema.
+
 \section{Comparación de servicios web}
 \label{sec:comparacion}
 
@@ -511,13 +512,14 @@ y los web services tradicionales.
 % \subsection{Casos de uso dónde REST es mejor que SOAP}
 % \label{sec:cu-rest-better-soap}
 
-SOAP proporciona formas de acceder y manipular objetos remotos, mientras que REST se focaliza en la operaciones que puede ser
+SOAP proporciona formas de acceder y manipular objetos remotos,
+mientras que REST se focaliza en la operaciones que puede ser
 ejecutada sobre los recursos. Esta característica hace que REST tenga
 mayor adopción en APIs. Además, porque REST hereda operaciones del
 protocolo HTTP. Esto último hace fácil la elección de ``cómo abrir una
 API web''. Estas características han influido tanto que grandes
 compañías Web utilizan la API REST\footnote{RESTful es el nombre
-  técnico de la implementación de REST.}.
+técnico de la implementación de REST.}.
 
 REST es mejor que SOAP en situaciones que no requieren un mapeo total
 de los objetos al cliente. La comunicación de información de objetos
@@ -555,7 +557,23 @@ demanda de recursos, seguramente elegirán REST.
 
 \section{Conclusiones}
 \label{sec:con}
-\lipsum[1]
+
+Según lo expuesto anteriormente, la practicicdad y flexibilidad
+ofrecida por REST atrae a los desarrolladores de sistemas embebidos en
+desmedro de la madurez en las herramientas que ofrece SOAP (y
+arquitecturas similares). La propuesta de Fielding, que terminó
+convergiendo en el estilo de los servicios web REST, se alinea con la
+\emph{escalabilidad} de los sistemas actuales.
+
+La principal fuente bibliográfica de los servicios web RESTful
+proviene de aplicaciones web. Aquí las grandes empresas de
+tecnología ofrecen herramientas constantemente, y contradictoriamente
+la principal desventaja de REST es su constante cambio. 
+
+El \emph{estado del arte} de los servicios web hace foco en los avances
+sobre RESTful. Se le agregan nuevas funcionalidades y en la actualidad
+es el servicio más implementado. 
+
 \begin{thebibliography}{1}
 
 % \bibitem{IEEEhowto:kopka}
