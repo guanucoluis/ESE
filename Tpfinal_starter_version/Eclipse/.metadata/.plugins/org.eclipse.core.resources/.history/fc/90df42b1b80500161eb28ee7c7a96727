@@ -1,0 +1,10 @@
+httpserver.name=Super Server
+web.site.folder=C:\Users\franc\Google Drive\Maestria embebidos\MODULOS\Sistemas Distribuidos\TPFINAL\Eclipse\site
+httpserver.port=8080
+
+.jpg=image/jpeg
+.png=image/png
+.html=text/html
+.htm=text/html
+.css=text/css
+.js=application/javascript
