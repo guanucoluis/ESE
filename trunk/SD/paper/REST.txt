@@ -1,0 +1,15 @@
+== Definiciones ==
+
+   * Estilo de arquitectura de Software
+   * Modelo orientado a recursos. Cada URL+verbo representa un obj/recurso
+   * Marca una serie de reglas/restricciones
+
+== Aplicación cliente para probar servicios REST ==
+
+   * https://addons.mozilla.org/es/firefox/addon/restclient/
+   * https://addons.mozilla.org/es/firefox/addon/rest-easy/
+
+== Referencia ==
+    * http://nordicapis.com/rest-better-than-soap-yes-use-cases/
+    * http://rest.elkstein.org
+
