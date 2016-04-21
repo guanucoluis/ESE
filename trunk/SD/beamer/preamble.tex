@@ -1,0 +1,45 @@
+%
+% Common preamble for all three parts.
+%
+
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{color}
+\ProvidesPackage{minted}
+\usepackage{minted}
+%\setminted{encoding=utf8}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{tikz}
+
+\usepackage[utf8x]{inputenc}
+%\usepackage{ucs}
+%\usepackage[T1]{fontenc}
+%\newcommand{\minted@encoding}{\minted@get@opt{encoding}{UTF8}}
+
+% o Warsaw, Bergen, Madrid, ...
+%\usetheme{Berkeley}
+\usetheme{Warsaw}
+
+% o albatross, beaver, crane, ...
+% \usecolortheme{whale}
+\definecolor{IUAblue}{RGB}{53,62,91}
+\definecolor{IUAamarillo}{RGB}{254,187,80}
+
+
+\setbeamercolor*{palette primary}{use=structure,fg=white,bg=IUAblue}
+\setbeamercolor*{palette quaternary}{fg=white,bg=IUAamarillo}%black!30!IUAamarillo}
+
+%\setbeamercolor{structure}{bg=IUAamarillo, fg=IUAamarillo!90!IUAblue}
+
+% no nav buttons
+%\usenavigationsymbolstemplate{}
+
+\newcommand{\bftt}[1]{\textbf{\texttt{#1}}}
+\newcommand{\comment}[1]{{\color[HTML]{008080}\textit{\textbf{\texttt{#1}}}}}
+\newcommand{\cmd}[1]{{\color[HTML]{008000}\bftt{#1}}}
+\newcommand{\bs}{\char`\\}
+
+%\logo{\includegraphics[width=.125\textwidth]{images/logo_f_azul}}
+

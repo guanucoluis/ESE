@@ -1,0 +1,188 @@
+\documentclass{beamer}
+
+\input{preamble.tex}
+
+\title[Proxy]{Patrón de diseño Proxy}
+\author{Luis A. Guanuco}
+\institute[ESE -- IUA]{Especialización en Sistemabas Embebidos \\ Instituto Universitario Aeronáutico}
+\date{11 de Marzo del 2016}
+\titlegraphic{%
+\includegraphics[width=.2\textwidth]{images/logo_f_blanco}
+}
+
+\subtitle{Algoritmo y Patrones de Software}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section[Descripción]{Descripción}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{\insertsection{}}
+  \frametitle{Propósito}
+    Proporcionar un representante o sustituto de otro objeto
+    para controlar el acceso a éste
+    \vfill
+    \centering
+    \includegraphics[width=.6\textwidth]{images/proxy-example}
+\end{frame}
+
+\begin{frame}{\insertsection{}}
+  \frametitle{Motivación}
+  Retrasar el coste de crear e inicializar un objeto hasta
+  que es realmente necesario. Por ejemplo, no abrir las
+  imágenes de un documento hasta que no son visibles
+  \vfill
+  \centering
+  \includegraphics[width=.6\textwidth]{images/problema}
+\end{frame}
+
+\begin{frame}{\insertsection{}}
+  \frametitle{Motivación}
+  \includegraphics[width=\textwidth]{images/solucion}  
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection[Aplicatibilidad]{Aplicatibilidad}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{\insertsubsection{}}
+  \frametitle{\insertsubsection{}}
+  El patrón Proxy se usa cuando se necesita una referencia
+  a un objeto más flexible o sofisticada que un puntero.
+
+  Algunas situaciones comunes de aplicación son:
+  \begin{description}
+  \item[Proxy remoto:] representa un objeto en otro espacio de
+    direcciones.
+  \item[Proxy virtual:] crea objetos costosos por encargo (como la clase
+    \texttt{ImageProxy} en el ejemplo de motivación).
+    \item[Proxy de protección:] controla el acceso a un objeto.
+    \item[Referencia inteligente:] sustituto de un puntero que lleva a
+      cabo operaciones adicionales cuando se accede a un objeto
+      (ej. contar el número de referencias, cargar un objeto
+      persistente en memoria, bloquear el objeto para impedir acceso
+      concurrente, ...).
+  \end{description}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection[Estructura]{Estructura}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{\insertsubsection{}}
+  \frametitle{\insertsubsection{}}
+  \includegraphics[width=\textwidth]{images/estructura}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section[Presentación]{Presentación}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{\insertsection{}}
+  \frametitle{Proxy (\texttt{ImageProxy})}
+  \begin{itemize}
+  \item Mantiene una referencia al objeto real
+  \item Proporciona una interfaz idéntica a la del objeto real
+  \item Controla el acceso al objeto real, y puede ser responsable de
+    crearlo y borrarlo
+  \item Otras responsabilidades dependen del tipo de proxy:
+    \begin{itemize}
+    \item Proxies remotos: codifican las peticiones, y las envían al
+      objeto real
+    \item Proxies virtuales: pueden guardar información del objeto
+      real (caché)
+    \item Proxies de protección: comprueban que el cliente tiene los
+      permisos necesarios para realizar la petición
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\insertsection{}}
+  \frametitle{Subject (\texttt{Graphic})}
+  Define una interfaz común para el proxy y el objeto real, de tal
+  modo que se puedan usar de manera indistinta
+\end{frame}
+
+\begin{frame}{\insertsection{}}
+  \frametitle{RealSubject (\texttt{Image})}
+  Clase del objeto real que el proxy representa
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section[Ventajas]{Ventajas}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{\insertsection{}}
+  \frametitle{\insertsection{}}
+
+  Introduce un nivel de indirección con diferentes usos:
+  \begin{itemize}
+  \item Un proxy remoto puede ocultar el hecho de que un objeto
+    reside en otro espacio de direcciones 
+  \item Un proxy virtual puede realizar optimizaciones, como la
+    creación de objetos bajo demanda 
+  \item Los proxies de protección y las referencias inteligentes
+    permiten realizar tareas de mantenimiento adicionales al acceder
+    a un objeto
+  \end{itemize}
+\end{frame}  
+  
+\begin{frame}{\insertsection{}}
+  \frametitle{\insertsection{}}
+  Optimización copy-on-write
+  \begin{itemize}
+  \item Copiar un objeto grande puede ser costoso
+  \item Si la copia no se modifica, no es necesario incurrir en
+    dicho gasto
+  \item El sujeto mantiene un número de referencias, y sólo cuando
+    se realiza una operación que modifica el objeto, éste se copia
+  \end{itemize}    
+\end{frame}  
+
+\section{Patrones Relacionados}
+
+\begin{frame}{\insertsection{}}
+  \frametitle{Patrón Adaptor}
+  El patrón Adaptador proporciona una interfaz diferente al objeto que
+  adapta. Ambos patrones redirigen la petición del cliente además de
+  incorporar lógica adicional : comprobación de   acceso, creación del
+  sujeto real.
+\end{frame}  
+
+
+\begin{frame}{\insertsection{}}
+  \frametitle{Patrón Decorador}
+  El Proxy se puede diseñar de manera similar al patrón decorador,
+  pero el propósito es diferente: el decorador añade responsabilidades
+  a un objeto, el proxy sólo controla su acceso
+\end{frame}  
+
+
+\section{Usos conocidos}
+
+\begin{frame}{\insertsection{}}
+  \frametitle{\insertsection{}}
+  \begin{description}
+  \item[NeXTSETP\footnote{\texttt{https://es.wikipedia.org/wiki/NEXTSTEP}}:]
+    Combinado con el patrón Forwarder-Receiver se implementa el
+    concepto de \emph{stub}.NeXSTEP implementa para proveer stubs
+    locales a objetos remotos.
+
+  \item[OMG-CORBA\footnote{\texttt{https://es.wikipedia.org/wiki/CORBA}}:]
+    utiliza el patrón Proxy para la implementación de
+    \emph{client-stubs (o IDL-stubs)}  y \emph{IDL-skeletons}. Dónde
+    IDL es el lenguaje de definción de interfaz definido por el OMG
+    (Object Management Group).
+
+\item[RMI\footnote{\texttt{http://www.informit.com/articles/article.aspx?p=1398608\&seqNum=3}}:] Implementación de Java para invocar métodos de objetos
+  remotos,\emph{Java Remote Method Invocation (RMI)}.
+  \end{description}
+\end{frame}  
+\end{document}
