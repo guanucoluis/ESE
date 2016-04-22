@@ -1,6 +1,12 @@
 package ServerHttp;
 
+import java.util.ArrayList;
+
 public class HttpResponseImpl implements HttpResponse{
+	
+	private ArrayList<String> headers = new ArrayList<String>();
+	private String allheaders = null;
+	
 	
 	// write the http response
 	@Override
@@ -22,11 +28,15 @@ public class HttpResponseImpl implements HttpResponse{
 	@Override
 	public void addHeader(String name, String value){
 	 //completar
+		headers.add(name+": "+value);		
 	}
 	@Override
 	public String getHeaders(){
 	//completar
-		return null;
+		for (String new_header : headers){
+			allheaders+=new_header+"\r\n";			
+		}
+	return(allheaders);
 	}
 	@Override
 	public String getResponseHeaderOK(){
