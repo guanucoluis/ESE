@@ -31,7 +31,7 @@ public class AtiendeCliente extends Thread {
 	public void run() {
 		System.out.printf("Atendiendo [%d]%n", socket.getLocalPort());
 		System.out.println(request.toString());
-		try {
+		try {	
 			if (!util.fileExists(request.getPath())) {
 				out.write(response.getStatus404().getBytes());
 			} else if (!request.isVerbAllowed()) {

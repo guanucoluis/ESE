@@ -8,10 +8,31 @@ public class HttpRequestImpl implements HttpRequest{
 	private BufferedReader in;
 	private Properties prop;
 	
+	private String cadena [];
+	
 public HttpRequestImpl(BufferedReader in, Properties prop){
 	this.in = in;
 	this.prop = prop;
 }	
+
+	private void lee_req_cliente(){
+		//LEE texto crudo de la peticion del cliente.
+		int puntero = 0;
+		String line = null;
+		try {		
+			while ((line = in.readLine().toString()) != null) {
+				cadena[puntero] = line;
+				puntero++;
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return;
+	}
+
+
+
 	@Override
 	public String getPlainMessage() {
 		// TODO Auto-generated method stub
@@ -20,9 +41,21 @@ public HttpRequestImpl(BufferedReader in, Properties prop){
 
 	@Override
 	public String getPath() {
-		// TODO Auto-generated method stub
-		return prop.getProperty("web.site.folder");
+		// AGREGAR COMENTARIOS DE LO Q HACE LA FUNCION	
+		lee_req_cliente();
+		String url [];
+		String file_req [];
+		url=cadena[0].split(" ");
+		if(url[1].indexOf("?")>-1){
+			//tengo query en la direccion solicitada
+			file_req=url[1].split("\\?");		
+			return file_req[0];
+		}
+		else
+			//no tengo query en la direccion solicitada
+			return url[1];	
 	}
+	
 
 	@Override
 	public String getQuery() {
@@ -39,13 +72,6 @@ public HttpRequestImpl(BufferedReader in, Properties prop){
 	@Override
 	public boolean isVerbAllowed() {
 		// TODO Auto-generated method stub
-			String cadena = null;
-			try {
-				cadena = in.readLine().toString();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			String arreglo [];
 			arreglo=cadena.split(" ");
 			System.out.println(arreglo[0]);

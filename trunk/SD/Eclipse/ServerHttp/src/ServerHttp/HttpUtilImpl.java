@@ -14,7 +14,7 @@ public HttpUtilImpl(File folder){
 	@Override
 	public byte[] readFile(String virtualPath) throws IOException {
 		// abre el archivo
-		File file = new File(virtualPath);
+		File file = new File(Folder.getAbsolutePath()+virtualPath);
 		FileInputStream fis = new FileInputStream(file);
 		byte bufferfile[] = new byte[(int) file.length()];
 		fis.read(bufferfile);
@@ -26,10 +26,11 @@ public HttpUtilImpl(File folder){
 	@Override
 	public boolean fileExists(String virtualPath) {
 		// chequea si existe el archivo y es accesible.
-		File file = new File(virtualPath);
+		File file = new File(Folder.getAbsolutePath()+virtualPath);
 		if (file.exists()){
 			return true;
 		}
+		else
 		return false;
 	}
 }

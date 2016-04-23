@@ -40,7 +40,7 @@ public class HttpResponseImpl implements HttpResponse{
 	}
 	@Override
 	public String getResponseHeaderOK(){
-	return("HTTP/1.1 200 OK\r\n<html>Server: Mi propio Server\r\nContent-Type:text/html\r\n</html>\r\n");
+	return("HTTP/1.1 200 OK\r\n"+allheaders);
 	//out.println("");
 	//out.println("<html>");
 	//out.println("<head><title>WEb simple grupo 5</title></head>");
