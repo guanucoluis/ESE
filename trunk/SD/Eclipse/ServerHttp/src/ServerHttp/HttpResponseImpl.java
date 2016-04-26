@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class HttpResponseImpl implements HttpResponse{
 	
 	private ArrayList<String> headers = new ArrayList<String>();
-	private String allheaders = null;
+	private String allheaders = "";
 	
 	
 	// write the http response
@@ -27,12 +27,10 @@ public class HttpResponseImpl implements HttpResponse{
 	}
 	@Override
 	public void addHeader(String name, String value){
-	 //completar
 		headers.add(name+": "+value);		
 	}
 	@Override
 	public String getHeaders(){
-	//completar
 		for (String new_header : headers){
 			allheaders+=new_header+"\r\n";			
 		}
@@ -40,13 +38,7 @@ public class HttpResponseImpl implements HttpResponse{
 	}
 	@Override
 	public String getResponseHeaderOK(){
-	return("HTTP/1.1 200 OK\r\n"+allheaders);
-	//out.println("");
-	//out.println("<html>");
-	//out.println("<head><title>WEb simple grupo 5</title></head>");
-	//out.println("<body>");
-	//out.println("<h1>Todo bien por aca</h1>");
-	//out.println("<//body>");
-	//out.println("</html>");
+		String tmp = "HTTP/1.1 200 OK\r\n"+getHeaders()+"\r\n";
+	return(tmp);
 	}
 }
