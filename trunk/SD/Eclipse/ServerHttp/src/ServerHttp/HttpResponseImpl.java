@@ -11,19 +11,19 @@ public class HttpResponseImpl implements HttpResponse{
 	// write the http response
 	@Override
 	public String getStatus404(){
-	return ("HTTP/1.1 404 Not Found");
+	return ("HTTP/1.1 404 Not Found\r\n");
 	}
 	@Override
 	public String getStatus405(){
-	return ("HTTP/1.1 405 Method Not Allowed");
+	return ("HTTP/1.1 405 Method Not Allowed\r\n");
 	}
 	@Override
 	public String getStatus500(){
-	return("HTTP/1.1 500 Internal Server Error");
+	return("HTTP/1.1 500 Internal Server Error\r\n");
 	}
 	@Override
 	public String getStatus503(){
-	return("HTTP/1.1 503 Service Unavailable");
+	return("HTTP/1.1 503 Service Unavailable\r\n");
 	}
 	@Override
 	public void addHeader(String name, String value){
