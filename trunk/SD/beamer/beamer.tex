@@ -2,15 +2,16 @@
 
 \input{preamble.tex}
 
-\title[Proxy]{Patrón de diseño Proxy}
-\author{Luis A. Guanuco}
-\institute[ESE -- IUA]{Especialización en Sistemabas Embebidos \\ Instituto Universitario Aeronáutico}
-\date{11 de Marzo del 2016}
+\title{Servicios Web}
+\author{Franco Bocalon \and Luis Guanuco \and Santiago Nolasco}
+\institute[ESE -- IUA]{Especialización en Sistemabas Embebidos \\
+  Instituto Universitario Aeronáutico}
+\date{29 de Abril del 2016}
 \titlegraphic{%
 \includegraphics[width=.2\textwidth]{images/logo_f_blanco}
 }
 
-\subtitle{Algoritmo y Patrones de Software}
+\subtitle{Sistemas Distribuidos}
 
 \begin{document}
 
@@ -21,168 +22,213 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section[Descripción]{Descripción}
+\section{Introducción}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{\insertsection{}}
-  \frametitle{Propósito}
-    Proporcionar un representante o sustituto de otro objeto
-    para controlar el acceso a éste
-    \vfill
-    \centering
-    \includegraphics[width=.6\textwidth]{images/proxy-example}
+\begin{frame}
+  \frametitle{Contenidos}
+  \tableofcontents[currentsection,hideallsubsections]
 \end{frame}
 
 \begin{frame}{\insertsection{}}
-  \frametitle{Motivación}
-  Retrasar el coste de crear e inicializar un objeto hasta
-  que es realmente necesario. Por ejemplo, no abrir las
-  imágenes de un documento hasta que no son visibles
+  \frametitle{Arquitectura Orientada a Servicios (SOA)}
+  Plantea una organización de recurso de forma que una colección
+  desordenada de sistemas distribuidos y aplicaciones complejas se
+  transformen en una red de recursos integrados, simplificados y
+  sumamente flexible.
   \vfill
   \centering
-  \includegraphics[width=.6\textwidth]{images/problema}
+  \footnotesize
+  \begin{tabular}{|l|l|}
+    \hline
+    \textbf{Arquitectura tradicional} & \textbf{Arquitectura orientada
+      a servicios}\\
+    \hline\hline
+    Forzada a la funcionalidad & Orientado al proceso \\\hline
+    Diseñado para durar & Diseñado para el cambio\\\hline
+    Desarrollo con largos ciclos de tiempo & Desarrollo
+    iterativo\\\hline
+    Fuerte acoplamiento & Bajo acoplamiento \\\hline
+    Aplicación especifica & Heterogéneo\\\hline
+    Orientado a datos & Orientado al servicio empresarial\\
+    \hline
+  \end{tabular}
+\end{frame}
+
+\section{Servicios basados en SOA}
+
+\begin{frame}
+  \frametitle{Contenidos}
+  \tableofcontents[currentsection,hideallsubsections]
 \end{frame}
 
 \begin{frame}{\insertsection{}}
-  \frametitle{Motivación}
-  \includegraphics[width=\textwidth]{images/solucion}  
+  \frametitle{Principal uso}
+  \centering
+  \includegraphics[width=.9\textwidth]{images/img-from-paper/soa.jpg}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection[Aplicatibilidad]{Aplicatibilidad}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{\insertsubsection{}}
-  \frametitle{\insertsubsection{}}
-  El patrón Proxy se usa cuando se necesita una referencia
-  a un objeto más flexible o sofisticada que un puntero.
-
-  Algunas situaciones comunes de aplicación son:
+\begin{frame}{\insertsection{}}
+  \frametitle{Estándares}
   \begin{description}
-  \item[Proxy remoto:] representa un objeto en otro espacio de
-    direcciones.
-  \item[Proxy virtual:] crea objetos costosos por encargo (como la clase
-    \texttt{ImageProxy} en el ejemplo de motivación).
-    \item[Proxy de protección:] controla el acceso a un objeto.
-    \item[Referencia inteligente:] sustituto de un puntero que lleva a
-      cabo operaciones adicionales cuando se accede a un objeto
-      (ej. contar el número de referencias, cargar un objeto
-      persistente en memoria, bloquear el objeto para impedir acceso
-      concurrente, ...).
+  \item[XML:] Permite definir la gramática de lenguajes
+    específicos para estructurar documentos grandes.
+  \item[WSDL:] Basado en XML y básicamente describe la forma de
+    comunicación (protocolos, formatos, etc.) con los servicios
+    ofrecidos.
+  \item[SOAP:] Utilizado para el intercambio de datos. La base de este
+    protocolo son: \emph{Extensibilidad}, \emph{Neutralidad} y
+    \emph{Independencia}.
   \end{description}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection[Estructura]{Estructura}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\insertsection{}}
+  \frametitle{SOAP}
+  El enfoque de SOAP es encapsular la lógica como solicitud de la base
+  de datos para el servicio. 
 
-\begin{frame}{\insertsubsection{}}
-  \frametitle{\insertsubsection{}}
-  \includegraphics[width=\textwidth]{images/estructura}
+  \vfill
+
+  \centering
+  \includegraphics[width=\textwidth]{images/img-from-paper/soap-comp.jpg}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section[Presentación]{Presentación}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{REST}
 
-\begin{frame}{\insertsection{}}
-  \frametitle{Proxy (\texttt{ImageProxy})}
-  \begin{itemize}
-  \item Mantiene una referencia al objeto real
-  \item Proporciona una interfaz idéntica a la del objeto real
-  \item Controla el acceso al objeto real, y puede ser responsable de
-    crearlo y borrarlo
-  \item Otras responsabilidades dependen del tipo de proxy:
-    \begin{itemize}
-    \item Proxies remotos: codifican las peticiones, y las envían al
-      objeto real
-    \item Proxies virtuales: pueden guardar información del objeto
-      real (caché)
-    \item Proxies de protección: comprueban que el cliente tiene los
-      permisos necesarios para realizar la petición
-    \end{itemize}
-  \end{itemize}
+\begin{frame}
+  \frametitle{Contenidos}
+  \tableofcontents[currentsection,hideallsubsections]
 \end{frame}
 
 \begin{frame}{\insertsection{}}
-  \frametitle{Subject (\texttt{Graphic})}
-  Define una interfaz común para el proxy y el objeto real, de tal
-  modo que se puedan usar de manera indistinta
+  \frametitle{Orígenes}
+  En el 2000 Roy
+    Fielding\footnote{\burl{https://es.wikipedia.org/wiki/Roy_Fielding}}
+    presenta el estilo de arquitectura REST. Lo define como un estilo
+    híbrido derivado de otras arquitecturas con la \emph{aplicación de
+    restricciones a cumplir}.
+  \\~\\
+  Las restricciones planteadas por Fielding buscan mejorar las
+  características deseadas en las arquitecturas Web modernas. 
 \end{frame}
 
 \begin{frame}{\insertsection{}}
-  \frametitle{RealSubject (\texttt{Image})}
-  Clase del objeto real que el proxy representa
+  \frametitle{Restricciones de REST}
+  \begin{description}
+    \only<1>{\item[Cliente-Servidor:] La independencia del cliente hacia el
+      servidor (y recíprocamente) permite la implementación de \emph{múltiples
+        plataformas} desde el lado del cliente, y la \emph{escalabilidad}
+      por el lado del servidor.}
+    \only<2>{\item[Sin-estado:] El servidor no debe almacenar ninguna
+      información sobre el contexto del cliente en sus llamadas.}
+    \only<3>{\item[Cache:] Mejorar la eficiencia de la red. Lo
+      importante en esta restricción es proporcionar información
+      suficiente para saber \emph{qué} almacenar para ser
+      reutilizado.}
+    \only<4>{\item[Interface Uniforme:] Una de las características
+      centrales de REST, que lo distingue de otras arquitecturas, es
+      el énfasis en una \emph{interfaz uniforme} entre componentes.}
+  \end{description}
+  \vfill{}
+  \centering 
+  \includegraphics<1>[scale=.5]{images/client_server_style}
+  \includegraphics<2>[scale=.5]{images/stateless_cs}
+  \includegraphics<3>[scale=.5]{images/ccss_style}
+  \includegraphics<4>[scale=.5]{images/uniform_ccss}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section[Ventajas]{Ventajas}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{\insertsection{}}
-  \frametitle{\insertsection{}}
+\begin{frame}[fragile]{\insertsection{}}
+  \frametitle{Un simple ejemplo -- SOAP}
+  Se pide obtener datos de un usuario a partir de su
+  identificador. Usando la arquitectura \emph{SOAP}, la petición mediante
+  \texttt{HTTP POST} tendría la forma:
 
-  Introduce un nivel de indirección con diferentes usos:
-  \begin{itemize}
-  \item Un proxy remoto puede ocultar el hecho de que un objeto
-    reside en otro espacio de direcciones 
-  \item Un proxy virtual puede realizar optimizaciones, como la
-    creación de objetos bajo demanda 
-  \item Los proxies de protección y las referencias inteligentes
-    permiten realizar tareas de mantenimiento adicionales al acceder
-    a un objeto
-  \end{itemize}
-\end{frame}  
+  \begin{lstlisting}
+    <?xml version="1.0"?>
+    <soap:Envelope
+    xmlns:soap="http://www.w3.org/2001/12/soap-envelope"
+    soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
+    <soap:body pb="http://www.acme.com/phonebook">
+    <pb:GetUserDetails>
+    <pb:UserID>12345</pb:UserID>
+    </pb:GetUserDetails>
+    </soap:Body>
+    </soap:Envelope>
+  \end{lstlisting}
+
+  La respuesta la almacena el cliente, podría ser una archivo XML, y
+  la respuesta al pedido se encuentra embebido en el mensaje.
+\end{frame}
+
+\begin{frame}[fragile]{\insertsection{}}
+  \frametitle{Un simple ejemplo -- REST}
+  Sí el servidor implementa RESTfull, la consulta anterior se hace con
+  el URL de abajo. Aquí con el comando \texttt{HTTP GET} obtenemos la
+  respuesta en bruto.
+
+  \begin{lstlisting}
+    http://www.acme.com/phonebook/UserDetails/12345
+  \end{lstlisting}
+
+  Aquí el método REST es \texttt{UserDetails} en vez de
+  \texttt{GetUserDetails}. Esto se debe a la convención del diseño de
+  REST donde se usa \emph{sustantivos} en vez de \emph{verbos} para
+  referirse a un \emph{recurso}.
+\end{frame}
+
+\section{Comparación de Servicios Web}
+
+\begin{frame}[fragile]{\insertsection{}}
+  \frametitle{Principales diferencias}
+  \centering
+  \footnotesize
+  \bgroup
+  \def\arraystretch{1.8}%  1 is the default, change whatever you need
+  \begin{tabular}{m{5cm}m{5cm}}
+    \textbf{SOAP} & \textbf{REST}\\
+    Orientado a la manipulación  de objetos remotos. & Orientado a la
+    aplicación de operaciones sobre los recursos. \\\pause
+    Demanda mayor flujo de datos en comparación con REST. & No requiere
+    un mapeo total de los objetos. \\ \pause
+    Madurez y robustez en su estructura. & Flexible y fácil de
+    implementar.\\ \pause
+    Implementación de WS* para empresas & Implementado actualmente en
+    todos los WS públicos.\\
+  \end{tabular}
+  \egroup
+\end{frame}
+
+\section{Conclusiones}
+
+\begin{frame}[fragile]{\insertsection{}}
+  \frametitle{Conclusiones desde nuestra perspectiva}
   
-\begin{frame}{\insertsection{}}
-  \frametitle{\insertsection{}}
-  Optimización copy-on-write
   \begin{itemize}
-  \item Copiar un objeto grande puede ser costoso
-  \item Si la copia no se modifica, no es necesario incurrir en
-    dicho gasto
-  \item El sujeto mantiene un número de referencias, y sólo cuando
-    se realiza una operación que modifica el objeto, éste se copia
-  \end{itemize}    
-\end{frame}  
+    \setlength\itemsep{2em}
+  \item<1-> La \emph{flexibilidad} de REST atrae a los
+    desarrolladores.
+  \item<2-> La propuesta de Fielding se alinea con la
+    \emph{escalabilidad} de los sistemas actuales.
+  \item<3-> El \emph{estado del arte} de los WS* apunta a las
+    arquitecturas ROA (REST Oriented Architecture). La industria web
+    mudo hace tiempo todos sus sistemas a \emph{RESTful}.
+  \end{itemize}
+\end{frame}
 
-\section{Patrones Relacionados}
+\appendix{}
 
-\begin{frame}{\insertsection{}}
-  \frametitle{Patrón Adaptor}
-  El patrón Adaptador proporciona una interfaz diferente al objeto que
-  adapta. Ambos patrones redirigen la petición del cliente además de
-  incorporar lógica adicional : comprobación de   acceso, creación del
-  sujeto real.
-\end{frame}  
+\section{Veamos un ejemplo}
 
+\begin{frame}[fragile]{\insertsection{}}
+  Se implementa un simple WS* con \emph{RESTful}. Vamos a
+  realizarle pedidos...
+  \vfill
+  
+  \begin{lstlisting}
+    http://localhost:8080/SISTEMASDISTRIBUIDOS/RESTDEMO/...
+  \end{lstlisting}
 
-\begin{frame}{\insertsection{}}
-  \frametitle{Patrón Decorador}
-  El Proxy se puede diseñar de manera similar al patrón decorador,
-  pero el propósito es diferente: el decorador añade responsabilidades
-  a un objeto, el proxy sólo controla su acceso
-\end{frame}  
+\end{frame}
 
-
-\section{Usos conocidos}
-
-\begin{frame}{\insertsection{}}
-  \frametitle{\insertsection{}}
-  \begin{description}
-  \item[NeXTSETP\footnote{\texttt{https://es.wikipedia.org/wiki/NEXTSTEP}}:]
-    Combinado con el patrón Forwarder-Receiver se implementa el
-    concepto de \emph{stub}.NeXSTEP implementa para proveer stubs
-    locales a objetos remotos.
-
-  \item[OMG-CORBA\footnote{\texttt{https://es.wikipedia.org/wiki/CORBA}}:]
-    utiliza el patrón Proxy para la implementación de
-    \emph{client-stubs (o IDL-stubs)}  y \emph{IDL-skeletons}. Dónde
-    IDL es el lenguaje de definción de interfaz definido por el OMG
-    (Object Management Group).
-
-\item[RMI\footnote{\texttt{http://www.informit.com/articles/article.aspx?p=1398608\&seqNum=3}}:] Implementación de Java para invocar métodos de objetos
-  remotos,\emph{Java Remote Method Invocation (RMI)}.
-  \end{description}
-\end{frame}  
 \end{document}
