@@ -73,7 +73,7 @@
   \begin{description}
   \item[XML:] Permite definir la gramática de lenguajes
     específicos para estructurar documentos grandes.
-  \item[WSDL:] Basado en XML y básicamente describe la forma de
+  \item[WSDL:] Basado en XML, describe la forma de
     comunicación (protocolos, formatos, etc.) con los servicios
     ofrecidos.
   \item[SOAP:] Utilizado para el intercambio de datos. La base de este
@@ -115,17 +115,17 @@
 \begin{frame}{\insertsection{}}
   \frametitle{Restricciones de REST}
   \begin{description}
-    \only<1>{\item[Cliente-Servidor:] La independencia del cliente hacia el
+    \only<1>{\item[Client-Server:] La independencia del cliente hacia el
       servidor (y recíprocamente) permite la implementación de \emph{múltiples
         plataformas} desde el lado del cliente, y la \emph{escalabilidad}
       por el lado del servidor.}
-    \only<2>{\item[Sin-estado:] El servidor no debe almacenar ninguna
+    \only<2>{\item[Stateless:] El servidor no debe almacenar ninguna
       información sobre el contexto del cliente en sus llamadas.}
     \only<3>{\item[Cache:] Mejorar la eficiencia de la red. Lo
       importante en esta restricción es proporcionar información
       suficiente para saber \emph{qué} almacenar para ser
       reutilizado.}
-    \only<4>{\item[Interface Uniforme:] Una de las características
+    \only<4>{\item[Uniforme Interface:] Una de las características
       centrales de REST, que lo distingue de otras arquitecturas, es
       el énfasis en una \emph{interfaz uniforme} entre componentes.}
   \end{description}
@@ -157,7 +157,7 @@
     </soap:Envelope>
   \end{lstlisting}
 
-  La respuesta la almacena el cliente, podría ser una archivo XML, y
+  La respuesta la almacena el cliente, podría ser un archivo XML, y
   la respuesta al pedido se encuentra embebido en el mensaje.
 \end{frame}
 
