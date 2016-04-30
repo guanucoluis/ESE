@@ -1,0 +1,121 @@
+package ServerHttp;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.Properties;
+
+public class HttpRequestImpl implements HttpRequest{
+	private BufferedReader in;
+	private Properties prop;
+	private String allText;
+	
+	
+public HttpRequestImpl(BufferedReader in, Properties prop){
+	this.in = in;
+	this.prop = prop;
+	
+	allText =getPlainMessage();
+	
+}	
+
+	@Override
+	public String getPlainMessage() {
+		// TODO Auto-generated method stub
+		int puntero = 0;
+		String line = null;
+		String allText = "";
+		
+		do{
+		try{
+			line = in.readLine();
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(line!=null)
+			allText = allText.concat(line+"\r\n");
+		} while (line!=null && line.trim().length() > 0);
+		return allText;
+	}
+
+	@Override
+	public String getPath() {
+		String cadena[];
+		// AGREGAR COMENTARIOS DE LO Q HACE LA FUNCION
+		//String allText = getPlainMessage();
+		String url [];
+		String file_req [];
+		cadena = allText.split("\r\n");
+		url=cadena[0].split(" ");
+		if(url[1].indexOf("?")>-1){
+			//tengo query en la direccion solicitada
+			file_req=url[1].split("\\?");		
+			return file_req[0];
+		}
+		else
+			//no tengo query en la direccion solicitada
+			return url[1];	
+	}
+	
+
+	@Override
+	public String getQuery() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getVerb() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isVerbAllowed() {
+		// TODO Auto-generated method stub
+			String cadena[]=null;
+			//String allText = getPlainMessage();
+			String arreglo [];
+			cadena = allText.split("\r\n");
+			arreglo=cadena[0].split(" ");
+			//
+			if (arreglo[0].equalsIgnoreCase("GET")){
+				System.out.println("true");
+				return true;
+			}
+			else if(arreglo[0].equalsIgnoreCase("POST")){
+				System.out.println("true");
+				return true;				
+			}				
+			else{
+				System.out.println("false");
+				return false;
+			}
+	}
+
+	@Override
+	public String getRequestMimeType() {
+		
+		String tipo_mime [] = null;		
+		String url;
+		String[] extension;
+		url = getPath();
+		
+		extension=url.split(".");
+		
+		tipo_mime[0] = (String)prop.getProperty(".jpg", "image/jpeg");
+		tipo_mime[1] = (String)prop.getProperty(".png", "image/png");
+		tipo_mime[2] = (String)prop.getProperty(".html", "text/html");
+		tipo_mime[3] = (String)prop.getProperty(".htm", "text/html");
+		tipo_mime[4] = (String)prop.getProperty(".css", "text/css");
+		tipo_mime[6] = (String)prop.getProperty(".js", "application/javascript");
+		
+
+		
+		//int puertoServer = Integer.parseInt(prop.getProperty("httpserver.port", "8080"));
+		
+		return tipo_mime[0];
+	}
+
+}
