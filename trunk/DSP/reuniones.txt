@@ -1,0 +1,57 @@
+=== 24-05-2016 ===
+
+Plataformas
+= Altera =
+  * Altera DE2-115 Development and Education Board
+  * Highspeed AD/DA Card
+
+= Xilinx =
+  * Santiago buscará referencias  (FPGA + ADC/DAC board)
+
+=== Altera ===
+	* Se utilizará el NIOS2 (Franco tiene experiencia) como microcontrolador embebido.
+
+=== Xilinx === 
+	* Se utilizará el microblaze (niguna referencias) como
+	microcontrolador embebido.
+
+=== Intefaz de usuario ===
+	* La selección del filtro y los coeficientes a cagar serán a
+	través de una computadora utilizando un puerto de comunicación
+	serial (RS232,SPI, etc).
+
+	* Se podría implementar con Java o MatLab
+
+=== Filtros FIR ===
+	* Fdatools
+	  - Configurar la herramienta para generar los tres tipos de
+	  filtros que pide el profesor.
+
+	* Un vez evaluado el entorno de Fdatools, se trabajarán los
+	siguientes puntos,
+
+	1) Se pide los siguientes filtros,
+		- Pasa-bajo 12 coeficientes frecuencia de corte en 25 kHz.
+		- Pasa-alto 12 coeficientes frecuencia de paso a partir	de 25 kHz.
+		- Pasa-banda 12 coeficientes con banda de paso entre los 30 y los 47 KHz.
+		- Rechaza-banda 12 coeficientes con banda de paso entre	los 30 y los 47 KHz.
+
+    2) Medir y si no verifica volver al paso 1, cambiando coeficientes y tipo de
+	 aproximaciones. Se piden 10 puntos de medicion por decada.
+
+    3) Modificar el código de manera que se pueda elegir entre los 4
+	 filtros anteriores por medio de dos de los botones SW de la placa
+	 en uso como ejemplo.
+
+	4) Repetir el punto 1), pero con filtros de 15 coeficientes.
+
+
+=== Consultas a Docente ===
+	* Se podría incrementar el orden de los coeficientes (en vez de 12
+	a 20).
+	* Sí el único requerimiento que debe cumplirse es la relación
+	de 10dB.
+	* Consultar sí debemos presentar un borrador antes de
+	implementar.
+	* Mostrar la estructura del interfaz de usuario a través de Java o
+	Matlab
