@@ -55,3 +55,38 @@ Plataformas
 	implementar.
 	* Mostrar la estructura del interfaz de usuario a través de Java o
 	Matlab
+
+****************************************************************
+jue may 26 20:20:35 ART 2016
+
+	* Armar el conector de la Altera DE2-115 al Pmod ADC
+	  (Digilent). Con los módulos ADC/DAC de terasic ya se tiene
+	  experiencia. En el caso de utilizar los Pmod de digilent, se
+	  debe instanciar en el top los controladores SPI (ver web site). 
+	* Franco se encargará de levantar el entorno del Quartus para
+	 comenzar a utilizar el soft-core Nios2.
+
+
+****************************************************************
+vie may 27 18:35:12 ART 2016
+
+	* Ya conseguí los Pmod ADC/DAC de  digilent para armar los
+      conectores.
+	* Se presenta el diseño en bloque del proyecto
+      (DSP/reporte/src/bloque.svg).
+	* Filtro único reconfigurable (lo único que se cambiará son los
+      coeficiente).
+	  Consultas al profesor
+	  	- Se podría incrementar el orden de los coeficientes (en vez
+      de 12 a 20).
+	  	 + Sí, este parámetro de diseño es libre.
+		- El único requerimiento que debe cumplirse es la relación de
+      10dB.
+	   	 + Sí.
+		- Mostrar la estructura del interfaz de usuario a través de
+      Java o Matlab
+	  	 + La implementación del interfaz es libre.
+
+
+	  
+
