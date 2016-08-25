@@ -1,0 +1,80 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:special
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:modules_droids
+EELAYER 27 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date "24 aug 2016"
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L XBEE U?
+U 1 1 57BE2254
+P 5700 3800
+F 0 "U?" H 6204 3132 60  0000 C CNN
+F 1 "XBEE" H 5696 3364 60  0000 C CNN
+F 2 "" H 5700 3800 60  0000 C CNN
+F 3 "" H 5700 3800 60  0000 C CNN
+	1    5700 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_7 P?
+U 1 1 57BE23A5
+P 7850 2350
+F 0 "P?" V 7820 2350 60  0000 C CNN
+F 1 "CONN_7" V 7920 2350 60  0000 C CNN
+F 2 "" H 7850 2350 60  0000 C CNN
+F 3 "" H 7850 2350 60  0000 C CNN
+	1    7850 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_7 P?
+U 1 1 57BE2439
+P 3350 2400
+F 0 "P?" V 3320 2400 60  0000 C CNN
+F 1 "CONN_7" V 3420 2400 60  0000 C CNN
+F 2 "" H 3350 2400 60  0000 C CNN
+F 3 "" H 3350 2400 60  0000 C CNN
+	1    3350 2400
+	-1   0    0    -1  
+$EndComp
+$EndSCHEMATC

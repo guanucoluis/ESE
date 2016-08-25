@@ -1,0 +1,30 @@
+=== Notas de reunión ===
+
+* Revisión sobre los puntos del TP.
+* Definir la distribuición de las tareas e identificar puntos críticos
+  que encontremos problemas.
+
+1. Santiago
+2-5. Luis (documentación cika)
+6. Seba (Revisar generador/interpretador de tramas api)
+7. grupo.
+preguntas: a. A qué hace referencia "configurar los módulos".
+8. grupo.
+9. ver luego
+10-11 ver luego. buscar arduino-board
+
+=== DUDA ====
+
+* En modo API, el hardware resuelve la construcción de la trama?
+* La trama API completa debería ser armada fuera del xbee.
+
+Por ahora entendemos que la trama API debe ser formada en el enlace
+serial con la computadora. Es por esta razón que se utilizan librerías
+para armar dichas tramas.
+
+
+
+
+
+
+
