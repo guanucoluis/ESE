@@ -6,7 +6,7 @@
 
 1. Santiago
 2-5. Luis (documentación cika)
-6. Seba (Revisar generador/interpretador de tramas api)
+6. Seba (Revisar generador/interpretador de tramas api).
 7. grupo.
 preguntas: a. A qué hace referencia "configurar los módulos".
 8. grupo.
