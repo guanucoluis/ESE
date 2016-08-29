@@ -23,7 +23,20 @@ serial con la computadora. Es por esta razón que se utilizan librerías
 para armar dichas tramas.
 
 
+=== Notas de reunión === 25/26-08 (Clases)
+* Se revisaron puntos del ejercicio numero 6 del TP,
+* Se realizo una conexion en modo transparente entre dos modulos XBEE como end-device, se realizo una conexion en modo coordinador / end-device entre 2 XBEE, luego se realizo una conexion de varios XBEE a un solo coordinador de Lex lutor.
+* Se realizo una prueba con tramas API entre dos XBEE.
 
+=== RESPUESTAS DE DUDAS ANTERIORES ===
+* En modo API, el hardware resuelve la construcción de la trama?
+  NO. La trama la resuelve el software que debe construirla en funcion de los datos a transmitir, para ello existen librerias de Arduino que se ocupan para tal fin.
+  
+* La trama API completa debería ser armada fuera del xbee.
+  En efecto, como la trama la resuelve una libreria, el XBEE solo se encarga de colocar en RF aquellos datos que entren a la UART para transmitirlos a la red o a otro modulo.
+
+* Para el TP final no es necesario utilizar el Galileo de INTEL, pero se debe tener la precaucion de convertir de %v a 3.3V
+======================================================================================================================
 
 
 
