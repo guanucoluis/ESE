@@ -25,7 +25,8 @@ para armar dichas tramas.
 
 === Notas de reunión === 25/26-08 (Clases)
 * Se revisaron puntos del ejercicio numero 6 del TP,
-* Se realizo una conexion en modo transparente entre dos modulos XBEE como end-device, se realizo una conexion en modo coordinador / end-device entre 2 XBEE, luego se realizo una conexion de varios XBEE a un solo coordinador de Lex lutor.
+* Se realizo una conexion en modo transparente entre dos modulos XBEE como end-device, se realizo una conexion en
+modo coordinador / end-device entre 2 XBEE, luego se realizo una conexion de varios XBEE a un solo coordinador de Lex lutor.
 * Se realizo una prueba con tramas API entre dos XBEE.
 
 === RESPUESTAS DE DUDAS ANTERIORES ===
