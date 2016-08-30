@@ -43,6 +43,8 @@
   numberstyle=\scriptsize\color{black}
 }
 
+\renewcommand{\lstlistingname}{Código}
+
 \lstset{literate=
   {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
   {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
@@ -84,14 +86,16 @@
 \emph{Alumno:}\\
 Luis Alberto \textsc{Guanuco}\\
 Santiago Nicolás \textsc{Nolasco}\\
-Sebastian \textsc{Aguero}\\
+Sebastian \textsc{Agüero}\\
 Franco \textsc{Bocalon}
 \end{flushleft}
 \end{minipage}
 \begin{minipage}{0.4\textwidth}
 \begin{flushright} \large
 \emph{Docentes:} \\
-Jose \textsc{Duclox}
+Víctor \textsc{Frison}\\
+Julio \textsc{Echevarría}\\
+José \textsc{Ducloux}
 \end{flushright}
 \end{minipage}
 \vfill
@@ -311,67 +315,136 @@ al no existir ningún canal habilitado, no puede ofrecer información
 alguna. 
 \end{multicols}
 
-\subsubsection{Configurar dos canales analógicos}
+A continuación se presentan diferentes configuraciones sobre el módulo
+XBee montado en la placa XBoard.
+
+\subsubsection{Configurar canales analógicos}
+
+En el código \ref{code:2adc} se configuran los canales \texttt{DIO0}
+y \texttt{DIO1} como analógicos. El último parámetro define este
+comportamiento. Luego de guardar la configuración se envía el comando
+\texttt{ATIS} para tener la configuración final de todos los
+canales. Aquí se puede ver en la línea \textbf{13} no se tiene ningún
+canal digital. y en las líneas \textbf{15} y \textbf{16} se ven los
+valores de los ADC correspondientes a los canales \texttt{DIO0} y
+\texttt{DIO1}.
+
+\begin{lstlisting}[emph={+++,ATIS,ATD02,ATD12,ATWR,ATAC},
+    emphstyle={\color{blue}},caption={Configuración de dos canales
+      analógicos.},label=code:2adc]
+    +++OK
+    ATD02
+    OK
+    ATD12
+    OK
+    ATAC
+    OK
+    ATWR
+    OK
+    ATIS
+    01
+    0000
+    03
+    0268
+    0208
+\end{lstlisting}  
+
+\subsubsection{Configurar canales digitales}
+En el caso del código \ref{code:2do} se configuran los canales
+\texttt{DIO2} y \texttt{DIO5} como salida. La elección de estos
+canales se debe al circuito implementado por la placa XBoard. El
+parámetro adicional en los comandos \textbf{3} y \textbf{5} es el
+estado digital que se le asignará. El número \texttt{4} aplica un
+valor \emph{bajo} mientras que el valor \texttt{5} define un estado
+en \emph{alto}.  Al igual que en el caso anterior, el comando
+\texttt{ATIS} muestra los estados de los puertos habilitados, en este
+caso no tenemos entradas analógicas por lo tanto en la línea
+\textbf{14} tenemos 0. 
+
+\begin{lstlisting}[emph={+++,ATIS,ATD25,ATD55,ATWR,ATAC},
+    emphstyle={\color{blue}}, caption={Configuración de dos salidas
+      digitales en alto.}, label=code:2do]
+    +++OK
+    ATD25
+    OK
+    ATD55
+    OK
+    ATAC
+    OK
+    ATWR
+    OK
+    ATIS
+    01
+    0024
+    00
+    0024
+\end{lstlisting}  
+
+Este último caso muestra la configuración de dos canales digitales de
+entrada. La diferencia con el caso anterior es el parámetro
+asignado. En las líneas \textbf{3} y \textbf{5} el parámetro es
+\texttt{3} que configura los canales \texttt{DIO2} y \texttt{DIO4}
+como entradas digitales. 
+
+\begin{lstlisting}[emph={+++,ATIS,ATD23,ATD43,ATWR,ATAC},
+    emphstyle={\color{blue}}, caption={Configuración de dos entradas
+      digitales.}, label=code:2di]
+    +++OK
+    ATD23
+    OK
+    ATD43
+    OK
+    ATAC
+    OK  
+    ATWR
+    OK
+    ATIS
+    01
+    0014
+    00
+    0014
+\end{lstlisting}  
+
+\subsubsection{Configuración combinada de la XBoard}
+
+Finalmente configuraremos la placa XBoard con todos los modos
+anteriormete vistos. Los comandos aplicados desde la línea \textbf{2}
+hasta la \textbf{12} ya fueron descritos. Como respuesta al comando
+\texttt{ATIS} se puede ver todos los canales digitales habilitados
+(\texttt{003C}). Mientras que se tiene tres canales analógicos
+\texttt{03} y sus respectivos valores en las líneas \textbf{22},
+\textbf{23} y \textbf{24}.
+
+\begin{lstlisting}[emph={+++,ATIS,ATD02,ATD12,ATD25,ATD55,ATD33,ATD43,ATWR,ATAC},
+emphstyle={\color{blue}}, caption={Configuración de todos los canales
+analógicos y digitales en la placa XBoard.},label=code:completo]
+  +++OK
+  ATD02
+  OK
+  ATD12
+  OK
+  ATD25
+  OK
+  ATD55
+  OK
+  ATD33
+  OK
+  ATD43
+  OK
+  ATAC
+  OK
+  ATWR
+  OK
+  ATIS
+  01
+  003C
+  02
+  003C
+  0264
+\end{lstlisting}  
 
 \section{Ejercitación en modo API}
 \label{sec:API}
-
-
-En la Sección \ref{sec:intro-des} se listó los requerimientos del
-proyecto. Una tarea del RTOS debía ser la encargada de realizar la
-lectura de una señal analógica cada 100 Hz. Las características para
-esta tarea se definen en el lenguaje OIL.
-\begin{lstlisting}[numbers=left,title=Declaración del objeto
-\texttt{Analogic} en el lenguaje OIL, frame=single]
-TASK Analogic {
-    PRIORITY = 1;
-    ACTIVATION = 1;
-    STACK = 512;
-    TYPE = EXTENDED;
-    SCHEDULE = FULL;
-    RESOURCE = POSIXR;
-    EVENT = POSIXE;
-    AUTOSTART = TRUE {
-       APPMODE = AppMode1;
-       ALARMTIME = 1;
-       CYCLETIME = 1;
-    }
-}
-
-RESOURCE = POSIXR;
-EVENT = POSIXE;
-
-ALARM AnalogicAlarm {
-    COUNTER = SoftwareCounter;
-    ACTION = ACTIVATETASK {
-        TASK = Analogic;
-    }
-}
-\end{lstlisting}
-La periodicidad del evento se
-configura en el archivo \texttt{main.c} del proyecto. En la línea
-\textbf{20} se define la base de tiempo será un contador generado por
-el OS es decir \texttt{SoftwareCounter}.
-
-\begin{lstlisting}[numbers=left,title=Código de la tarea
-\texttt{Analogic} en el \texttt{main.c}, frame=single]
-TASK(Analogic)
-{
-   uint16_t hr_ciaaDac;
-   uint8_t outputs;
-
-   /* Read ADC. */
-   ciaaPOSIX_read(fd_adc, &hr_ciaaDac, sizeof(hr_ciaaDac));
-
-   /* Signal gain. */
-   hr_ciaaDac >>= 0;
-
-   /* Write DAC */
-   ciaaPOSIX_write(fd_dac, &hr_ciaaDac, sizeof(hr_ciaaDac));
-
-   TerminateTask();
-}
-\end{lstlisting}
 
 \section{Conclusiones}
 \label{sec:conc}
