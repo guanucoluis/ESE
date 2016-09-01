@@ -286,7 +286,7 @@ deshabilitarán todos los canales de forma tal que el módulo quede sin
 ningún GPIO en uso. Sí la configuración es tal como la descrita
 anteriormente, se deben aplicar los comandos siguientes.
 
-\begin{multicols}{2}
+\noindent\begin{minipage}{.25\textwidth}
 \begin{lstlisting}[emph={+++,ATIS,ATD00,ATD10,ATD20,ATWR,ATAC}, emphstyle={\color{blue}}]
 +++OK
 ATD00
@@ -302,7 +302,8 @@ OK
 ATIS
 ERROR
 \end{lstlisting}
-
+\end{minipage} \hfill
+\begin{minipage}{.70\textwidth}
 Para deshabilitar un canal digital/analógico se debe simplemente pasar
 como último argumento el valor \texttt{0}. Esto se aplica a los
 canales \texttt{DIO0}, \texttt{DIO1} y \texttt{DIO2}. Los comandos que
@@ -313,25 +314,16 @@ cambios se envía el comando \texttt{ATIS} y se tiene como respuesta
 \texttt{ERROR} esto no se debe a un problema de comunicación sino que
 al no existir ningún canal habilitado, no puede ofrecer información
 alguna. 
-\end{multicols}
+\end{minipage}
 
 A continuación se presentan diferentes configuraciones sobre el módulo
 XBee montado en la placa XBoard.
 
 \subsubsection{Configurar canales analógicos}
 
-En el código \ref{code:2adc} se configuran los canales \texttt{DIO0}
-y \texttt{DIO1} como analógicos. El último parámetro define este
-comportamiento. Luego de guardar la configuración se envía el comando
-\texttt{ATIS} para tener la configuración final de todos los
-canales. Aquí se puede ver en la línea \textbf{13} no se tiene ningún
-canal digital. y en las líneas \textbf{15} y \textbf{16} se ven los
-valores de los ADC correspondientes a los canales \texttt{DIO0} y
-\texttt{DIO1}.
-
+\noindent\begin{minipage}{.35\textwidth}
 \begin{lstlisting}[emph={+++,ATIS,ATD02,ATD12,ATWR,ATAC},
-    emphstyle={\color{blue}},caption={Configuración de dos canales
-      analógicos.},label=code:2adc]
+    emphstyle={\color{blue}},caption={Canales analógicos.},label=code:2adc]
     +++OK
     ATD02
     OK
@@ -348,6 +340,17 @@ valores de los ADC correspondientes a los canales \texttt{DIO0} y
     0268
     0208
 \end{lstlisting}  
+\end{minipage}\hfill
+\begin{minipage}{.60\textwidth}
+En el código \ref{code:2adc} se configuran los canales \texttt{DIO0}
+y \texttt{DIO1} como analógicos. El último parámetro define este
+comportamiento. Luego de guardar la configuración se envía el comando
+\texttt{ATIS} para tener la configuración final de todos los
+canales. Aquí se puede ver en la línea \textbf{13} no se tiene ningún
+canal digital. y en las líneas \textbf{15} y \textbf{16} se ven los
+valores de los ADC correspondientes a los canales \texttt{DIO0} y
+\texttt{DIO1}.
+\end{minipage}
 
 \subsubsection{Configurar canales digitales}
 En el caso del código \ref{code:2do} se configuran los canales
@@ -361,9 +364,16 @@ en \emph{alto}.  Al igual que en el caso anterior, el comando
 caso no tenemos entradas analógicas por lo tanto en la línea
 \textbf{14} tenemos 0. 
 
+El código \ref{code:2di}  muestra la configuración de dos canales
+digitales de entrada. La diferencia con el caso anterior es el
+parámetro asignado. En las líneas \textbf{3} y \textbf{5} el parámetro
+es \texttt{3} que configura los canales \texttt{DIO2} y \texttt{DIO4}
+como entradas digitales. 
+
+\noindent\begin{minipage}{.45\textwidth}
 \begin{lstlisting}[emph={+++,ATIS,ATD25,ATD55,ATWR,ATAC},
-    emphstyle={\color{blue}}, caption={Configuración de dos salidas
-      digitales en alto.}, label=code:2do]
+    emphstyle={\color{blue}}, caption={Dos salidas
+      en alto.}, label=code:2do]
     +++OK
     ATD25
     OK
@@ -379,16 +389,11 @@ caso no tenemos entradas analógicas por lo tanto en la línea
     00
     0024
 \end{lstlisting}  
-
-Este último caso muestra la configuración de dos canales digitales de
-entrada. La diferencia con el caso anterior es el parámetro
-asignado. En las líneas \textbf{3} y \textbf{5} el parámetro es
-\texttt{3} que configura los canales \texttt{DIO2} y \texttt{DIO4}
-como entradas digitales. 
-
+\end{minipage}\hfill
+\begin{minipage}{.45\textwidth}
 \begin{lstlisting}[emph={+++,ATIS,ATD23,ATD43,ATWR,ATAC},
-    emphstyle={\color{blue}}, caption={Configuración de dos entradas
-      digitales.}, label=code:2di]
+    emphstyle={\color{blue}}, caption={Dos entradas},
+ label=code:2di]
     +++OK
     ATD23
     OK
@@ -404,20 +409,13 @@ como entradas digitales.
     00
     0014
 \end{lstlisting}  
+\end{minipage}
 
 \subsubsection{Configuración combinada de la XBoard}
 
-Finalmente configuraremos la placa XBoard con todos los modos
-anteriormete vistos. Los comandos aplicados desde la línea \textbf{2}
-hasta la \textbf{12} ya fueron descritos. Como respuesta al comando
-\texttt{ATIS} se puede ver todos los canales digitales habilitados
-(\texttt{003C}). Mientras que se tiene tres canales analógicos
-\texttt{03} y sus respectivos valores en las líneas \textbf{22},
-\textbf{23} y \textbf{24}.
-
+\noindent\begin{minipage}{.35\textwidth}
 \begin{lstlisting}[emph={+++,ATIS,ATD02,ATD12,ATD25,ATD55,ATD33,ATD43,ATWR,ATAC},
-emphstyle={\color{blue}}, caption={Configuración de todos los canales
-analógicos y digitales en la placa XBoard.},label=code:completo]
+emphstyle={\color{blue}}, caption={GPIO de la placa XBoard.},label=code:completo]
   +++OK
   ATD02
   OK
@@ -442,9 +440,34 @@ analógicos y digitales en la placa XBoard.},label=code:completo]
   003C
   0264
 \end{lstlisting}  
-
+\end{minipage}\hfill
+\begin{minipage}{.60\textwidth}
+Finalmente configuraremos la placa XBoard con todos los modos
+anteriormente vistos. Los comandos aplicados desde la línea \textbf{2}
+hasta la \textbf{12} ya fueron descritos. Como respuesta al comando
+\texttt{ATIS} se puede ver todos los canales digitales habilitados
+(\texttt{003C}). Mientras que se tiene dos canales analógicos
+\texttt{02} y sus respectivos valores en las líneas \textbf{22} y
+\textbf{23}.
+\end{minipage}
 \section{Ejercitación en modo API}
 \label{sec:API}
+\newpage{}
+
+\section{Enlaces entre módulos XBee}
+\label{sec:enlace}
+
+Ya se mostraron en las secciones anteriores las diferentes formas de
+manipular los módulos XBee. En esta sección se desarrollarán pruebas
+de enlace de los módulos. Las características de radio frecuencia no
+son objeto de estudio, se busca evaluar las virtudes en la red que
+implementa el estándar 802.15.4. Se utilizará la topología más
+sencilla del alcance de las redes Zigbee. Se implementará un
+\emph{Coordinador} y los demás serán configurados como
+\emph{Dispositivos finales}.
+
+
+
 
 \section{Conclusiones}
 \label{sec:conc}
