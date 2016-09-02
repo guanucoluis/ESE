@@ -12,6 +12,10 @@
 \usepackage{xcolor}
 \usepackage{multicol}
 \usepackage{pdfpages}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{lineno}
+
 
 %%%%%%%%%%%%%%%%%%%%
 % Nuevos comandos  %
@@ -208,10 +212,122 @@ en modo API con los módulos sobre una red ZigBee completa. Se
 documentarán todos las implementaciones y por último se presentará una
 conclusión sobre lo hecho.
 
-\section{Análisis de enlaces}
-\label{sec:enlace}
+\section{C\'alculo de enlace y modelos de propagaci\'on}
+\label{S:1}
 
-Completar con lo de santiago.
+El dise\~no de un radioenlace implica toda una serie de c\'alculos que pueden resultar sencillos o complicados, dependiendo de las caract\'eristicas del sistema y del tipo de problema al que nos enfrentemos.
+
+Es por ello que podemos dividir la propagaci\'on de la se\~nal de acuerdo al entorno donde esta viaje: 
+
+\begin{itemize}
+\item Espacios abiertos 
+\item Entornos cerrados
+\end{itemize}
+
+
+\subsection{Distancia m\'axima en espacios abiertos}
+
+ La comunicaci\'on "outdoor" en este problema se asume en un entorno de propagaci\'on libre, donde no existen p\'erdidas atmosf\'ericas, de polarizaci\'on y de desadaptaci\'on de impedancias, es decir, operamos en regiones descubiertas. 
+ 
+% \begin{figure}[h]
+% 	%\DeclareGraphicsExtensions{.pdf,.png,.jpg,.ppm}
+% 	\centering\includegraphics[width=0.8\linewidth]{Image}
+% 	\caption{Primer zona de Fresnel}
+% \end{figure}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l l l}
+\hline
+\textbf{Modo de funcionamiento} & \textbf{Normal} & \textbf{Boost}\\
+\hline
+Potencia de Tx & +5dBm(3.1mW) & +8dBm(6.3mW) \\
+Sensibilidad de Rx & -100dBm & -102dBm\\
+\hline
+\end{tabular}
+\caption{Technical review Xbee ZB}
+\end{table}
+Para los c\'alculos siguientes se tomar\'an los datos de funcionamiento en modo "Normal".
+
+Partiendo de la ecuaci\'on de Friis
+
+%\begin{equation}
+%\label{Ecuaci\'on de Friis}
+
+%Pr = \frac{Pt Gt Gr \lambda ^{2}}{(4\pi R)^2}
+
+%\end{equation}
+
+\begin{equation*}
+\label{Ec:Friis}
+Pr = \frac{Pt Gt Gr \lambda ^{2}}{(4\pi d)^2}
+\end{equation*}
+Siendo Pr (Potencia recibida), Pt(Potencia transmitida), Gt(Ganancia de antena tx), Gr(Ganancia de antena rx), $\lambda$(longitud de onda) y d(distancia radial entre antenas).
+
+Podemos despejar la atenuaci\'on de espacio libre, tambi\'en conocida como p\'erdida de trayectoria.
+\begin{equation*}
+\label{Ec:perdida}
+P_{Loss}[dB] = 94.4 + 20 \log_{10}d [Km] + 20 \log_{10}f [GHz] - Gt[dBi] - Gr[dBi]
+\end{equation*}
+	Y de esta despejar la m\'axima distancia
+\begin{equation*}
+\label{Ec:distancia}
+d[Km] = 10^{\frac{P_{Loss} + Gt + Gr - 20 \log_{10}f - 92.4}{20}}
+\end{equation*}
+$P_{Loss}=Gt[dBm] - Gr[dBm] = +5dBm - (-100dBm) = 105dBm$
+$f = 2.4 [GHz]$
+Las ganancias Gr[dBi] y Gr[dBi] se toman como valor cero por ser antenas omnidireccionales.
+\begin{equation*}
+\label{Ec:distancia1}
+d[Km] = 10^{\frac{105 dBm - 20 \log_{10}2.4 - 92.4}{20}} = 1.77 [Km] =1770m
+\end{equation*}	
+Con la m\'axima distancia $d$ del radioenlace, calculamos la altura $r$ de las antenas. Para ello nos valemos de las f\'ormulas del primer elipsoide de Fresnel, esto es determinando la zona libre de obstaculos.
+\begin{equation*}
+\label{Ec:fresnel}
+r = F1(m) = 17.32 \sqrt{\frac{(d[Km]/2)^2}{d[Km]f[GHz]}} = 17.32 \sqrt{\frac{(1.77Km/2)^2}{1.77Km2.4GHz}} = 7.43m
+\end{equation*}	
+
+Por lo tanto la altura de las antenas, es decir para establecer una comunicaci\'on punto a punto a distancia m\'axima $d=1.77Km$ entre 2 XBee es de $r=7.43$ en la zona libre de obstaculos.
+
+\subsection{Distancia m\'axima en entornos cerrados}
+
+La propagaci\'on "indoor" difiere respectos a los sistemas "outdoor". Para asegurar una eficiente comunicaci\'on interior, la ITU a llevado una serie de propuestas para el caso de comunicaciones punto a punto. Debido a que en una comunicaci\'on en entornos cerrados esta muy influenciada por la geometr\'ia del lugar y los objetos en ella. Tanto estos objetos y la construcci\'on de la misma, ocasionan p\'erdidas por reflexiones, dispersi\'on y absorci\'on de las se\~nales RF.  
+
+\begin{figure}[h]
+%\centering\includegraphics[width=0.4\linewidth]{placeholder}
+\caption{Figure caption}
+\end{figure}
+
+\subsubsection{C\'alculo Planta alta}
+Para el c\'alculo de m\'axima distancia, como lo indica la figura. Nos valdremos de la f\'ormula de "path loss"
+\begin{equation*}
+\label{eq:pathLoss}
+L_{Loss}[dB] = L_{do}[dB] + N \log_{10}d/do + Lf_{n}[dB]
+\end{equation*}
+Donde $N$(Coef. de p\'erdida), $f$(Frecuencia en Mhz),$d$(Distancia entre base y terminal), $L_{do}$(P\'erdida a do), $L_{f}$(Atenuaci\'on trav\'es del piso), $d0$(distancia de ref=1m) y $n$(nro de pisos entre terminal y base).
+En nuestro caso particular al igual que en el caso anterior, calculamos la m\'axima atenuaci\'on:
+$L_{Loss}= Gt - Gr = +5dBm - (-100dBm) = 105dBm$
+$N=28$ Por dato de tabla (Espacio residencial a 2.4GHz).
+$L_{do} = 20 \log_{10}f[MHz] - 28 = 39.6dB$
+$Lf_{n} = 0$ Por ser un mismo piso.
+Despejando d
+\begin{equation*}
+\label{eq:calculod}
+d[m] = 10 ^{\frac{L_{Loss}[dB] - L_{do}[dB] - L_{f}[dB]}{N}} 
+d[m] = 10 ^{\frac{105dBm - 39.6dB - 0}{28}} = 216.62m
+\end{equation*}
+Entonces en un piso la distancia m\'axima de transmisi\'on es $d=216.62m$
+
+\subsubsection{C\'alculo de comunicaci\'on entre Planta alta y baja}
+En este caso la m\'axima distancia $d$, ser\'a influenciada por la atenuaci\'on del piso, como separaci''on de los dos ambientes. Por lo tanto $L_{f}[dB]=5$ dado por el cuadro. La distancia m\'axima ser\'a.
+\begin{equation*}
+\label{eq:calculod}
+d[m] = 10 ^{\frac{L_{Loss}[dB] - L_{do}[dB] - L_{f}[dB]}{N}} 
+d[m] = 10 ^{\frac{105dBm - 39.6dB - 5}{28}} = 143.59m
+\end{equation*}
+Se puede notar aqu\'i, que el valor de $d$ distancia m\'axima es
+reducido por esta atenuaci\'on. Siendo el valor de $d=143.59m$ para
+comunicaciones entre dos pisos.
 
 \section{Ejercitación en modo AT}
 \label{sec:AT}
@@ -464,10 +580,178 @@ son objeto de estudio, se busca evaluar las virtudes en la red que
 implementa el estándar 802.15.4. Se utilizará la topología más
 sencilla del alcance de las redes Zigbee. Se implementará un
 \emph{Coordinador} y los demás serán configurados como
-\emph{Dispositivos finales}.
+\emph{Dispositivos finales}. En la Figura \ref{xbee-red} se presenta
+una red de módulos XBee en las que se puede ver las diferentes
+roles que pueden asumir estos dispositivos. A parte de los dos modos
+anteriormente nombrados se puede configurar en modo \emph{router} que
+permite extender la red. 
 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=.8\textwidth]{img/xbee-topo}
+  \caption{Red de módulos XBee con sus diferentes configuraciones.}
+  \label{fig:xbee-red}
+\end{figure}
 
+\subsection{Asignación de Identificador y Función de los módulos}
 
+Antes de comenzar con la configuración de la red, se definirá a uno de
+los módulos como coordinador y los demás como dispositivos
+finales. Además proporcionaremos un nombre para identificarlos a cada
+uno ellos. En la línea \textbf{4} del código
+\ref{code:coordinador-id}  se habilita el modo coordinador y luego se
+asigna el nombre \texttt{COORDINADOR} al módulo (línea \textbf{8}.
+ Como en los casos anteriores, seimpre se debe aplicar los cambios (\texttt{ATAC}) y
+finalmente escribir en la memoria no-volatil (\texttt{ATWR}).
+\begin{lstlisting}[emph={+++,ATCE,ATCE1,ATWR,ATAC,ATNI,ATCOORDINADOR},
+    emphstyle={\color{blue}}, caption={Obtención del \textsl{seral
+number}.}, label=code:coordinador-id]
++++OK
+ATCE
+0
+ATCE1
+OK
+ATCE
+1
+ATNICOORDINADOR
+OK
+ATNI
+COORDINADOR
+ATAC
+OK
+ATWR
+OK
+\end{lstlisting}  
+
+\subsection{Configuración de la red de área personal}
+
+Las redes ZigBee se las llaman PANs (\textsl{Personal Area
+  Networks}). Cada red es definida con un único identificador PAN, por
+lo que todos los dispositivos que quieran pertenecer a la red deben
+tener el mismo \texttt{ID PAN}. 
+
+ZigBee soporta tanto PAN ID de 16 a 64 bits. Ambos PAN IDs son
+utilizados como único identificador de la red. Los dispositivos que
+quieran integrar la misma red deberán compartir el mismo PAN IDs. 
+
+En el código \ref{code:pan-id} se asigna el PAN ID \texttt{260816} al
+módulo coodinador y será el mismo que utilizarán los demás
+dispositivos para conectarse a la red ZigBee. En la línea \textbf{2}
+se solicita el actual PAN ID y el módulo responde \texttt{0}. Luego se
+aplica el identificador \texttt{260816}, se utilizan solo 24 de los
+los 64 bits disponibles. 
+
+\begin{lstlisting}[emph={+++,ATWR,ATAC,ATID,ATID260816},
+    emphstyle={\color{blue}}, caption={Obtención del \textsl{seral
+number}.}, label=code:coordinador-id]
++++OK
+ATID
+0
+ATID260816
+OK
+ATID
+260816
+ATAC
+OK
+ATWR
+OK
+\end{lstlisting}  
+
+\subsection{Número de serie (identificador)  los módulos}
+\label{sec:id}
+
+Cada módulo XBee tiene una número de serie de 64 bits
+(\textsl{extended address}) grabado en el \textsl{hardware} por el
+fabricante\footnote{Recuerde que también los XBee tienen un
+  direccionamiento de 16 bits. Para mayor información ver la
+  bibliografía.}. Mediante los comandos AT se puede obtener
+esta dirección en dos partes. Los comandos \texttt{ATSH} y
+\texttt{ATSL} devuelven la parte alta y baja respectivamente. Estos
+valores se utilizan para la configuración de la red Zigbee (junto a
+los valores de  los demás módulos). En
+el código \ref{code:get-id}  se muestra cómo obtener el número de serie
+del dispositivo al que se encuentra conectado el terminal
+serial. 
+\begin{lstlisting}[emph={+++,ATSH,ATSL},
+    emphstyle={\color{blue}}, caption={Obtener el \textsl{serial
+        number} del módulo XBee},
+ label=code:get-id]
++++OK
+ATSH
+13A200
+ATSL
+41257816
+\end{lstlisting}
+
+\subsection{Configuración de direccionamiento de los dispositivos en
+  una red ZigBee}
+
+En la sección anterior se mostró como obtener las identificaciones de
+cada módulo. Esta información se utiliza para mapear la red a
+implementar. Se recuerda que la topología utilizada en estos
+prácticos, se tendrá un coordinador y varios dispositivos finales que
+proporcionarán información al primero. En este caso el coordinador
+configura su dirección de destino al único (por el momento)
+dispositivo conectado, código \ref{code:coord-dest}. Se cargan la
+parte alta (\texttt{ATDH13A200}) y la baja (\texttt{ATDL4125768A}) con
+los valores propios del dispositivo final al que se conectará el
+coordinador. En forma recíproca se debe cargar el identificador del
+coordinador como dirección de destino del único dispositivo final
+conectado a la red. Esto último se muestra en el código
+\ref{code:end-dest}. Para mejor entendimiento de los códigos de
+configuración se solicita antes a los módulos responder el nombre que
+identifica a los módulos y sus respectivos números de serie. Al final
+se guardan todos los cambios realizados.
+
+\noindent\begin{minipage}{.45\textwidth}
+\begin{lstlisting}[emph={+++,ATWR,ATAC,ATNI,ATSH,ATSL,ATDH13A200,ATDL4125768A},
+emphstyle={\color{blue}}, caption={Destino del coordinador.},label=code:coord-dest]
++++OK
+ATNI
+COORDINADOR
+ATSH
+13A200
+ATSL
+41257816
+ATDH13A200
+OK
+ATDL4125768A
+OK
+ATAC
+OK
+ATWR
+OK
+\end{lstlisting}  
+\end{minipage}\hfill
+\begin{minipage}{.45\textwidth}
+\begin{lstlisting}[emph={+++,ATWR,ATAC,ATSH,ATNI,ATSL,ATDH13A200,ATDL41257816},
+emphstyle={\color{blue}}, caption={Destino del coordinador.},label=code:end-dest]
++++OK
+ATNI
+DISPOSITIVO1
+ATSH
+13A200
+ATSL
+4125768A
+ATDH13A200
+OK
+ATDL41257816
+OK
+ATAC
+OK
+ATWR
+OK
+\end{lstlisting}  
+\end{minipage}
+
+\subsection{Comunicación entre computadoras mediante módulos XBee}
+
+Con los módulos configurados anteriormente para establecer una
+comunicación punto a punto, se probará el enlace entre los módulos
+comunicando ambos módulos entre sí mediante un terminal de
+computadora. Es decir, se utilizarán dos computadoras conectando sus
+respectivos puertos seriales (RS232) a cada módulo XBee ya
+configurados. 
 
 \section{Conclusiones}
 \label{sec:conc}
