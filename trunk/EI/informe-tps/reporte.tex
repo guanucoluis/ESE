@@ -15,7 +15,8 @@
 \usepackage{amssymb}
 \usepackage{mathtools}
 \usepackage{lineno}
-
+\usepackage{caption}
+\usepackage{subcaption}
 
 %%%%%%%%%%%%%%%%%%%%
 % Nuevos comandos  %
@@ -751,7 +752,37 @@ comunicación punto a punto, se probará el enlace entre los módulos
 comunicando ambos módulos entre sí mediante un terminal de
 computadora. Es decir, se utilizarán dos computadoras conectando sus
 respectivos puertos seriales (RS232) a cada módulo XBee ya
-configurados. 
+configurados. A continuación se presentan las capturas de pantalla de
+dos terminales. En la Figura \ref{fig:term-coord} se muestran la
+consola de XCTU del coordinador. Mientras que en la Figura
+\ref{fig:term-end} se ven los mensajes recibidos desde el terminal del
+dispositivo conectado a la red ZigBee (\texttt{DISPOSITIVO 1}).
+
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}{0.8\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{img/terminal-coord}
+    \caption{Consola con el módulo coordinador.}
+    \label{fig:term-coord}
+  \end{subfigure}
+  % --
+  \begin{subfigure}{0.8\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{img/terminal-dispo}
+    \caption{Consola con el módulo conectado a la red.}
+    \label{fig:term-end}
+  \end{subfigure}
+  % --
+  \caption{Captura de pantalla de las consolas utilizando XCTU.}
+  \label{fig:terminales}
+\end{figure}
+
+\section{Control remoto de los módulos XBee}
+\label{sec:remoto}
+
+En modo API las opciones 
+
 
 \section{Conclusiones}
 \label{sec:conc}
