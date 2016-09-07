@@ -781,8 +781,66 @@ dispositivo conectado a la red ZigBee (\texttt{DISPOSITIVO 1}).
 \section{Control remoto de los módulos XBee}
 \label{sec:remoto}
 
-En modo API las opciones 
+En la Sección \ref{TODO} se realizaron pruebas de los módulos en modo
+API. Este modo introduce complejidad pues debe generarse una trama
+específica pero de esta forma se logra mayores prestaciones por parte
+de los módulos. 
 
+En el siguiente ejemplo se describirá el mecanismo por el cual se
+configura el comportamiento de un módulo XBee en forma remota desde
+otro. Los módulos debe estar ya configurados como se describió
+anteriormente. Se utilizará el \emph{Generador de Frames}, aplicativo
+del software XCTU. 
+
+En la Figura \ref{fig:remotos-dio5} se capturan la generación de
+comandos enviados desde el módulo coordinador a uno de sus
+dispositivos conectados. Primero se releva el estado del módulo, esto
+con el comando \texttt{ATIS} (Fig. \ref{fig:remoto-atis}). Aquí se
+ingresa la dirección destino del módulo al que se le enviará el
+comando. Luego de chequear el estado de los puertos se enviará un
+comando para asignar un estado bajo al puerto \texttt{DIO5}
+(Fig. \ref{fig:remoto-atd54}). De la misma forma, se envía un comando
+al puerto 5 con el cambio de estado \texttt{ATD55}
+(Fig. \ref{fig:remoto-atd55}).
+
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}{0.3\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{img/remoto-atis}
+    \caption{Comando \texttt{ATIS}.}
+    \label{fig:remoto-atis}
+  \end{subfigure}
+  % -- 
+  \hfill
+  \begin{subfigure}{0.3\textwidth}
+    \centering
+    \includegraphics[width=.86\textwidth]{img/remoto-td54}
+    \caption{Comando \texttt{ATD54}.}
+    \label{fig:remoto-atd54}
+  \end{subfigure}
+  % --
+  \hfill
+  \begin{subfigure}{0.3\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{img/remoto-atd55}
+    \caption{Comando \texttt{ATD55}.}
+    \label{fig:remoto-atd55}
+  \end{subfigure}
+  % --
+  \caption{Comandos remotos desde un módulo a otro.}
+  \label{fig:remotos-dio5}
+\end{figure}
+
+Los comandos AT se encuentran concatenados con los caracteres propios
+de la trama definida por el API. Por lo tanto, la clave es las
+funcionalidades y prestaciones del \textsl{interface}. Se podría enviar los
+mismos comandos AT de la Sección \ref{sec:AT} sin problemas. Pues la
+trama API identifica qué tipo de información se está enviando.
+
+
+\section{Librería \texttt{xbee-arduino}}
+\label{sec:lib-xbe-ano}
 
 \section{Conclusiones}
 \label{sec:conc}
