@@ -228,7 +228,7 @@ Es por ello que podemos dividir la propagaci\'on de la se\~nal de acuerdo al ent
 
 \subsection[Distancias]{Distancia m\'axima en espacios abiertos}
 
- La comunicaci\'on "outdoor" en este problema se asume en un entorno de propagaci\'on libre, donde no existen p\'erdidas atmosf\'ericas, de polarizaci\'on y de desadaptaci\'on de impedancias, es decir, operamos en regiones descubiertas. 
+ La comunicaci\'on ``outdoor'' en este problema se asume en un entorno de propagaci\'on libre, donde no existen p\'erdidas atmosf\'ericas, de polarizaci\'on y de desadaptaci\'on de impedancias, es decir, operamos en regiones descubiertas. 
  
 \begin{figure}[h]
 	%\DeclareGraphicsExtensions{.pdf,.png,.jpg,.ppm}
@@ -248,7 +248,7 @@ Sensibilidad de Rx & -100dBm & -102dBm\\
 \end{tabular}
 \caption{Technical review Xbee ZB}
 \end{table}
-Para los c\'alculos siguientes se tomar\'an los datos de funcionamiento en modo "Normal".
+Para los c\'alculos siguientes se tomar\'an los datos de funcionamiento en modo ``Normal''.
 
 Partiendo de la ecuaci\'on de Friis
 
@@ -292,7 +292,7 @@ Por lo tanto la altura de las antenas, es decir para establecer una comunicaci\'
 
 \subsection{Distancia m\'axima en entornos cerrados}
 
-La propagaci\'on "indoor" difiere respectos a los sistemas "outdoor". Para asegurar una eficiente comunicaci\'on interior, la ITU a llevado una serie de propuestas para el caso de comunicaciones punto a punto. Debido a que en una comunicaci\'on en entornos cerrados esta muy influenciada por la geometr\'ia del lugar y los objetos en ella. Tanto estos objetos y la construcci\'on de la misma, ocasionan p\'erdidas por reflexiones, dispersi\'on y absorci\'on de las se\~nales RF.  
+La propagaci\'on ``indoor'' difiere respectos a los sistemas ``outdoor''. Para asegurar una eficiente comunicaci\'on interior, la ITU a llevado una serie de propuestas para el caso de comunicaciones punto a punto. Debido a que en una comunicaci\'on en entornos cerrados esta muy influenciada por la geometr\'ia del lugar y los objetos en ella. Tanto estos objetos y la construcci\'on de la misma, ocasionan p\'erdidas por reflexiones, dispersi\'on y absorci\'on de las se\~nales RF.  
 
 \begin{figure}[h]
 %\centering\includegraphics[width=0.4\linewidth]{placeholder}
@@ -300,7 +300,7 @@ La propagaci\'on "indoor" difiere respectos a los sistemas "outdoor". Para asegu
 \end{figure}
 
 \subsubsection{C\'alculo Planta alta}
-Para el c\'alculo de m\'axima distancia, como lo indica la figura. Nos valdremos de la f\'ormula de "path loss"
+Para el c\'alculo de m\'axima distancia, como lo indica la figura. Nos valdremos de la f\'ormula de ``path loss''
 \begin{equation*}
 \label{eq:pathLoss}
 L_{Loss}[dB] = L_{do}[dB] + N \log_{10}d/do + Lf_{n}[dB]
@@ -342,7 +342,7 @@ ASCII para notificar al \textsl{host}  que un le sigue un comando.
 En el caso de los módulos XBee desarrollados por Digi, implementa un
 set de comandos propieratrios para interactuar con los módulos de
 Digi a través de una comunicación serial. Basado en el set de comandos
-AT, Dii usa los caracteres \texttt{AT} antes de cada comando enviado
+AT, Digi usa los caracteres \texttt{AT} antes de cada comando enviado
 al modem. Un ejemplo de un comando utilizado por el radio Digi XBee
 podría ser \texttt{ATCH}. Este comando es usado para leer o setear el
 canal que un radio XBeee es configurado\cite{at-cmds}.
@@ -379,7 +379,7 @@ los canales digitales y la línea \textbf{6} canales analógicos. Para
 entender se debe analizar a nivel de bits cada una de las
 respuestas. Recuerde que los valores representados están en
 hexadecimal. En el primer se tiene $0006_{HEX} =
-000000000000110_{BIN}"$ por lo los canales \texttt{DIO1} y
+000000000000110_{BIN}$ por lo los canales \texttt{DIO1} y
 \texttt{DIO2} se encuentran habilitados y configurados como salidas
 digitales. Mientras que para los canales analógicos tenemos
 $01_{HEX} = 0001_{BIN}$ solo el puerto \texttt{AD0} habilitado. Para
@@ -577,7 +577,7 @@ En modo API el nivel de programación es mayor, pero provee de mayor
 A diferencia del modo transparente, en este modo el módulo XBee espera
 por una secuencia específica de bytes que le indican que tipo de
 operación debería de realizar. Cada uno de estas secuencias se le
-conoce como "frame" o también paquetes. Y dependiendo del contenido de
+conoce como ``frame'' o también paquetes. Y dependiendo del contenido de
 cada paquete se llamará a una función u otra de la API.
 
 De igual manera, el módulo XBee responde con secuencias específicas
@@ -605,7 +605,7 @@ Donde cada parte corresponde a:
   función de la API que se llame.
 \item Byte n+1: La suma de verificación de todos los bytes
   contenidos en el paquete. Esto se utiliza para verificar la
-  "integridad" de los datos recibidos, si la suma no coincide el
+  integridad de los datos recibidos, si la suma no coincide el
   paquete es descartado.
 \end{enumerate}
 
@@ -618,14 +618,16 @@ El contenido del paquete de datos varía en base al comando que se quiera transm
 Configuración Frame ID a '0' desactivará trama de respuesta.
 Donde la estructura tiene la siguiente forma:
 \begin{enumerate}
-	\item Byte 4:Identificador de la API, este código identifica el tipo de comando que queremos ejecutar, para este caso el código 0x01 corresponde a "Transmit Request: 16-Bit Address" o solicitud de transmisión a una dirección de 16 bits.
-	\item Byte 5:Corresponde a un número secuencial del paquete. Para cada envío se recibe un "acuse de recibo" (ACK) este número nos servirá luego para verificar que un paquete que enviamos fue recibido por el destinatario.
+	\item Byte 4:Identificador de la API, este código identifica el
+      tipo de comando que queremos ejecutar, para este caso el código
+      0x01 corresponde a Transmit Request: 16-Bit Address'' o solicitud de transmisión a una dirección de 16 bits.
+	\item Byte 5:Corresponde a un número secuencial del paquete. Para cada envío se recibe un acuse de recibo'' (ACK) este número nos servirá luego para verificar que un paquete que enviamos fue recibido por el destinatario.
 	\item Bytes 6, 7:Corresponden a la dirección del XBee destinatario, se coloca primero el byte más significativo y luego el menos significativo.
 	\item Byte 8:Corresponde a las opciones de envío, si establecemos el bit 0x01 en 1 no se esperará un ACK, mientras que si habilitamos el bit 0x04 se enviará el mensaje con broadcast para todas las redes de área personal (PAN).
 	\item Byte 9-n:Datos a enviar (máximo 100 bytes).
 \end{enumerate}
 \subsection{El modo API 1 y API 2}
-Según la documentación del XBee existen dos modos API, la diferencia entre el modo 1 y el modo 2 es que en el Modo 2 las secuencias de bytes van "escapadas".
+Según la documentación del XBee existen dos modos API, la diferencia entre el modo 1 y el modo 2 es que en el Modo 2 las secuencias de bytes van ``escapadas''.
 
 ¿Qué significa esto? Resulta que el módulo XBee intentará leer el inicio de un paquete siempre encuentre el byte 0x7E, ¿pero qué pasa si este valor se está enviando en algún lugar dentro del paquete? Por ejemplo en el tamaño, o en la misma secuencia de datos.
 
@@ -649,22 +651,22 @@ Quedaría escapado de la siguiente manera:
 Para habilitar el modo API debemos enviar la siguiente secuencia de comandos a nuestra XBee:
 \subsubsection{Modo API 1:}
 \begin{itemize}
-	\item Enviamos "+++" y esperamos confirmaci\'on "OK".
-	\item Enviamos "ATAP1" y esperamos confirmaci\'on "OK"
-	\item Enviamos "ATCN" y esperamos confirmaci\'on "OK"
+	\item Enviamos ``+++'' y esperamos confirmaci\'on ``OK''.
+	\item Enviamos ``ATAP1'' y esperamos confirmaci\'on ``OK''
+	\item Enviamos ``ATCN'' y esperamos confirmaci\'on ``OK''
 \end{itemize}
 \subsubsection{Modo API 2:}
 \begin{itemize}
-	\item Enviamos "+++" y esperamos confirmaci\'on "OK".
-	\item Enviamos "ATAP2" y esperamos confirmaci\'on "OK"
-	\item Enviamos "ATCN" y esperamos confirmaci\'on "OK"
+	\item Enviamos ``+++'' y esperamos confirmaci\'on ``OK''.
+	\item Enviamos ``ATAP2'' y esperamos confirmaci\'on ``OK''
+	\item Enviamos ``ATCN'' y esperamos confirmaci\'on ``OK''
 \end{itemize}
-Una vez el XBee se encuentre en modo API, ignorará todos los datos que no muestren la secuencia correspondiente a una estructura de la API. Esto resulta muy útil ya que podemos imprimir sobre la misma línea Serie donde está conectado el XBee mensajes para "depurar" el funcionamiento y el XBee simplemente los ignorará.
+Una vez el XBee se encuentre en modo API, ignorará todos los datos que no muestren la secuencia correspondiente a una estructura de la API. Esto resulta muy útil ya que podemos imprimir sobre la misma línea Serie donde está conectado el XBee mensajes para ``depurar'' el funcionamiento y el XBee simplemente los ignorará.
 
 Tomen en consideración que los datos recibidos del XBee también presentarán la estructura de la API así que leer los datos requerirá realizar el proceso detallado anteriormente pero a la inversa.
 
 \subsubsection{Ejemplo de mensaje}
-Si quisiéramos enviar el texto "Hello World!" en un broadcast, deberíamos enviar la siguiente secuencia de bytes al XBee:
+Si quisiéramos enviar el texto ``Hello World!'' en un broadcast, deberíamos enviar la siguiente secuencia de bytes al XBee:
 \begin{lstlisting}[emph={0x7E:,0x00:,0x11:,0x01:,0xFF:,0xFF:,0x00:,
 0x48:,0x65:,0x6C:,0x6C:,0x6F:,0x20:,0x57:,0x6F:,0x72:,0x6C:,0x64:,0x21:,
 0xC3}, emphstyle={\color{blue}}, label=code:apiEjempl-id]
@@ -675,7 +677,7 @@ Si quisiéramos enviar el texto "Hello World!" en un broadcast, deberíamos envi
 0x01: Identificación del paquete (cualquier número entre 0x01 y 0xFF)
 0xFF: Byte más significativo dirección destino
 0xFF: Byte menos significativo dirección destino
-0x00: Opciones, "0" utiliza opciones por defecto.
+0x00: Opciones, ``0'' utiliza opciones por defecto.
 0x48: 'H'
 0x65: 'e'
 0x6C: 'l'
@@ -719,7 +721,7 @@ A continuación veremos cómo utilizar el frame generator:
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=.6\textwidth]{img/IMAGEN09.jpg}
-	\caption{"Frame generator" de XCTU}
+	\caption{``Frame generator'' de XCTU}
 \end{figure}
 Dentro del marco de generaci\'on, podemos encontrar varias opciones:
 \begin{itemize}
@@ -800,7 +802,9 @@ Trama API: 7E 00 04 08 01 41 43 72
 	\includegraphics[width=.6\textwidth]{img/IMAGEN15.jpg}
 	\caption{Entradas del GPIO antes de aplicar las tramas API.}
 \end{figure}
-En la esquina inferior derecha veremos un botón verde “Start sequence”, este botón envía los 4 frames directamente y guarda los cambios ocupando los comandos anteriormente mencionados
+En la esquina inferior derecha veremos un botón verde ``Start
+sequence'', este botón envía los 4 frames directamente y guarda los
+cambios ocupando los comandos anteriormente mencionados. 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=.6\textwidth]{img/IMAGEN16.jpg}
@@ -888,7 +892,7 @@ RX (Receive) Packet 16-bit Address IO (API 1)
 7E 00 0E 83 00 00 00 00 01 06 0C 00 0C 03 FF 03 FF 59
 Start delimiter:        7E
 Length:                 00 0E (14)
-Frame type:             83 (RX(Receive)Packet16-bitAddressIO)
+Frame type:  83 (RX(Receive)Packet16-bitAddressIO)
 16-bit source address:  00 00
 RSSI:                   00
 Options:                00
@@ -918,7 +922,7 @@ son objeto de estudio, se busca evaluar las virtudes en la red que
 implementa el estándar 802.15.4. Se utilizará la topología más
 sencilla del alcance de las redes Zigbee. Se implementará un
 \emph{Coordinador} y los demás serán configurados como
-\emph{Dispositivos finales}. En la Figura \ref{xbee-red} se presenta
+\emph{Dispositivos finales}. En la Figura \ref{fig:xbee-red} se presenta
 una red de módulos XBee en las que se puede ver las diferentes
 roles que pueden asumir estos dispositivos. A parte de los dos modos
 anteriormente nombrados se puede configurar en modo \emph{router} que
@@ -938,7 +942,7 @@ los módulos como coordinador y los demás como dispositivos
 finales. Además proporcionaremos un nombre para identificarlos a cada
 uno ellos. En la línea \textbf{4} del código
 \ref{code:coordinador-id}  se habilita el modo coordinador y luego se
-asigna el nombre \texttt{COORDINADOR} al módulo (línea \textbf{8}.
+asigna el nombre \texttt{COORDINADOR} al módulo (línea \textbf{8}).
  Como en los casos anteriores, seimpre se debe aplicar los cambios (\texttt{ATAC}) y
 finalmente escribir en la memoria no-volatil (\texttt{ATWR}).
 \begin{lstlisting}[emph={+++,ATCE,ATCE1,ATWR,ATAC,ATNI,ATCOORDINADOR},
@@ -980,8 +984,8 @@ aplica el identificador \texttt{260816}, se utilizan solo 24 de los
 los 64 bits disponibles. 
 
 \begin{lstlisting}[emph={+++,ATWR,ATAC,ATID,ATID260816},
-    emphstyle={\color{blue}}, caption={Obtención del \textsl{seral
-number}.}, label=code:coordinador-id]
+    emphstyle={\color{blue}}, caption={Obtención del \textsl{serial
+number}.}, label=code:pan-id]
 +++OK
 ATID
 0
@@ -1023,8 +1027,6 @@ ATSL
 
 \subsection[Direeccionamiento]{Configuración de direccionamiento de los dispositivos en
   una red ZigBee}
-
-
 
 En la sección anterior se mostró como obtener las identificaciones de
 cada módulo. Esta información se utiliza para mapear la red a
@@ -1120,7 +1122,7 @@ dispositivo conectado a la red ZigBee (\texttt{DISPOSITIVO 1}).
 \section{Control remoto de los módulos XBee}
 \label{sec:remoto}
 
-En la Sección \ref{TODO} se realizaron pruebas de los módulos en modo
+En la Sección \ref{sec:API} se realizaron pruebas de los módulos en modo
 API. Este modo introduce complejidad pues debe generarse una trama
 específica pero de esta forma se logra mayores prestaciones por parte
 de los módulos. 
@@ -1495,7 +1497,7 @@ serán enviados al coordinador de la red.
 
 La librería \texttt{xbee-arduino} dispone de un ejemplo donde la
 plataforma arduino está conectado al coordinador de la red ZigBee. El
-código \ref{code:iosample} muestran las principales líneas del ejemplo
+código \ref{code:iosamples} muestran las principales líneas del ejemplo
 \texttt{Series2\_IoSamples}. El ejemplo crea un objeto
 \texttt{ZBRxIoSampleResponse} al que se le vinculará  con el paquete
 recibido por algún módulo \textsl{end-devices} (línea
