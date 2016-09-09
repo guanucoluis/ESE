@@ -177,7 +177,7 @@ Además se agregaron dos LEDs conectados a los puertos
 un potenciómetro al conector \texttt{K1} que se encuentra mapeado al
 puerto analógico de la XBee, \texttt{AD0/DIO0}.
 
-\begin{figure}[ht]
+\begin{figure}[h]
   \centering
   \includegraphics{img/xb-mcp-adapter}
   \caption{Placa XBee-MCP Adapter.}
@@ -195,7 +195,7 @@ Module. Al no requerir componentes externos, se utilizan simplemente
 cables que realicen la interconexión de las señales de comunicación
 serial.
 
-\begin{figure}[ht]
+\begin{figure}[h]
   \centering
   \includegraphics[width=.6\textwidth]{img/xboard}
   \caption{Placa XBoard.}
@@ -213,7 +213,7 @@ en modo API con los módulos sobre una red ZigBee completa. Se
 documentarán todos las implementaciones y por último se presentará una
 conclusión sobre lo hecho.
 
-\section{C\'alculo de enlace y modelos de propagaci\'on}
+\section[Enlace y propagación]{C\'alculo de enlace y modelos de propagaci\'on}
 \label{S:1}
 
 El dise\~no de un radioenlace implica toda una serie de c\'alculos que pueden resultar sencillos o complicados, dependiendo de las caract\'eristicas del sistema y del tipo de problema al que nos enfrentemos.
@@ -226,15 +226,15 @@ Es por ello que podemos dividir la propagaci\'on de la se\~nal de acuerdo al ent
 \end{itemize}
 
 
-\subsection{Distancia m\'axima en espacios abiertos}
+\subsection[Distancias]{Distancia m\'axima en espacios abiertos}
 
  La comunicaci\'on "outdoor" en este problema se asume en un entorno de propagaci\'on libre, donde no existen p\'erdidas atmosf\'ericas, de polarizaci\'on y de desadaptaci\'on de impedancias, es decir, operamos en regiones descubiertas. 
  
-% \begin{figure}[h]
-% 	%\DeclareGraphicsExtensions{.pdf,.png,.jpg,.ppm}
-% 	\centering\includegraphics[width=0.8\linewidth]{Image}
-% 	\caption{Primer zona de Fresnel}
-% \end{figure}
+\begin{figure}[h]
+	%\DeclareGraphicsExtensions{.pdf,.png,.jpg,.ppm}
+	\centering\includegraphics[width=0.8\linewidth]{img/Image}
+	\caption{Primer zona de Fresnel}
+\end{figure}
 
 \begin{table}[h]
 \centering
@@ -391,7 +391,7 @@ I/O en forma gráfica desde el software XCTU. En la Figura
 \ref{fig:xctu-setup} se puede ver la misma información que
 proporciona el comando \texttt{ATIS}.
 
-\begin{figure}[ht]
+\begin{figure}[h]
   \centering
   \includegraphics[width=.8\textwidth]{img/xctu-atis}
   \caption{Configuración de los GPIO en modo gráfico.}
@@ -569,7 +569,344 @@ hasta la \textbf{12} ya fueron descritos. Como respuesta al comando
 \end{minipage}
 \section{Ejercitación en modo API}
 \label{sec:API}
-\newpage{}
+
+%================= SEBA ==========
+\subsection{Introducción al modo API}
+En modo API el nivel de programación es mayor, pero provee de mayor
+``flexibilidad'' al momento de realizar el envío y recepción de datos.
+A diferencia del modo transparente, en este modo el módulo XBee espera
+por una secuencia específica de bytes que le indican que tipo de
+operación debería de realizar. Cada uno de estas secuencias se le
+conoce como "frame" o también paquetes. Y dependiendo del contenido de
+cada paquete se llamará a una función u otra de la API.
+
+De igual manera, el módulo XBee responde con secuencias específicas
+dependiendo si lo que está reportando es un cambio en el estado del
+módem, o el estado de la transmisión si este esta recibiendo un
+paquete de datos desde un nodo remoto.
+
+Cada paquete presenta la siguiente estructura:
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=.6\textwidth]{img/IMAGEN05.jpg}
+\end{figure}
+Donde cada parte corresponde a:
+
+\begin{enumerate}
+\item Byte 1: El encabezado que siempre tiene un valor de 0x7E,
+  esto indica al módulo que está por comenzar la transmisión de un
+  paquete.
+\item Bytes 2, 3: Esta sección indica el tamaño del paquete, el
+  tamaño se calcula contando los bits entre el byte menos
+  significativo del tamaño y el byte de la suma de verificación
+  (checksum).
+\item Bytes 4-n: Esta sección contiene la estructura específica a
+  la API, de los contenidos de esta parte del paquete dependerá la
+  función de la API que se llame.
+\item Byte n+1: La suma de verificación de todos los bytes
+  contenidos en el paquete. Esto se utiliza para verificar la
+  "integridad" de los datos recibidos, si la suma no coincide el
+  paquete es descartado.
+\end{enumerate}
+
+El contenido del paquete de datos varía en base al comando que se quiera transmitir, por ejemplo si quisiéramos transmitir un dato a otro XBee utilizando una dirección de 16 bits deberíamos utilizar la siguiente estructura:
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=.6\textwidth]{img/IMAGEN06.jpg}
+\end{figure}
+
+Configuración Frame ID a '0' desactivará trama de respuesta.
+Donde la estructura tiene la siguiente forma:
+\begin{enumerate}
+	\item Byte 4:Identificador de la API, este código identifica el tipo de comando que queremos ejecutar, para este caso el código 0x01 corresponde a "Transmit Request: 16-Bit Address" o solicitud de transmisión a una dirección de 16 bits.
+	\item Byte 5:Corresponde a un número secuencial del paquete. Para cada envío se recibe un "acuse de recibo" (ACK) este número nos servirá luego para verificar que un paquete que enviamos fue recibido por el destinatario.
+	\item Bytes 6, 7:Corresponden a la dirección del XBee destinatario, se coloca primero el byte más significativo y luego el menos significativo.
+	\item Byte 8:Corresponde a las opciones de envío, si establecemos el bit 0x01 en 1 no se esperará un ACK, mientras que si habilitamos el bit 0x04 se enviará el mensaje con broadcast para todas las redes de área personal (PAN).
+	\item Byte 9-n:Datos a enviar (máximo 100 bytes).
+\end{enumerate}
+\subsection{El modo API 1 y API 2}
+Según la documentación del XBee existen dos modos API, la diferencia entre el modo 1 y el modo 2 es que en el Modo 2 las secuencias de bytes van "escapadas".
+
+¿Qué significa esto? Resulta que el módulo XBee intentará leer el inicio de un paquete siempre encuentre el byte 0x7E, ¿pero qué pasa si este valor se está enviando en algún lugar dentro del paquete? Por ejemplo en el tamaño, o en la misma secuencia de datos.
+
+Pues lo que ocurrirá será que el XBee va a descartar el paquete que estaba procesando y comenzará a procesar el nuevo de manera errónea. Para solventar este problema se incluyó el Modo API 2, en este modo antes de enviar un dato verificamos si el byte posee cualquiera de los siguientes valores:
+\begin{itemize}
+	\item 0x7E: Inicio del paquete.
+	\item 0x7D: Carácter de escape.
+	\item 0x11: Señalizador XON.
+	\item 0x13: Señalizador XOFF.	
+\end{itemize}
+Para escapar la secuencia tenemos que enviar el carácter de escape más el dato que queremos enviar haciendo una operación XOR con el valor 0x20.
+Por ejemplo, la secuencia del siguiente paquete:
+
+0x7E 0x00 0x02 0x23 0x11 0xCB
+
+Quedaría escapado de la siguiente manera:
+
+0x7E 0x00 0x02 0x23 0x7D 0x31 0xCB
+
+\subsection{Modo API}
+Para habilitar el modo API debemos enviar la siguiente secuencia de comandos a nuestra XBee:
+\subsubsection{Modo API 1:}
+\begin{itemize}
+	\item Enviamos "+++" y esperamos confirmaci\'on "OK".
+	\item Enviamos "ATAP1" y esperamos confirmaci\'on "OK"
+	\item Enviamos "ATCN" y esperamos confirmaci\'on "OK"
+\end{itemize}
+\subsubsection{Modo API 2:}
+\begin{itemize}
+	\item Enviamos "+++" y esperamos confirmaci\'on "OK".
+	\item Enviamos "ATAP2" y esperamos confirmaci\'on "OK"
+	\item Enviamos "ATCN" y esperamos confirmaci\'on "OK"
+\end{itemize}
+Una vez el XBee se encuentre en modo API, ignorará todos los datos que no muestren la secuencia correspondiente a una estructura de la API. Esto resulta muy útil ya que podemos imprimir sobre la misma línea Serie donde está conectado el XBee mensajes para "depurar" el funcionamiento y el XBee simplemente los ignorará.
+
+Tomen en consideración que los datos recibidos del XBee también presentarán la estructura de la API así que leer los datos requerirá realizar el proceso detallado anteriormente pero a la inversa.
+
+\subsubsection{Ejemplo de mensaje}
+Si quisiéramos enviar el texto "Hello World!" en un broadcast, deberíamos enviar la siguiente secuencia de bytes al XBee:
+\begin{lstlisting}[emph={0x7E:,0x00:,0x11:,0x01:,0xFF:,0xFF:,0x00:,
+0x48:,0x65:,0x6C:,0x6C:,0x6F:,0x20:,0x57:,0x6F:,0x72:,0x6C:,0x64:,0x21:,
+0xC3}, emphstyle={\color{blue}}, label=code:apiEjempl-id]
+0x7E: Encabezado
+0x00:
+0x11: Tama\~no en Bytes del paquete (17)
+0x01: Identificación del comando de la API (0x01 para enviar a dirección de 16 bits)
+0x01: Identificación del paquete (cualquier número entre 0x01 y 0xFF)
+0xFF: Byte más significativo dirección destino
+0xFF: Byte menos significativo dirección destino
+0x00: Opciones, "0" utiliza opciones por defecto.
+0x48: 'H'
+0x65: 'e'
+0x6C: 'l'
+0x6C: 'l'
+0x6F: 'o'
+0x20: ' '
+0x57: 'W'
+0x6F: 'o'
+0x72: 'r'
+0x6C: 'l'
+0x64: 'd'
+0x21: '!'
+0xC3: Suma de verificación
+\end{lstlisting}  
+\subsubsection{La suma de verificación}
+El último byte, la suma de verificación, se utiliza para garantizar que el paquete se haya transmitido de manera íntegra, lo calculamos restando a 0xFF la suma truncada a 8 bits de todos los bytes entre el tamaño del paquete y el checksum, para el ejemplo anterior la fórmula del checksum sería:
+
+
+0xFF- 0xFF \&(0x01+ 0xFF+ 0xFF+ 0x00+0x48+
+0x65+ 0x6C+ 0x6C+0x6F + 0x20 +
+0x57+ 0x6F+0x72 +0x6C + 0x64+0x21) = 0xC3
+
+
+Utilizando el software XCTU y comandos AT en modo API, configurar dos entradas como canales de conversión AD. Utilizar el comando ATIS para leer las entradas. Describir el significado de la información devuelta por el modulo luego del envió de este comando.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=.6\textwidth]{img/IMAGEN07.jpg}
+\end{figure}
+Al igual que en el modo AT, las configuraciones de los puertos son similares, con la salvedad de que debemos enviar el comando AT dentro de una trama API especialmente diseñada para enviar comandos AT.
+
+El software XCTU cuenta con, entre otras herramientas, con un frame generator y un frame interpreter especialmente diseñados para poder crear e interpretar tramas API.
+
+Estas dos utilidades se muestran a continuación
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=.6\textwidth]{img/IMAGEN08.jpg}
+	\caption{Ubicaci\'on del frame generador e interprete dentro de XCTU}
+\end{figure}
+A continuación veremos cómo utilizar el frame generator:
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=.6\textwidth]{img/IMAGEN09.jpg}
+	\caption{"Frame generator" de XCTU}
+\end{figure}
+Dentro del marco de generaci\'on, podemos encontrar varias opciones:
+\begin{itemize}
+	\item Tipo de protocolo: 802.15. Wi-Fi, XTend(digimesh), Xted(Legacy), ZigBee, DigiMesh, Point to multipoint, ZNet 2.5,Smart Energy, XLR.
+	\item Modo: API1-Modo API no escapado, API2-Modo API escapado.
+	\item Tipo de frame: Dependiendo de lo que vayamos a transmitir, 2 bytes con opciones desde 0x00h a 0xFFh.
+	\end{itemize}
+	Además, tenemos una lista de todos los bytes que componen la trama API, explicando cada uno de ellos, como la sig.
+\begin{figure}[ht]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/IMAGEN10.jpg}
+		\caption{Trama API dentro del marco generador.}
+\end{figure}
+Al colocar todos los parámetros pertinentes para crear la trama API, así como el payload que vamos a enviar, ya sea este un comando AT o caracteres ASCII, podremos ver el frame generado en la parte inferior del frame generator y podremos copiarlo al portapapeles con el botón “copy frame”
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=.6\textwidth]{img/IMAGEN11.jpg}
+	\caption{Frame generado con el Frame Generator.}
+\end{figure}
+Este frame que copiamos, es el que vamos a utilizar en la consola para poder enviar informacion.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=.6\textwidth]{img/IMAGEN12.jpg}
+	\caption{Consola de comandos API.}
+\end{figure}
+Acto seguido presionamos el botón “+” verde y veremos la siguiente pantalla.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.6\textwidth]{img/IMAGEN13.jpg}
+	\caption{Agregando una nueva trama API a la lista de comandos}
+\end{figure}
+Dentro de esta pantalla podemos ver que tenemos acceso al Frame generator, con lo cual como antes vimos, crearemos nuestra trama API, en este caso creamos la trama API de comandos AT, para enviar el comando “ATD00”, que nos sirve para deshabilitar el puerto D0 por ejemplo.
+
+Enviamos el frame con el botón verde “Send selected frame”.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.6\textwidth]{img/IMAGEN14.jpg}
+	\caption{Envió del frame generado para deshabilitar el puerto D0}
+\end{figure}
+
+En la parte derecha de la consola podremos ver los detalles de cada frame como “AT Command” o “AT Command response” donde sabremos si el comando tuvo efecto sobre el puerto en cuestión.
+
+Podemos copiar esa respuesta en el portapapeles con el botón “copy packet information” y lo vemos como sigue:
+\begin{lstlisting}[emph={AT, Command, Response, (API 1),Start, delimiter:,Length:,Frame, type:,Frame, ID:,AT, Command:,Status:,Checksum: }, emphstyle={\color{green}}, label=code:apiEjempl-id]
+AT Command Response (API 1)
+7E 00 05 88 01 44 30 00 02
+Start delimiter:
+7E
+Length:
+00 05 (5)
+Frame type:
+88 (ATCommandResponse)
+Frame ID:
+01 (1)
+AT Command:
+44 30 (D0)
+Status:
+00 (Status OK)
+Checksum:
+02
+\end{lstlisting}  
+En el ejemplo anterior vimos como desactivar una entrada del GPIO, ahora como se solicitó en el práctico mostraremos la secuencia para configurar dos entradas como canales de conversión AD. Y luego leeremos la información con el comando ATIS.
+Vamos a generar una lista de tramas para enviar desde la consola API del XCTU y de ese modo poder configurar los puertos como se pidió.
+Los comandos que vamos a enviar en tramas API serán los siguientes:
+\begin{lstlisting}[emph={ATD02:, Trama API:,ATD12:,ATWR:,ATAC:,}, emphstyle={\color{green}}, label=code:apiEjempl-id]
+ATD02: Configuramos la entrada D0 como puerto analógico.
+Trama API: 7E 00 05 08 01 44 30 02 80
+ATD12: Configuramos la entrada D1 como puerto analógico.
+Trama API: 7E 00 05 08 01 44 31 02 7F
+ATWR: Guardamos los cambios en la memoria.
+Trama API: 7E 00 04 08 01 57 52 4D
+ATAC: Aplica los cambios al módulo.
+Trama API: 7E 00 04 08 01 41 43 72
+\end{lstlisting}  
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.6\textwidth]{img/IMAGEN15.jpg}
+	\caption{Entradas del GPIO antes de aplicar las tramas API.}
+\end{figure}
+En la esquina inferior derecha veremos un botón verde “Start sequence”, este botón envía los 4 frames directamente y guarda los cambios ocupando los comandos anteriormente mencionados
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.6\textwidth]{img/IMAGEN16.jpg}
+	\caption{Envió de la secuencia de tramas para configurar el GPIO.}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.6\textwidth]{img/IMAGEN17.jpg}
+	\caption{Estado del GPIO luego de la configuración.}
+\end{figure}
+
+Ahora vamos a configurar dos entradas digitales.
+Los comandos que vamos a enviar en tramas API serán los siguientes:
+\begin{lstlisting}[emph={ATD03:,Trama API:,ATD13:,ATWR:,ATAC:}, emphstyle={\color{green}}, label=code:apiEjempl-id]
+ATD03: Configuramos la entrada D0 como puerto analógico.
+Trama API: 7E 00 05 08 01 44 30 03 7F
+ATD13: Configuramos la entrada D1 como puerto analógico.
+Trama API: 7E 00 05 08 01 44 31 03 7E
+ATWR: Guardamos los cambios en la memoria.
+Trama API: 7E 00 04 08 01 57 52 4D
+ATAC: Aplica los cambios al módulo.
+Trama API: 7E 00 04 08 01 41 43 72
+\end{lstlisting} 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.6\textwidth]{img/IMAGEN18.jpg}
+	\caption{Envió de la secuencia de tramas para configurar el GPIO.}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.6\textwidth]{img/IMAGEN19.jpg}
+	\caption{Estado del GPIO luego de la configuración.}
+\end{figure}
+Ahora vamos a configurar dos salidas digitales.
+Los comandos que vamos a enviar en tramas API serán los siguientes:
+\begin{lstlisting}[emph={ATD04: ,Trama API:,ATD14:,ATWR:,ATAC:}, emphstyle={\color{green}}, label=code:apiEjempl-id]
+ATD04: Configuramos la entrada D0 como puerto analógico.
+Trama API: 7E 00 05 08 01 44 30 04 7E
+ATD14: Configuramos la entrada D1 como puerto analógico.
+Trama API: 7E 00 05 08 01 44 31 04 7D
+ATWR: Guardamos los cambios en la memoria.
+Trama API: 7E 00 04 08 01 57 52 4D
+ATAC: Aplica los cambios al módulo.
+Trama API: 7E 00 04 08 01 41 43 72
+\end{lstlisting} 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.6\textwidth]{img/IMAGEN20.jpg}
+	\caption{Envió de la secuencia de tramas para configurar el GPIO.}
+\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.6\textwidth]{img/IMAGEN21.jpg}
+	\caption{Estado del GPIO luego de la configuración.}
+\end{figure}
+Empleo del comando ATIS.
+
+Para probar este comando vamos a configurar las dos primeras entradas analógicas y las dos siguientes digitales.
+Los comandos que vamos a enviar en tramas API serán los siguientes:
+\begin{lstlisting}[emph={ATD02: ,Trama API:,ATD12:,ATD23:,ATD33:,ATWR:,ATAC:,ATIS:}, emphstyle={\color{green}}, label=code:apiEjempl-id]
+ATD02: Configuramos la entrada D0 como puerto analógico.
+Trama API: 7E 00 05 08 01 44 30 32 50
+ATD12: Configuramos la entrada D1 como puerto analógico.
+Trama API: 7E 00 05 08 01 44 31 32 4F
+ATD23: Configuramos la entrada D1 como puerto analógico.
+Trama API: 7E 00 05 08 01 44 32 33 4D
+ATD33: Configuramos la entrada D1 como puerto analógico.
+Trama API: 7E 00 05 08 01 44 33 33 4C
+ATWR: Guardamos los cambios en la memoria.
+Trama API: 7E 00 04 08 01 57 52 4D
+ATAC: Aplica los cambios al módulo.
+Trama API: 7E 00 04 08 01 41 43 72
+ATIS: se utiliza para forzar una lectura de todas las líneas ADC/DIO habilitadas
+Trama API: 7E 00 04 08 12 49 53 49
+\end{lstlisting} 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.6\textwidth]{img/IMAGEN22.jpg}
+	\caption{Estado del GPIO luego de la configuración.}
+\end{figure}
+Luego del envió de la secuencia de tramas para configurar el GPIO enviamos la trama con el comando ATIS y la misma nos devuelve lo siguiente:
+\begin{lstlisting}[emph={RX,(,Receive,),Packet,16,-,bit,Address,IO,(API, 1),Start,delimiter:,Length:,Frame, type:,16-bit, source, address:, RSSI:,Options:,Number, of, samples:,Digital, channel, mask:,Analog ,channel mask: ,DIO2/AD2, digital, value: ,DIO3/AD3, DIO0/AD0, analog}, emphstyle={\color{black}}, label=code:apiEjempl-id]
+RX (Receive) Packet 16-bit Address IO (API 1)
+7E 00 0E 83 00 00 00 00 01 06 0C 00 0C 03 FF 03 FF 59
+Start delimiter:        7E
+Length:                 00 0E (14)
+Frame type:             83 (RX(Receive)Packet16-bitAddressIO)
+16-bit source address:  00 00
+RSSI:                   00
+Options:                00
+Number of samples:      01
+Digital channel mask:   00 0C
+Analog channel mask:    06 00
+DIO2/AD2 digital value: High
+DIO3/AD3 digital value: High
+DIO0/AD0 analog value:  03 FF (1023)
+DIO1/AD1 analog value:  03 FF (1023)
+Checksum:               59
+\end{lstlisting} 
+El último Frame enviado, nos devuelve una respuesta que es el estado
+de las líneas activas, en este caso el estado de las dos entradas
+analógicas en 03FF (1023) y las dos entradas digitales en High.
+
+%=============== SEBA ==========
+
 
 \section{Enlaces entre módulos XBee}
 \label{sec:enlace}
@@ -587,7 +924,7 @@ roles que pueden asumir estos dispositivos. A parte de los dos modos
 anteriormente nombrados se puede configurar en modo \emph{router} que
 permite extender la red. 
 
-\begin{figure}[ht]
+\begin{figure}[h]
   \centering
   \includegraphics[width=.8\textwidth]{img/xbee-topo}
   \caption{Red de módulos XBee con sus diferentes configuraciones.}
@@ -624,7 +961,7 @@ ATWR
 OK
 \end{lstlisting}  
 
-\subsection{Configuración de la red de área personal}
+\subsection[Configuración PAN]{Configuración de la red de área personal}
 
 Las redes ZigBee se las llaman PANs (\textsl{Personal Area
   Networks}). Cada red es definida con un único identificador PAN, por
@@ -658,7 +995,7 @@ ATWR
 OK
 \end{lstlisting}  
 
-\subsection{Número de serie (identificador)  los módulos}
+\subsection[Número de serie]{Número de serie (identificador)  los módulos}
 \label{sec:id}
 
 Cada módulo XBee tiene una número de serie de 64 bits
@@ -684,8 +1021,10 @@ ATSL
 41257816
 \end{lstlisting}
 
-\subsection{Configuración de direccionamiento de los dispositivos en
+\subsection[Direeccionamiento]{Configuración de direccionamiento de los dispositivos en
   una red ZigBee}
+
+
 
 En la sección anterior se mostró como obtener las identificaciones de
 cada módulo. Esta información se utiliza para mapear la red a
@@ -745,7 +1084,7 @@ OK
 \end{lstlisting}  
 \end{minipage}
 
-\subsection{Comunicación entre computadoras mediante módulos XBee}
+\subsection[Enlace a través de Xbee]{Comunicación entre computadoras mediante módulos XBee}
 
 Con los módulos configurados anteriormente para establecer una
 comunicación punto a punto, se probará el enlace entre los módulos
@@ -758,7 +1097,7 @@ consola de XCTU del coordinador. Mientras que en la Figura
 \ref{fig:term-end} se ven los mensajes recibidos desde el terminal del
 dispositivo conectado a la red ZigBee (\texttt{DISPOSITIVO 1}).
 
-\begin{figure}[ht]
+\begin{figure}[h]
   \centering
   \begin{subfigure}{0.8\textwidth}
     \centering
@@ -803,7 +1142,7 @@ comando para asignar un estado bajo al puerto \texttt{DIO5}
 al puerto 5 con el cambio de estado \texttt{ATD55}
 (Fig. \ref{fig:remoto-atd55}).
 
-\begin{figure}[ht]
+\begin{figure}[h]
   \centering
   \begin{subfigure}{0.3\textwidth}
     \centering
@@ -842,14 +1181,452 @@ trama API identifica qué tipo de información se está enviando.
 \section{Librería \texttt{xbee-arduino}}
 \label{sec:lib-xbe-ano}
 
+Esta librería permite la comunicación con los módulos XBee en modo
+API. Tiene soporte tanto para los dispositivos \emph{Series 1}
+(802.15.4) y \emph{Series 2} (ZB Pro/ZNet). De esta forma la librería
+da soporte para enlaces TX/RX, comandos AT locales y remotos, modos
+I/O \textsl{samples} y \textsl{Modem Status}\cite{XbeeArduinoGit}.
+
+La plataforma arduino que se utilizará será la \emph{Intel
+  Galileo}, Figura \ref{fig:galileo}. Esta plataforma está basada en el microcontrolador
+\emph{Intel\textsuperscript{\textregistered{}} Quark SoC X1000 Application
+  Processor}. Las características de esta plataforma se detallan en la
+hoja de datos disponibles en la bibliografía
+citada\cite{GalileoDS}. Sí bien esta plataforma es una
+SBC\footnote{Siglas de \textsl{Single-Board
+    Computer}(\burl{https://en.wikipedia.org/wiki/Single-board_computer}).}
+dispone de un proceso en el sistema operativo tal que permite utilizar
+el IDE Arduino. Para el usuario la programación es transparente e
+incluso la placa Galileo permite conectar los \textsl{shields} de
+Arduino. Utilizaremos estos conectores para comunicar nuestros módulos
+XBee con la Galileo.
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}{0.55\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{img/galileo.png}
+    \caption{Diagrama en bloque.}
+    \label{fig:sch-galileo}
+  \end{subfigure}
+  % -- 
+  \hfill
+  \begin{subfigure}{0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{img/galileo-front}
+    \caption{Pines de configuración.}
+    \label{fig:galileo-config}
+  \end{subfigure}
+
+  \caption{Plataforma Intel\textsuperscript{\textregistered{}} Galileo.}
+  \label{fig:galileo}
+\end{figure}
+
+Una vez instalada la librería desde los repositorios de Arduino se
+procede a iniciar la comunicación entre la plataforma Galileo y el
+módulo XBee. 
+
+\subsection{Comandos AT}
+
+La primera prueba será enviar comandos AT desde la Galileo hacía el
+módulo XBee conectado en los conectores disponibles. En el código
+\ref{code:at-cmd} se muestra la estructura básica de cómo se debe
+utilizar la librería \texttt{xbee-arduino}. 
+\begin{lstlisting}[basicstyle=\ttfamily\small, language= C++,
+  caption={Ejemplo \texttt{AtCommand}},label=code:at-cmd, frame=single]
+#include <XBee.h>
+XBee xbee = XBee();
+// serial high
+uint8_t shCmd[] = {'S','H'};
+// serial low
+uint8_t slCmd[] = {'S','L'};
+
+AtCommandRequest atRequest = AtCommandRequest(shCmd);
+AtCommandResponse atResponse = AtCommandResponse();
+
+void setup() { 
+  Serial1.begin(9600);
+  xbee.begin(Serial1);
+  // start soft serial
+  Serial.begin(9600);
+
+  // Startup delay to wait for XBee radio to initialize.
+  // you may need to increase this value if you are not getting a response
+  delay(5000);
+}
+
+void loop() {
+
+  // get SH
+  sendAtCommand();
+    
+  // set command to SL
+  atRequest.setCommand(slCmd);  
+  sendAtCommand();
+   
+  // we're done.  Hit the Arduino reset button to start the sketch over
+  while (1) {};
+}
+\end{lstlisting}  
+
+En este documento no se explicará el paradigma de programación de
+Arduino, tampoco se entrará en detalle de los códigos utilizados. De
+todas formas se explicarán las códigos que hacen el uso de la librería
+\texttt{xbee-arduino}. En las líneas \textbf{8-9} se crean los objetos
+correspondientes a la recepción y respuesta de un comando AT. Se
+habilitarán dos puertos de la Galileo. El primero (línea \textbf{12})
+corresponde al puerto mapeado al conector \textsl{shield}
+arduino. Este será asignado para que la librería \texttt{xbee-arduino}
+la utilice en su comunicación con el módulo. El puerto serie que está
+vinculado al cable USB conectado con la placa galileo será utilizado
+como \emph{Monitor Serial} del IDE Arduino (línea \textbf{15}). Ya en
+el bucle \texttt{loop()} se envían los comandos y se interpreta
+consecutivamente la respuesta desde el módulo.  En la Figura
+\ref{fig:at-cmd-consola} se puede ver el intercambio de mensajes entre
+la Galileo y el módulo XBee.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.5\textwidth]{img/arduno-at-cmd.png}
+  \caption{Monitor serial del IDE Arduino del ejemplo \texttt{AtCommand}.}
+  \label{fig:at-cmd-consola}
+\end{figure}
+
+\subsection[Ejemplo \texttt{Series2\_Tx/\_Rx}]{Comunicación entre dos
+  plataformas Galileo utilizando XBee.}
+
+Se plantea la posibilidad de utilizar dos plataformas Galileo e
+interactuar entre sí utilizando los módulos XBee como medio de
+comunicación. Se adaptará los ejemplos provistos por la
+librería. Primero se adaptará el ejemplo \texttt{Series2\_Tx}. 
+
+\subsubsection{Transmisión de trama}
+
+En el código \ref{code:SeriesTx} se tiene las principales líneas que
+implementa la librería. El arreglo \texttt{payload[]} almacena los
+datos a ser enviados. Por la inicialización del arreglo, se enviarán
+solo dos bytes (línea \textbf{6}). Luego se crean los objetivos
+necesarios para direccionar el mensaje, realizar el envío y chequear
+el estado de la transacción (líneas \textbf{9-11}). Se enviarán los
+valores devueltos por la función \texttt{millis()} y
+\texttt{micros()} (líneas \textbf{25-26}). El proceso cíclico comienza
+cargando los datos a ser enviado (línea \textbf{28}). Luego del envío
+se espera el paquete de respuesta. Esta respuesta proporciona el
+estado en que ha sido recibido el mensaje (línea \textbf{40}). Esto se
+repite cada 1 segundo (línea \textbf{55}). 
+
+\begin{lstlisting}[basicstyle=\ttfamily\small, language= C++,
+  caption={Ejemplo \texttt{Series2\_Tx}},label=code:SeriesTx,
+  frame=single]
+#include <XBee.h>
+
+// create the XBee object
+XBee xbee = XBee();
+
+uint8_t payload[] = { 0, 0 };
+
+// SH + SL Address of receiving XBee
+XBeeAddress64 addr64 = XBeeAddress64(0x0013a200,0x41257816);
+ZBTxRequest zbTx = ZBTxRequest(addr64, payload, sizeof(payload));
+ZBTxStatusResponse txStatus = ZBTxStatusResponse();
+
+//...
+
+void setup() {
+  pinMode(statusLed, OUTPUT);
+  pinMode(errorLed, OUTPUT);
+
+  Serial1.begin(9600);
+  xbee.setSerial(Serial1);
+}
+
+void loop() {   
+  // break down 10-bit reading into two bytes and place in payload
+  payload[0] = millis() & 0xff;
+  payload[1] = micros() & 0xff;
+
+  xbee.send(zbTx);
+
+  // after sending a tx request, we expect a status response
+  // wait up to half second for the status response
+  if (xbee.readPacket(500)) {
+    // got a response!
+
+    // should be a znet tx status            	
+    if (xbee.getResponse().getApiId() == ZB_TX_STATUS_RESPONSE) {
+      xbee.getResponse().getZBTxStatusResponse(txStatus);
+
+      // get the delivery status, the fifth byte
+      if (txStatus.getDeliveryStatus() == SUCCESS) {
+        // success.  time to celebrate
+        flashLed(statusLed, 5, 50);
+      } else {
+        // the remote XBee did not receive our packet. is it powered on?
+        flashLed(errorLed, 3, 500);
+      }
+    }
+  } else if (xbee.getResponse().isError()) {
+    //nss.print("Error reading packet.  Error code: ");  
+    //nss.println(xbee.getResponse().getErrorCode());
+  } else {
+    // local XBee did not provide a timely TX Status Response -- should not happen
+    flashLed(errorLed, 2, 50);
+  }
+  delay(1000);
+}
+\end{lstlisting}  
+
+\subsubsection{Recepción  de trama}
+
+Desde otra plataforma Galileo se adapta el ejemplo
+\texttt{Series2\_Rx} de la librería \texttt{xbee-arduino}. El código
+\ref{code:SeriesRx} muestra lo básico. Las primeras líneas mantienen
+la estructura del ejemplo anterior. Los objetos que se crean hacen a
+la respuesta ante algún pedido desde otro módulo. Se utilizará el
+monitor del IDE Arduino para presentar los datos recibidos (línea
+\textbf{17}). El bucle se encuentra a la espera de un paquete (línea
+\textbf{26}). Una vez que el paquete llega (línea \textbf{28}) se
+procede a identificar los diferentes campos de bytes de la trama. Se
+utilizan indicadores leds que proporcionan los estados en que llega la
+trama. Luego se presentan los bytes enviados desde el otro módulo. Las
+líneas \textbf{46} y \textbf{48} imprimen en la consola del IDE
+arduino. 
+
+\begin{lstlisting}[basicstyle=\ttfamily\small, language= C++,
+  caption={Ejemplo \texttt{Series2\_Rx}},label=code:SeriesRx,
+  frame=single]
+#include <XBee.h>
+
+XBee xbee = XBee();
+XBeeResponse response = XBeeResponse();
+// create reusable response objects for responses we expect to handle 
+ZBRxResponse rx = ZBRxResponse();
+ModemStatusResponse msr = ModemStatusResponse();
+
+int statusLed = 13;
+int errorLed = 12;
+
+void setup() {
+  pinMode(statusLed, OUTPUT);
+  pinMode(errorLed, OUTPUT);
+  
+  // start serial
+  Serial.begin(9600);
+  Serial1.begin(9600);
+  xbee.begin(Serial1);
+
+}
+
+// continuously reads packets, looking for ZB Receive or Modem Status
+void loop() {
+    
+    xbee.readPacket();
+    
+    if (xbee.getResponse().isAvailable()) {
+      // got something
+      
+      if (xbee.getResponse().getApiId() == ZB_RX_RESPONSE) {
+        // got a zb rx packet
+        
+        // now fill our zb rx class
+        xbee.getResponse().getZBRxResponse(rx);
+            
+        if (rx.getOption() == ZB_PACKET_ACKNOWLEDGED) {
+            // the sender got an ACK
+            // ...
+        } else {
+            // we got it (obviously) but sender didn't get an ACK
+            // ...
+        }
+        // set dataLed PWM to value of the first byte in the data
+        Serial.print("Mensaje recibido (LOW): ");
+        Serial.println(rx.getData(0));
+        Serial.print("Mensaje recibido (HIGH): ");
+        Serial.println(rx.getData(1));
+      } else if (xbee.getResponse().getApiId() == MODEM_STATUS_RESPONSE) {
+        // ...
+    } else if (xbee.getResponse().isError()) {
+      Serial.print("Error reading packet.  Error code: ");  
+      Serial.println(xbee.getResponse().getErrorCode());
+    }
+}
+\end{lstlisting}  
+
+En la Figura \ref{fig:SeriesRxConsola} se capturó la consola del IDE
+Arduino y se pueden ver cómo llegan los mensajes desde el código
+\ref{code:SeriesTx}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.5\textwidth]{img/Series2RX-consola}
+  \caption{Monitor serial del IDE Arduino del ejemplo
+    \texttt{Series2\_Rx}.}
+  \label{fig:SeriesRxConsola}
+\end{figure}
+
+\subsection{Envío de datos periódicos (\emph{Samples Mode})}
+
+Los módulos XBee que se encuentren configurados como
+\textsl{end-devices} pueden configurar sus diferentes GPIO de forma
+tal que envíen información 
+
+Los módulos XBee ZB tienen la posibilidad de monitorear los canales
+analógicos y digitales habilitados. En esta configuración el módulo
+puede leer para uso local o transmitir la información relevada a otro
+módulo en forma remota. Para esto debe habilitarse el modo
+API\cite{s2c-ds}.
+
+En nuestro caso, se configura a uno de los dispositivos considerado
+\textsl{end-devices} de forma tal que envíe en forma periódica (cada 2
+segundos) los estados de sus diferentes puertos habilitados
+(analógicos y digitales). En la Figura \ref{fig:iosample-config} se
+muestra el parámetro que define esta funcionalidad de los XBee. Este
+módulo es parte de un sistema donde también hay un dispositivo central
+(coordinador). Este último recibirá los datos enviados desde los
+\textsl{end-devices}. Por esta razón los módulos no tienen la
+necesidad de configurar la dirección de destino pues todos los datos
+serán enviados al coordinador de la red.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{img/ioSampleConfig}
+  \caption{Configuración en \textsl{Samples Mode} utilizando la
+    aplicación XCTU.}
+  \label{fig:iosample-config}
+\end{figure}
+
+La librería \texttt{xbee-arduino} dispone de un ejemplo donde la
+plataforma arduino está conectado al coordinador de la red ZigBee. El
+código \ref{code:iosample} muestran las principales líneas del ejemplo
+\texttt{Series2\_IoSamples}. El ejemplo crea un objeto
+\texttt{ZBRxIoSampleResponse} al que se le vinculará  con el paquete
+recibido por algún módulo \textsl{end-devices} (línea
+\textbf{24}). Los mensajes que recibe el coordinador se presentan en
+la consola IDE Arduino identificando a cada uno con su dirección
+(líneas \textbf{28-29}). Cada \textsl{frame} incluye la cantidad de
+entradas analógicas y digitales habilitadas por parte del
+\textsl{end-device} que envía el dato (líneas \textbf{41-56}).
+
+\begin{lstlisting}[basicstyle=\ttfamily\small, language= C++,
+  caption={Ejemplo \texttt{Series2\_IoSamples}},label=code:iosamples,
+  frame=single]
+#include <XBee.h>
+
+XBee xbee = XBee();
+
+ZBRxIoSampleResponse ioSample = ZBRxIoSampleResponse();
+
+XBeeAddress64 test = XBeeAddress64();
+
+void setup() { 
+  Serial1.begin(9600);
+  xbee.setSerial(Serial1);
+  // start soft serial
+  Serial.begin(9600);
+}
+
+void loop() {
+  //attempt to read a packet    
+  xbee.readPacket();
+
+  if (xbee.getResponse().isAvailable()) {
+    // got something
+
+    if (xbee.getResponse().getApiId() == ZB_IO_SAMPLE_RESPONSE) {
+      xbee.getResponse().getZBRxIoSampleResponse(ioSample);
+
+      Serial.print("Received I/O Sample from: ");
+      
+      Serial.print(ioSample.getRemoteAddress64().getMsb(), HEX);  
+      Serial.print(ioSample.getRemoteAddress64().getLsb(), HEX);  
+      Serial.println("");
+      
+      if (ioSample.containsAnalog()) {
+        Serial.println("Sample contains analog data");
+      }
+
+      if (ioSample.containsDigital()) {
+        Serial.println("Sample contains digtal data");
+      }      
+
+      // read analog inputs
+      for (int i = 0; i <= 4; i++) {
+        if (ioSample.isAnalogEnabled(i)) {
+          Serial.print("Analog (AI");
+          Serial.print(i, DEC);
+          Serial.print(") is ");
+          Serial.println(ioSample.getAnalog(i), DEC);
+        }
+      }
+
+      // check digital inputs
+      for (int i = 0; i <= 12; i++) {
+        if (ioSample.isDigitalEnabled(i)) {
+          Serial.print("Digital (DI");
+          Serial.print(i, DEC);
+          Serial.print(") is ");
+          Serial.println(ioSample.isDigitalOn(i), DEC);
+        }
+      }
+      
+      // method for printing the entire frame data
+      //for (int i = 0; i < xbee.getResponse().getFrameDataLength(); i++) {
+      //  Serial.print("byte [");
+      //  Serial.print(i, DEC);
+      //  Serial.print("] is ");
+      //  Serial.println(xbee.getResponse().getFrameData()[i], HEX);
+      //}
+    } 
+    else {
+      Serial.print("Expected I/O Sample, but got ");
+      Serial.print(xbee.getResponse().getApiId(), HEX);
+    }    
+  } else if (xbee.getResponse().isError()) {
+    Serial.print("Error reading packet.  Error code: ");  
+    Serial.println(xbee.getResponse().getErrorCode());
+  }
+}
+\end{lstlisting}  
+
+En la Figura \ref{fig:iosamples} se presenta la consola con la
+información proporcionada por el código \ref{code:iosamples}. 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.5\textwidth]{img/iosamples-consola}
+  \caption{Monitor serial del IDE Arduino del ejemplo
+    \texttt{Series2\_IoSamples}.}
+  \label{fig:iosamples}
+\end{figure}
+
 \section{Conclusiones}
 \label{sec:conc}
 
-La implementación de este RTOS tan específico y novedoso, por lo menos
-para nosotros, nos ha permitido ampliar la concepción de sistemas
-operativos en tiempo real. A la vez que se ha podido interactuar con
-profesionales de la región que están en pleno desarrollo y aportes
-para mejorar el código utilizado (freeOSEK). 
+Los sistemas en los que requieren la implementación de pequeñas redes
+locales inalámbricas se caracterizan por la autonomía de los
+dispositivos, el alcance, topología y compromiso entre costo/beneficio
+que prestan los potenciales candidatos. En el módulo \emph{Entornos
+  Inalámbricos} se propone la utilización de los módulos XBee de Digi
+International. Estos módulos implementan el estándar IEEE 802.15.4. Sí
+bien existen otros módulos comerciales con menos llegada a un costo
+menor\footnote{Por ejemplo, SparkFun Transceiver Breakout:
+  \burl{https://www.sparkfun.com/products/691}}, estos no presentan la
+garantía y posibilidades en rendimiento que los módulos XBee. En las
+pruebas realizadas se comprobó la flexibilidad de su utilización. La
+posibilidad de utilizar un \emph{Application Programming Interface}
+permite la interacción con otros sistemas embebidos de una manera
+mucho más amigable que los comandos AT. En esta línea, las plataformas
+Arduino son la forma más directa y sencilla de implementar los módulos
+XBee en las diferentes configuraciones disponibles. Como se pudo
+leer en las diferentes secciones, se comenzó de básico en interactuar
+con el módulo XBee en modo AT (\textsl{transparent mode}) al punto
+implementar el API y la automatización del envío de datos de los
+módulos XBee al coordinador (unidad central de procesamiento del
+sistema). 
+
+Como trabajos futuros podría considerarse la utilización de
+plataformas de menor costo que proporcione al usuario una API
+flexible. Además sería interesante la disponibilidad de mayores
+módulos de forma tal que se puedan asomar problemas en el protocolo
+utilizado. Quizá algún emulador de pequeñas redes (PAN) pueda ser
+deseable.
 
 \begin{thebibliography}{1}
 \bibitem{s2c-ds}
@@ -867,6 +1644,17 @@ para mejorar el código utilizado (freeOSEK).
   Digi International,
   \emph{Knowledge Base -- The AT Command Set}.
   \burl{http://knowledge.digi.com/articles/Knowledge_Base_Article/The-AT-Command-Set}.
+
+\bibitem{XbeeArduinoGit}
+  andrewrapp,
+\emph{Arduino library for communicating with XBee radios in API mode},
+\burl{https://github.com/andrewrapp/xbee-arduino}.
+
+\bibitem{GalileoDS}
+  Intel\textsuperscript{\textregistered{}},
+  \emph{Galileo Datasheet}.
+  \burl{http://www.intel.com/newsroom/kits/quark/galileo/pdfs/Intel_Galileo_Datasheet.pdf}.
+
 
 \end{thebibliography}
 
