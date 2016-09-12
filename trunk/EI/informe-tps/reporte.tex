@@ -112,6 +112,8 @@ José \textsc{Ducloux}
 %\lhead{Luis A. Guanuco}
 %\chead{\includegraphics[width=0.02\textwidth]{images/logoUTN}}
 %\rhead{Arquitectura Embebidas y Proceso de Tiempo Real}
+
+\tableofcontents{}
 \section{Introducción}
 \label{sec:intro}
 
@@ -250,7 +252,7 @@ Es por ello que podemos dividir la propagaci\'on de la se\~nal de acuerdo al ent
 \end{table}
 Para los c\'alculos siguientes se tomar\'an los datos de funcionamiento en modo ``Normal''.
 
-Partiendo de la ecuaci\'on de Friis\cite{bilb:Friis}
+Partiendo de la ecuaci\'on de Friis\cite[Pág. 48]{bilb:Friis}
 
 %\begin{equation}
 %\label{Ecuaci\'on de Friis}
@@ -265,7 +267,8 @@ Pr = \frac{Pt Gt Gr \lambda ^{2}}{(4\pi d)^2}
 \end{equation*}
 Siendo Pr (Potencia recibida), Pt(Potencia transmitida), Gt(Ganancia de antena tx), Gr(Ganancia de antena rx), $\lambda$(longitud de onda) y d(distancia radial entre antenas).
 
-Podemos despejar la atenuaci\'on de espacio libre, tambi\'en conocida como p\'erdida de trayectoria\cite{bilb:Free}.
+Podemos despejar la atenuaci\'on de espacio libre, tambi\'en conocida
+como p\'erdida de trayectoria\cite[Pág. 32]{bilb:Free}.
 \begin{equation*}
 \label{Ec:perdida}
 P_{Loss}[dB] = 94.4 dB + 20 \log_{10}d [Km] + 20 \log_{10}f [GHz] - Gt[dBi] - Gr[dBi]
@@ -282,7 +285,10 @@ Las ganancias Gr[dBi] y Gr[dBi] se toman como valor cero por ser antenas omnidir
 \label{Ec:distancia1}
 d[Km] = 10^{\frac{105 dBm - 20 \log_{10}2.4 - 92.4dB-5dB}{20}} = 0.999 [Km] =999m
 \end{equation*}	
-Con la m\'axima distancia $d$ del radioenlace, calculamos la altura $r$ de las antenas. Para ello nos valemos de las f\'ormulas del primer elipsoide de Fresnel, esto es determinando la zona libre de obstaculos\cite{bilb:Fresnel}.
+Con la m\'axima distancia $d$ del radioenlace, calculamos la altura
+$r$ de las antenas. Para ello nos valemos de las f\'ormulas del primer
+elipsoide de Fresnel, esto es determinando la zona libre de
+obstaculos\cite[Pág. 40]{bilb:Free}.
 \begin{equation*}
 \label{Ec:fresnel}
 r = F1(m) = 17.32 \sqrt{\frac{(d[Km]/2)^2}{d[Km]f[GHz]}} = 17.32 \sqrt{\frac{(0.99Km/2)^2}{0.99Km2.4GHz}} = 7.28m
@@ -933,7 +939,7 @@ permite extender la red.
   \label{fig:xbee-red}
 \end{figure}
 
-\subsection{Asignación de Identificador y Función de los módulos}
+\subsection[Nombre y Funcionalidad]{Asignación de Identificador y Función de los módulos}
 
 Antes de comenzar con la configuración de la red, se definirá a uno de
 los módulos como coordinador y los demás como dispositivos
@@ -1117,7 +1123,7 @@ dispositivo conectado a la red ZigBee (\texttt{DISPOSITIVO 1}).
   \label{fig:terminales}
 \end{figure}
 
-\section{Control remoto de los módulos XBee}
+\section[Control Remoto]{Control remoto de los módulos XBee}
 \label{sec:remoto}
 
 En la Sección \ref{sec:API} se realizaron pruebas de los módulos en modo
@@ -1630,6 +1636,14 @@ deseable.
 
 \begin{thebibliography}{1}
 
+\bibitem{bilb:Friis} Andreas F. Molisch.
+\emph{Wireless Communications}.
+John Wiley \& Sons. 2011.
+
+\bibitem{bilb:Free} Andrea Goldsmith.
+\emph{Wireless Communications}.
+Cambridge University Press. 2005.
+
 \bibitem{bilb:PathLoss} Recommendation ITU-R P.1238-8.
 \emph{Propagation data and prediction methods
 for the planning of indoor
@@ -1669,21 +1683,5 @@ Digi International,
 \emph{Knowledge Base -- The AT Command Set}.
 \burl{http://knowledge.digi.com/articles/Knowledge_Base_Article/The-AT-Command-Set}.
 \end{thebibliography}
-
-% \appendix{}
-
-% \chapter{Códigos del programa}
-% \label{chap:code-prog}
-
-% \lstinputlisting[basicstyle=\scriptsize,title=Código de la función
-% \texttt{main.c}]{src/examples/adc_dac/src/adc_dac.c}
-
-% \lstinputlisting[basicstyle=\scriptsize,title=Código del archivo
-% \texttt{proyectofinal.oil}]{src/examples/adc_dac/etc/adc_dac.oil}
-
-% \chapter{Esquemáticos del hardware utulizado}
-% \label{chap:sch}
-
-% \includepdf[landscape=true,pages=-]{img/Schematic}
 
 \end{document}
