@@ -237,20 +237,20 @@ Es por ello que podemos dividir la propagaci\'on de la se\~nal de acuerdo al ent
 \end{figure}
 
 \begin{table}[h]
-\centering
-\begin{tabular}{l l l}
-\hline
-\textbf{Modo de funcionamiento} & \textbf{Normal} & \textbf{Boost}\\
-\hline
-Potencia de Tx & +5dBm(3.1mW) & +8dBm(6.3mW) \\
-Sensibilidad de Rx & -100dBm & -102dBm\\
-\hline
-\end{tabular}
-\caption{Technical review Xbee ZB}
+	\centering
+	\begin{tabular}{l l l}
+		\hline
+		\textbf{Modo de funcionamiento} & \textbf{Normal} & \textbf{Boost}\\
+		\hline
+		Potencia de Tx & +5dBm(3.1mW) & +8dBm(6.3mW) \\
+		Sensibilidad de Rx & -100dBm & -102dBm\\
+		\hline
+	\end{tabular}
+	\caption{Technical review Xbee S2C}
 \end{table}
 Para los c\'alculos siguientes se tomar\'an los datos de funcionamiento en modo ``Normal''.
 
-Partiendo de la ecuaci\'on de Friis
+Partiendo de la ecuaci\'on de Friis\cite{bilb:Friis}
 
 %\begin{equation}
 %\label{Ecuaci\'on de Friis}
@@ -265,42 +265,42 @@ Pr = \frac{Pt Gt Gr \lambda ^{2}}{(4\pi d)^2}
 \end{equation*}
 Siendo Pr (Potencia recibida), Pt(Potencia transmitida), Gt(Ganancia de antena tx), Gr(Ganancia de antena rx), $\lambda$(longitud de onda) y d(distancia radial entre antenas).
 
-Podemos despejar la atenuaci\'on de espacio libre, tambi\'en conocida como p\'erdida de trayectoria.
+Podemos despejar la atenuaci\'on de espacio libre, tambi\'en conocida como p\'erdida de trayectoria\cite{bilb:Free}.
 \begin{equation*}
 \label{Ec:perdida}
-P_{Loss}[dB] = 94.4 + 20 \log_{10}d [Km] + 20 \log_{10}f [GHz] - Gt[dBi] - Gr[dBi]
+P_{Loss}[dB] = 94.4 dB + 20 \log_{10}d [Km] + 20 \log_{10}f [GHz] - Gt[dBi] - Gr[dBi]
 \end{equation*}
-	Y de esta despejar la m\'axima distancia
+Y de esta despejar la m\'axima distancia(adicionamos -5dB de atenuaci\'on, por margen)
 \begin{equation*}
 \label{Ec:distancia}
-d[Km] = 10^{\frac{P_{Loss} + Gt + Gr - 20 \log_{10}f - 92.4}{20}}
+d[Km] = 10^{\frac{P_{Loss} + Gt + Gr - 20 \log_{10}f - 92.4dB -5dB}{20}}
 \end{equation*}
 $P_{Loss}=Gt[dBm] - Gr[dBm] = +5dBm - (-100dBm) = 105dBm$
 $f = 2.4 [GHz]$
 Las ganancias Gr[dBi] y Gr[dBi] se toman como valor cero por ser antenas omnidireccionales.
 \begin{equation*}
 \label{Ec:distancia1}
-d[Km] = 10^{\frac{105 dBm - 20 \log_{10}2.4 - 92.4}{20}} = 1.77 [Km] =1770m
+d[Km] = 10^{\frac{105 dBm - 20 \log_{10}2.4 - 92.4dB-5dB}{20}} = 0.999 [Km] =999m
 \end{equation*}	
-Con la m\'axima distancia $d$ del radioenlace, calculamos la altura $r$ de las antenas. Para ello nos valemos de las f\'ormulas del primer elipsoide de Fresnel, esto es determinando la zona libre de obstaculos.
+Con la m\'axima distancia $d$ del radioenlace, calculamos la altura $r$ de las antenas. Para ello nos valemos de las f\'ormulas del primer elipsoide de Fresnel, esto es determinando la zona libre de obstaculos\cite{bilb:Fresnel}.
 \begin{equation*}
 \label{Ec:fresnel}
-r = F1(m) = 17.32 \sqrt{\frac{(d[Km]/2)^2}{d[Km]f[GHz]}} = 17.32 \sqrt{\frac{(1.77Km/2)^2}{1.77Km2.4GHz}} = 7.43m
+r = F1(m) = 17.32 \sqrt{\frac{(d[Km]/2)^2}{d[Km]f[GHz]}} = 17.32 \sqrt{\frac{(0.99Km/2)^2}{0.99Km2.4GHz}} = 7.28m
 \end{equation*}	
 
-Por lo tanto la altura de las antenas, es decir para establecer una comunicaci\'on punto a punto a distancia m\'axima $d=1.77Km$ entre 2 XBee es de $r=7.43$ en la zona libre de obstaculos.
+Por lo tanto la altura de las antenas, es decir para establecer una comunicaci\'on punto a punto a distancia m\'axima $d=999m$ entre 2 XBee es de $r=7.28m$ en la zona libre de obstaculos.Adem\'as este es un valor muy cercano al valor$d=1200m$ dado por la hoka de datos de la XBee.
 
 \subsection{Distancia m\'axima en entornos cerrados}
 
 La propagaci\'on ``indoor'' difiere respectos a los sistemas ``outdoor''. Para asegurar una eficiente comunicaci\'on interior, la ITU a llevado una serie de propuestas para el caso de comunicaciones punto a punto. Debido a que en una comunicaci\'on en entornos cerrados esta muy influenciada por la geometr\'ia del lugar y los objetos en ella. Tanto estos objetos y la construcci\'on de la misma, ocasionan p\'erdidas por reflexiones, dispersi\'on y absorci\'on de las se\~nales RF.  
 
 \begin{figure}[h]
-%\centering\includegraphics[width=0.4\linewidth]{placeholder}
-\caption{Figure caption}
+	\centering\includegraphics[width=0.6\linewidth]{img/xbee-ejemplo.png}
+	\caption{Comunicaci\'on indoor}
 \end{figure}
 
 \subsubsection{C\'alculo Planta alta}
-Para el c\'alculo de m\'axima distancia, como lo indica la figura. Nos valdremos de la f\'ormula de ``path loss''
+Para el c\'alculo de m\'axima distancia, como lo indica la figura. Nos valdremos de la f\'ormula de ``path loss''\cite[Pág.4]{bilb:PathLoss}
 \begin{equation*}
 \label{eq:pathLoss}
 L_{Loss}[dB] = L_{do}[dB] + N \log_{10}d/do + Lf_{n}[dB]
@@ -308,27 +308,25 @@ L_{Loss}[dB] = L_{do}[dB] + N \log_{10}d/do + Lf_{n}[dB]
 Donde $N$(Coef. de p\'erdida), $f$(Frecuencia en Mhz),$d$(Distancia entre base y terminal), $L_{do}$(P\'erdida a do), $L_{f}$(Atenuaci\'on trav\'es del piso), $d0$(distancia de ref=1m) y $n$(nro de pisos entre terminal y base).
 En nuestro caso particular al igual que en el caso anterior, calculamos la m\'axima atenuaci\'on:
 $L_{Loss}= Gt - Gr = +5dBm - (-100dBm) = 105dBm$
-$N=28$ Por dato de tabla (Espacio residencial a 2.4GHz).
+$N=28$ Por dato de tabla \cite[Pág 4-5]{bilb:PathLoss}(Espacio residencial a 2.4GHz).
 $L_{do} = 20 \log_{10}f[MHz] - 28 = 39.6dB$
 $Lf_{n} = 0$ Por ser un mismo piso.
-Despejando d
+Despejando d, incluyendo una atenuaci\'on adicional de 10dB por la cantidad de objetos que puedan influir en la comunicaci\'on.
 \begin{equation*}
 \label{eq:calculod}
-d[m] = 10 ^{\frac{L_{Loss}[dB] - L_{do}[dB] - L_{f}[dB]}{N}} 
-d[m] = 10 ^{\frac{105dBm - 39.6dB - 0}{28}} = 216.62m
+d[m] = 10 ^{\frac{L_{Loss}[dB] - L_{do}[dB] - L_{f}-10dB[dB]}{N}} 
+d[m] = 10 ^{\frac{105dBm - 39.6dB - 0dB - 10dB}{28}} = 95.18m
 \end{equation*}
-Entonces en un piso la distancia m\'axima de transmisi\'on es $d=216.62m$
+Entonces en un piso la distancia m\'axima de transmisi\'on es $d=95.18m$
 
 \subsubsection{C\'alculo de comunicaci\'on entre Planta alta y baja}
-En este caso la m\'axima distancia $d$, ser\'a influenciada por la atenuaci\'on del piso, como separaci''on de los dos ambientes. Por lo tanto $L_{f}[dB]=5$ dado por el cuadro. La distancia m\'axima ser\'a.
+En este caso la m\'axima distancia $d$, ser\'a influenciada por la atenuaci\'on del piso, como separaci''on de los dos ambientes. Por lo tanto $L_{f}[dB]=5$ dado por el cuadro, adicionamos una atenuaci\'on de 10dB . La distancia m\'axima ser\'a.
 \begin{equation*}
 \label{eq:calculod}
 d[m] = 10 ^{\frac{L_{Loss}[dB] - L_{do}[dB] - L_{f}[dB]}{N}} 
-d[m] = 10 ^{\frac{105dBm - 39.6dB - 5}{28}} = 143.59m
+d[m] = 10 ^{\frac{105dBm - 39.6dB - 5dB -10dB}{28}} = 63.09m
 \end{equation*}
-Se puede notar aqu\'i, que el valor de $d$ distancia m\'axima es
-reducido por esta atenuaci\'on. Siendo el valor de $d=143.59m$ para
-comunicaciones entre dos pisos.
+Se puede notar aqu\'i, que el valor de $d$ distancia m\'axima es reducido por esta atenuaci\'on. Siendo el valor de $d=63.09m$ para comunicaciones entre dos pisos. Lo que es comparable al $d=60m$ dado por la hoja de datos.
 
 \section{Ejercitación en modo AT}
 \label{sec:AT}
@@ -1631,6 +1629,15 @@ utilizado. Quizá algún emulador de pequeñas redes (PAN) pueda ser
 deseable.
 
 \begin{thebibliography}{1}
+
+\bibitem{bilb:PathLoss} Recommendation ITU-R P.1238-8.
+\emph{Propagation data and prediction methods
+for the planning of indoor
+radiocommunication systems and
+radio local area networks in the
+frequency range 300 MHz to 100 GHz}.
+P Series Radiowave propagation. 2015.
+
 \bibitem{s2c-ds}
   Digi International,
   \emph{XBee\textsuperscript{\textregistered{}}/XBee-PRO
@@ -1657,7 +1664,10 @@ deseable.
   \emph{Galileo Datasheet}.
   \burl{http://www.intel.com/newsroom/kits/quark/galileo/pdfs/Intel_Galileo_Datasheet.pdf}.
 
-
+\bibitem{at-cmds}
+Digi International,
+\emph{Knowledge Base -- The AT Command Set}.
+\burl{http://knowledge.digi.com/articles/Knowledge_Base_Article/The-AT-Command-Set}.
 \end{thebibliography}
 
 % \appendix{}
