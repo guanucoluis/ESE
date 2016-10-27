@@ -124,8 +124,60 @@ parte importante del informe.
 \section{Requerimientos}
 \label{sec:req}
 
-\subsection{Antecedentes}
-\label{sec:req-ant}
+La demanda del desarrollo a implementar proviene de una empresa dedicada
+al análisis genético. Existe una intensión de actualizar el sistema de
+adquisición de datos de un equipamiento alejado físicamente de la
+oficia central (el laboratorio se encuentra a unos 100 metros).  En la
+Figura \ref{fig:sch} se representa la disposición actual del sistema.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{img/sch-problem}
+  \caption{Esquema que representa el problema a resolver.}
+  \label{fig:sch}
+\end{figure}
+
+\subsection[Adquisición]{Adquisición de datos}
+\label{sec:adq}
+
+Actualmente el relevamiento de datos es realizado por un operador en
+el laboratorio. Esta situación resulta la más crítica pues se tiene
+muchas posibilidades de introducirse errores por la metodología
+utilizada. Una ventaja del equipo es la disponibilidad de un puerto
+RS232 estándar que proporciona los datos adquiridos (estos
+originalmente son los que releva el operador). El puerto serial será
+una oportunidad para interactuar con nuestra posible solución HW/SW.
+
+\subsection{Condiciones críticas}
+\label{sec:critical}
+
+Los datos adquiridos del experimento  tiene un alto valor son
+críticamente importantes y por lo tanto existen situaciones que no son
+admisibles en el sistema:
+\begin{itemize}
+\item Pérdida de muestras
+\item Muestras corrompidos
+\item Alteración en el orden de adquisición
+\end{itemize}
+
+\subsection{Tasa de datos}
+\label{sec:tasa}
+
+El equipo transmite con un flujo de datos variable dependiendo de la
+fase en que se desarrolla el experimento. 
+
+\subsection{Base de datos}
+\label{sec:db}
+
+En la oficina existe un servidor donde se almacenarán los datos y
+diferentes usuarios podrán acceder a esta información. 
+
+El servidor,cada determinado tiempo, requiere del mantenimiento
+correspondiente y puede salir de servicio. Esta situación debe tenerse
+en cuenta en el diseño para almacenar transitoriamente una gran
+cantidad de  datos en el sistema embebido ubicado en el
+laboratorio.
+
 
 
 
