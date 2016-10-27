@@ -1,0 +1,144 @@
+\documentclass[11pt,oneside,spanish,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[a4paper]{geometry}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage[hyphenbreaks]{breakurl}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{lstlinebgrd}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{pdfpages}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{lineno}
+\usepackage{caption}
+\usepackage{subcaption}
+
+%%%%%%%%%%%%%%%%%%%%
+% Nuevos comandos  %
+%%%%%%%%%%%%%%%%%%%%
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\hypersetup{
+    pdfcreator={pdfLaTeX},   % creator of the document
+    colorlinks=true,       % false: boxed links; true: coloblue links
+    linkcolor=blue,          % color of internal links (change box color with linkbordercolor)
+    citecolor=blue,        % color of links to bibliography
+    filecolor=blue,      % color of file links
+    urlcolor=blue           % color of external links
+}
+
+\pagestyle{fancy}
+\addtolength{\textheight}{2cm}
+%\addtolength{\voffset}{-1cm}
+%\addtolength{\textwidth}{1cm}
+
+\definecolor{light-gray}{gray}{0.9}
+
+\lstset{
+  basicstyle=\ttfamily\color{red},%\footnotesize,%\scriptsize,
+  language=tcl,
+  breaklines=true,
+  otherkeywords={+++},
+  numbers=left,
+  numberstyle=\scriptsize\color{black}
+}
+
+\renewcommand{\lstlistingname}{Código}
+
+\lstset{literate=
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\'e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\EUR}}1 {£}{{\pounds}}1 {"}{{``}}1
+}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% Carátula del informe  %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+\begin{center}
+
+\textsc{\LARGE Instituto Universitario Aeronáutico}\\[0.5cm]
+\textsc{\LARGE Especialización en Sistemas Embebidos}\\[2cm]
+
+\includegraphics[width=0.2\textwidth]{img/logo_f_blanco}~\\[2cm]
+
+\textsc{\Large Ingeniería de Protocolos}\\[0.5cm]
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Trabajo Final \\[0.4cm] }
+
+\HRule \\[1.5cm]
+
+% Author and supervisor
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Alumno:}\\
+Luis Alberto \textsc{Guanuco}\\
+Santiago Nicolás \textsc{Nolasco}\\
+Franco \textsc{Bocalon}
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Docentes:} \\
+José \textsc{Ducloux}\\
+Omar \textsc{Saibene}
+\end{flushright}
+\end{minipage}
+\vfill
+{\large Octubre 2016}
+
+\end{center}
+\end{titlepage}
+
+
+\tableofcontents{}
+
+\section{Introducción}
+\label{sec:intro}
+
+El presente desarrollo apunta a la utilización de algún protocolo de
+red que permita vincular dos dispositivos físicamente separados. 
+
+En base a los requerimientos se evalúa la implementación de protocolos
+estándares conocidos. Sí bien existen varias alternativas
+posibles de implementar, la justificación de la elección resulta una
+parte importante del informe. 
+
+\section{Requerimientos}
+\label{sec:req}
+
+\subsection{Antecedentes}
+\label{sec:req-ant}
+
+
+
+\section{Conclusiones}
+\label{sec:conc}
+
+
+\begin{thebibliography}{1}
+
+\bibitem{bilb:Friis} Andreas F. Molisch.
+\emph{Wireless Communications}.
+John Wiley \& Sons. 2011.
+
+\end{thebibliography}
+
+\end{document}
